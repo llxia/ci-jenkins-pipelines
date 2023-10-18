@@ -2276,6 +2276,7 @@ class Build {
                                                 useAdoptShellScripts
                                             )
                                         }
+                                    }
                                 }
                             } else {
                                 dockerImageDigest = dockerImageDigest.replaceAll("\\[", "").replaceAll("\\]", "")
