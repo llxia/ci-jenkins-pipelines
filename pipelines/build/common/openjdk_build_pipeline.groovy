@@ -414,10 +414,14 @@ class Build {
 
                         def DOCKER_REGISTRY_URL = ''
                         def DOCKER_REGISTRY_URL_CREDENTIAL_ID = ''
+                        def BASE_DOCKER_REGISTRY_CREDENTIAL_ID = ''
                         if ("${testType}".contains('external')) {
                             DOCKER_REGISTRY_URL = 'docker-na.artifactory.swg-devops.com/sys-rt-docker-local'
                             DOCKER_REGISTRY_URL_CREDENTIAL_ID = artifactoryCredential
                             rerunIterations = '0'
+                            if (buildConfig.DOCKER_CREDENTIAL) {
+                                BASE_DOCKER_REGISTRY_CREDENTIAL_ID = buildConfig.DOCKER_CREDENTIAL
+                            }
                         }
 
                         def additionalTestLabel = buildConfig.ADDITIONAL_TEST_LABEL
@@ -523,6 +527,7 @@ class Build {
                                             context.booleanParam(name: 'DYNAMIC_COMPILE', value: DYNAMIC_COMPILE),
                                             context.string(name: 'DOCKER_REGISTRY_URL', value: DOCKER_REGISTRY_URL),
                                             context.string(name: 'DOCKER_REGISTRY_URL_CREDENTIAL_ID', value: DOCKER_REGISTRY_URL_CREDENTIAL_ID),
+                                            context.string(name: 'BASE_DOCKER_REGISTRY_URL_CREDENTIAL_ID', value: BASE_DOCKER_REGISTRY_URL_CREDENTIAL_ID),
                                             context.string(name: 'VENDOR_TEST_REPOS', value: VENDOR_TEST_REPOS),
                                             context.string(name: 'VENDOR_TEST_BRANCHES', value: VENDOR_TEST_BRANCHES),
                                             context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),

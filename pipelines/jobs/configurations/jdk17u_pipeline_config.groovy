@@ -143,6 +143,7 @@ class Config17 {
                 additionalNodeLabels: [
                         openj9:  'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 reproducibleCompare : [
                         'temurin'   : true
                 ],
@@ -161,6 +162,7 @@ class Config17 {
                 additionalNodeLabels: [
                         openj9:  'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 reproducibleCompare : [
                         'temurin'   : true
                 ],
@@ -369,6 +371,7 @@ class Config17 {
                 additionalNodeLabels: [
                         openj9:  'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : '--enable-dtrace',
                 additionalFileNameTag: 'IBM',
                 buildArgs : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk17 -b ibm_sdk --create-jre-image'
@@ -401,6 +404,7 @@ class Config17 {
                 additionalNodeLabels: [
                         openj9:  'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
                         'openj9'      : ''
                 ],
