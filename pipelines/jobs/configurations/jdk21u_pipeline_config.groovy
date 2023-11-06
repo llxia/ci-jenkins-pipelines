@@ -127,6 +127,7 @@ class Config21 {
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
@@ -147,6 +148,7 @@ class Config21 {
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 reproducibleCompare : [
                         'temurin'   : true
                 ],
@@ -319,6 +321,7 @@ class Config21 {
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: 'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)',
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 additionalFileNameTag: 'IBM',
                 buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
         ],
@@ -329,6 +332,7 @@ class Config21 {
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: 'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)',
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 additionalFileNameTag: 'IBM',
                 buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
         ],

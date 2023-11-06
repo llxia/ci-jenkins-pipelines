@@ -117,6 +117,7 @@ class Config11 {
             additionalNodeLabels: [
                     openj9:  'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)'
             ],
+            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : '--enable-dtrace=auto --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
             buildArgs           : [
                     'temurin'   : '--create-sbom'
@@ -140,6 +141,7 @@ class Config11 {
             additionalNodeLabels: [
                     openj9:  'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
             ],
+            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : [
                     'temurin'     : '--enable-dtrace=auto',
                     'openj9'      : '--enable-dtrace=auto --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
@@ -404,6 +406,7 @@ class Config11 {
             additionalNodeLabels: [
                     openj9:  'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)'
             ],
+            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : '--enable-dtrace=auto',
             additionalFileNameTag: 'IBM',
             buildArgs : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk11 -b ibm_sdk'
@@ -436,6 +439,7 @@ class Config11 {
             additionalNodeLabels: [
                     openj9:  'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
             ],
+            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : [
                         'openj9'      : '--enable-dtrace=auto'
             ],
