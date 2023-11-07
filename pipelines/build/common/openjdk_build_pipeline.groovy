@@ -527,7 +527,7 @@ class Build {
                                             context.booleanParam(name: 'DYNAMIC_COMPILE', value: DYNAMIC_COMPILE),
                                             context.string(name: 'DOCKER_REGISTRY_URL', value: DOCKER_REGISTRY_URL),
                                             context.string(name: 'DOCKER_REGISTRY_URL_CREDENTIAL_ID', value: DOCKER_REGISTRY_URL_CREDENTIAL_ID),
-                                            context.string(name: 'BASE_DOCKER_REGISTRY_URL_CREDENTIAL_ID', value: BASE_DOCKER_REGISTRY_URL_CREDENTIAL_ID),
+                                            context.string(name: 'BASE_DOCKER_REGISTRY_CREDENTIAL_ID', value: BASE_DOCKER_REGISTRY_CREDENTIAL_ID),
                                             context.string(name: 'VENDOR_TEST_REPOS', value: VENDOR_TEST_REPOS),
                                             context.string(name: 'VENDOR_TEST_BRANCHES', value: VENDOR_TEST_BRANCHES),
                                             context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),
