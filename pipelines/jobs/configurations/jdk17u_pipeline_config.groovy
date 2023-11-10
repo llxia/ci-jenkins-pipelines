@@ -365,7 +365,14 @@ class Config17 {
                                 'extended.system',
                                 'special.functional',
                                 'special.jck',
-                                'sanity.external'
+                                'sanity.external',
+                                'sanity.functional.fips140_2',
+                                'extended.functional.fips140_2',
+                                'sanity.jck.fips140_2',
+                                'extended.jck.fips140_2',
+                                'special.jck.fips140_2',
+                                'sanity.openjdk.fips140_2',
+                                'extended.openjdk.fips140_2'
                         ]
                 ],
                 additionalNodeLabels: [
@@ -398,7 +405,14 @@ class Config17 {
                                 'extended.system',
                                 'special.functional',
                                 'special.jck',
-                                'sanity.external'
+                                'sanity.external',
+                                'sanity.functional.fips140_2',
+                                'extended.functional.fips140_2',
+                                'sanity.jck.fips140_2',
+                                'extended.jck.fips140_2',
+                                'special.jck.fips140_2',
+                                'sanity.openjdk.fips140_2',
+                                'extended.openjdk.fips140_2'
                         ]
                 ],
                 additionalNodeLabels: [
