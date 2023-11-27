@@ -186,7 +186,7 @@ node('worker') {
                     disableJob          : false,
                     pipelineSchedule    : '0 0 31 2 0', // 31st Feb, so will never run,
                     adoptScripts        : false,
-                    releaseType         : 'Nightly' 
+                    releaseType         : 'Nightly Without Publish'
                 ]
 
                 def target;
@@ -304,7 +304,7 @@ node('worker') {
                         config.put('pipelineSchedule', '0 0 31 2 0')
                     }
                 }
-                config.releaseType = "Weekly"
+                config.releaseType = "Weekly Without Publish"
 
                 println "[INFO] CREATING JDK${javaVersion} WEEKLY RELEASE PIPELINE WITH NEW CONFIG VALUES:"
                 println "JOB_NAME = ${config.JOB_NAME}"
