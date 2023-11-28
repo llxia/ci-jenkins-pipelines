@@ -1801,8 +1801,8 @@ class Build {
                                         includes: "${base_path}/hotspot/variant-server/**/*," +
                                             "${base_path}/support/modules_cmds/**/*," +
                                             "${base_path}/support/modules_libs/**/*," +
-                                            // JDK 16 + jpackage needs to be signed as well
-                                            "${base_path}/jdk/modules/jdk.jpackage/jdk/jpackage/internal/resources/jpackageapplauncher"
+                                            // JDK 16 + jpackage needs to be signed as well stash the resources folder containing the executables
+                                            "${base_path}/jdk/modules/jdk.jpackage/jdk/jpackage/internal/resources/*"
 
                                     context.node('eclipse-codesign') {
                                         context.sh "rm -rf ${base_path}/* || true"
@@ -1890,9 +1890,9 @@ class Build {
                                     context.sh "rm -rf ${base_path}/hotspot/variant-server || true"
                                     context.sh "rm -rf ${base_path}/support/modules_cmds || true"
                                     context.sh "rm -rf ${base_path}/support/modules_libs || true"
-                                    // JDK 16 + jpackage needs to be signed as well
+                                    // JDK 16 + jpackage executables need to be signed as well
                                     if (buildConfig.JAVA_TO_BUILD != 'jdk11u') {
-                                        context.sh "rm -rf ${base_path}/jdk/modules/jdk.jpackage/jdk/jpackage/internal/resources/jpackageapplauncher || true"
+                                        context.sh "rm -rf ${base_path}/jdk/modules/jdk.jpackage/jdk/jpackage/internal/resources/* || true"
                                     }
 
                                     // Restore signed JMODs
@@ -2081,6 +2081,11 @@ class Build {
     def waitForANodeToBecomeActive(def label) {
         String helperRef = buildConfig.HELPER_REF ?: DEFAULTS_JSON['repository']['helper_ref']
         def NodeHelper = context.library(identifier: "openjdk-jenkins-helper@${helperRef}").NodeHelper
+
+        // If label contains mac skip waiting for node to become active as we use Orka
+        if (label.contains('mac')) {
+            return
+        }
 
         // A node with the requested label is ready to go
         if (NodeHelper.nodeIsOnline(label)) {

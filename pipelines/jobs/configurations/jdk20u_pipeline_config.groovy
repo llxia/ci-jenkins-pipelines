@@ -6,7 +6,7 @@ class Config20 {
                 arch                : 'x64',
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.x86 && sw.os.mac.10_15',
-                        temurin     : 'macos10.14'
+                        temurin     : 'macos11'
                 ],
                 additionalTestLabels: [
                         openj9      : '!sw.os.mac.10_11'

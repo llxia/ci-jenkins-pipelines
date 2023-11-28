@@ -199,7 +199,7 @@ class Config17 {
                 os                  : 'mac',
                 arch                : 'aarch64',
                 additionalNodeLabels: [
-                        temurin : 'macos11',
+                        temurin : 'xcode15.0.1',
                         openj9 : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.mac'
                 ],
                 cleanWorkspaceAfterBuild: true,

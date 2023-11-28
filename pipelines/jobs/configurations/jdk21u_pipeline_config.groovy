@@ -6,7 +6,7 @@ class Config21 {
                 arch                : 'x64',
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.x86 && sw.os.mac.10_15',
-                        temurin     : 'macos10.14'
+                        temurin     : 'xcode15.0.1'
                 ],
                 additionalTestLabels: [
                         openj9      : '!sw.os.mac.10_11'
@@ -190,7 +190,7 @@ class Config21 {
                 arch                : 'aarch64',
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.aarch64 && sw.os.mac',
-                        temurin     : 'macos11'
+                        temurin     : 'xcode15.0.1'
                 ],
                 cleanWorkspaceAfterBuild: true,
                 test                : 'default',

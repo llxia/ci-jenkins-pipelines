@@ -82,6 +82,7 @@ def verifyReleaseContent(String version, String release, String variant, Map sta
                                ppc64leLinux:   "ppc64le_linux",
                                s390xLinux:     "s390x_linux",
                                aarch64Linux:   "aarch64_linux",
+                               aarch64AlpineLinux: "aarch64_alpine-linux",
                                aarch64Mac:     "aarch64_mac",
                                arm32Linux:     "arm_linux",
                                x32Windows:     "x86-32_windows",
@@ -205,7 +206,7 @@ node('worker') {
             // In particular, look at first data set for latest published binaries.
             // If no published assets happened the last 4 days, the nightly pipeline
             // is considered unhealthy.
-            // For tag triggered versions (jdk-21+) check the binary is published
+            // For tag triggered versions (jdk-22+) check the binary is published
             // The release asset list is also verified
             featureReleases.each { featureRelease ->
               def featureReleaseInt = featureRelease.replaceAll("u", "").replaceAll("jdk", "").toInteger()
@@ -217,7 +218,7 @@ node('worker') {
               while(!foundNonEvaluationBinaries && i < assetsJson.size()) {
                 def releaseName = assetsJson[i].release_name
                 def status = []
-                if (featureReleaseInt < 21) {
+                if (featureReleaseInt < 22) {
                   def ts = assetsJson[i].timestamp // newest timestamp of a jdk asset
                   def assetTs = Instant.parse(ts).atZone(ZoneId.of('UTC'))
                   def now = ZonedDateTime.now(ZoneId.of('UTC'))
@@ -489,8 +490,8 @@ echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlyS
                 def releaseName = status['releaseName']
                 def lastPublishedMsg = ""
 
-                // jdk-21+ are latest tag triggered builds
-                if (featureReleaseInt < 21) {
+                // jdk-22+ are latest tag triggered builds
+                if (featureReleaseInt < 22) {
                     // Check for stale published build
                     def days = status['actualDays'] as int
                     lastPublishedMsg = "\nPublished: ${days} day(s) ago." // might actually be days + N hours, where N < 24

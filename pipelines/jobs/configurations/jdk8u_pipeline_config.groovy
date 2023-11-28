@@ -5,8 +5,7 @@ class Config8 {
                 os                  : 'mac',
                 arch                : 'x64',
                 additionalNodeLabels: [
-                        temurin : 'macos10.14',
-                        corretto: 'build-macstadium-macos1010-1',
+                        temurin : 'xcode11.7',
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac.10_15'
                 ],
                 cleanWorkspaceAfterBuild: true,
