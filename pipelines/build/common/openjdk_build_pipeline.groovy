@@ -423,11 +423,12 @@ class Build {
                 testStages["${testType}"] = {
                     context.println "Running test: ${testType}"
                     context.stage("${testType}") {
-                        def isFipsTestBuild = false
                         def rerunIterations = '3'
-                        if ("${testType}".contains(".fips140_2")) {
-                            testType = testType.replace(".fips140_2","")
-                            isFipsTestBuild = true
+                        def fipsTestBuildSuffix = "";
+                        if ("${testType}".contains(".fips")) {
+                            String[] tokens = testType.split('.')
+                            testType = tokens[0] + "." + tokens[1]
+                            fipsTestBuildSuffix = tokens[2]
                             rerunIterations = '0'
                         }
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
@@ -519,9 +520,9 @@ class Build {
                         def jobParams = getAQATestJobParams(testType)
 
                         def testFlag = ''
-                        if (isFipsTestBuild) {
-                            jobParams.put('TEST_JOB_NAME', "${jobParams.TEST_JOB_NAME}_fips140_2")
-                            testFlag = 'FIPS140_2'
+                        if (fipsTestBuildSuffix?.trim()) {
+                            jobParams.put('TEST_JOB_NAME', "${jobParams.TEST_JOB_NAME}_${fipsTestBuildSuffix}")
+                            testFlag = fipsTestBuildSuffix.replace("fips", "FIPS")
                         }
                         def parallel = 'None'
                         def numMachinesPerTest = ''

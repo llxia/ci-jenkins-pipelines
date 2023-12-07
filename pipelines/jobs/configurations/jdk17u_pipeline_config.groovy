@@ -315,7 +315,9 @@ class Config17 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'                        
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ],
                         release : [
                                 'sanity.functional',
@@ -339,7 +341,9 @@ class Config17 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ]
                 ],
                 additionalTestLabels: [
@@ -374,7 +378,54 @@ class Config17 {
                 additionalNodeLabels: [
                         openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
                 ],
-                test                : 'default',
+                test                : [
+                        nightly: [
+                                'sanity.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'extended.functional',
+                                'extended.openjdk',
+                                'special.system'
+                        ],
+                        weekly : [
+                                'sanity.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'extended.functional',
+                                'extended.openjdk',
+                                'extended.perf',
+                                'extended.jck',
+                                'extended.system',
+                                'special.functional',
+                                'special.jck',
+                                'special.openjdk',
+                                'special.system',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
+                        ],
+                        release : [
+                                'sanity.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'extended.functional',
+                                'extended.openjdk',
+                                'extended.perf',
+                                'extended.jck',
+                                'extended.system',
+                                'special.functional',
+                                'special.jck',
+                                'special.openjdk',
+                                'special.system',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
+                        ]
+                ],
                 configureArgs       : [
                         'openj9'      : '--disable-ccache'
                 ],
@@ -421,7 +472,9 @@ class Config17 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'                        
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ],
                         release : [
                                 'sanity.functional',
@@ -445,7 +498,9 @@ class Config17 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ]
                 ],
                 additionalNodeLabels: [
@@ -496,7 +551,9 @@ class Config17 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'                        
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ],
                         release : [
                                 'sanity.functional',
@@ -520,7 +577,9 @@ class Config17 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ]
                 ],
                 additionalNodeLabels: [
