@@ -269,6 +269,7 @@ class Config21 {
                                 "special.system"
                         ],
                         weekly : [
+                                "dev.external",
                                 "extended.openjdk",
                                 "extended.perf",
                                 "extended.jck",
@@ -318,7 +319,34 @@ class Config21 {
         s390xLinuxIBM    : [
                 os                  : 'linux',
                 arch                : 's390x',
-                test                : 'default',
+                test                : [
+                        nightly: [
+                                'sanity.functional',
+                                'extended.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'special.system'
+                        ],
+                        weekly : [
+                                'dev.external',
+                                'extended.openjdk',
+                                'extended.perf',
+                                'extended.jck',
+                                'extended.system',
+                                'special.functional',
+                                'special.jck',
+                                'sanity.external',
+                                'sanity.functional.fips140_2',
+                                'extended.functional.fips140_2',
+                                'sanity.jck.fips140_2',
+                                'extended.jck.fips140_2',
+                                'special.jck.fips140_2',
+                                'sanity.openjdk.fips140_2',
+                                'extended.openjdk.fips140_2'
+                        ]
+                ],
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: 'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
@@ -329,7 +357,34 @@ class Config21 {
         ppc64leLinuxIBM    : [
                 os                  : 'linux',
                 arch                : 'ppc64le',
-                test                : 'default',
+                test                : [
+                        nightly: [
+                                'sanity.functional',
+                                'extended.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'special.system'
+                        ],
+                        weekly : [
+                                'dev.external',
+                                'extended.openjdk',
+                                'extended.perf',
+                                'extended.jck',
+                                'extended.system',
+                                'special.functional',
+                                'special.jck',
+                                'sanity.external',
+                                'sanity.functional.fips140_2',
+                                'extended.functional.fips140_2',
+                                'sanity.jck.fips140_2',
+                                'extended.jck.fips140_2',
+                                'special.jck.fips140_2',
+                                'sanity.openjdk.fips140_2',
+                                'extended.openjdk.fips140_2'
+                        ]
+                ],
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: 'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
