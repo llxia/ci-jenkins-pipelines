@@ -1966,16 +1966,16 @@ class Build {
                                     if (DEFAULTS_JSON['bundle-openjceplus'] == true) {
                                         buildArgs = ' --bundle-openjceplus'
                                     }
-                                    println("Here")
+                                    context.println("Here")
                                     try{
                                         context.withCredentials([usernamePassword(credentialsId: '7c1c2c28-650f-49e0-afd1-ca6b60479546', passwordVariable: 'GSKIT_PASSWORD', usernameVariable: 'GSKIT_USERNAME')]) {
-                                            println("here also")
+                                            context.println("here also")
                                         }
                                     } catch(e) {
-                                        println(e)
+                                        context.println(e)
                                         throw e
                                     }
-                                    println("and here")
+                                    context.println("and here")
                                     context.withEnv(['BUILD_ARGS=' + buildArgs]) {
                                         context.sshagent(['83181e25-eea4-4f55-8b3e-e79615733226']) {
                                             try{
@@ -1983,7 +1983,7 @@ class Build {
                                                     context.sh(script: "./${DEFAULTS_JSON['scriptDirectories']['buildfarm']}")
                                                 }
                                             } catch(e) {
-                                                println(e)
+                                                context.println(e)
                                                 throw e
                                             }
                                         }
