@@ -1968,13 +1968,8 @@ class Build {
                                     }
                                     context.withEnv(['BUILD_ARGS=' + buildArgs]) {
                                         context.sshagent(['83181e25-eea4-4f55-8b3e-e79615733226']) {
-                                            try{
-                                                context.withCredentials([context.usernamePassword(credentialsId: '7c1c2c28-650f-49e0-afd1-ca6b60479546', passwordVariable: 'GSKIT_PASSWORD', usernameVariable: 'GSKIT_USERNAME')]) {
-                                                    context.sh(script: "./${DEFAULTS_JSON['scriptDirectories']['buildfarm']}")
-                                                }
-                                            } catch(e) {
-                                                context.println(e)
-                                                throw e
+                                            context.withCredentials([context.usernamePassword(credentialsId: '7c1c2c28-650f-49e0-afd1-ca6b60479546', passwordVariable: 'GSKIT_PASSWORD', usernameVariable: 'GSKIT_USERNAME')]) {
+                                                context.sh(script: "./${DEFAULTS_JSON['scriptDirectories']['buildfarm']}")
                                             }
                                         }
                                     }
