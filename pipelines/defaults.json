@@ -92,6 +92,7 @@
     "enableSourceRpm"        : true,
     "enableSigner"           : true,
     "verifySigner"           : false,
+    "bundle-openjceplus"     : true,
     "importLibraryScript"    : "pipelines/build/common/import_lib.groovy",
     "defaultsUrl"            : "https://raw.githubusercontent.com/ibmruntimes/ci-jenkins-pipelines/ibm/pipelines/defaults.json"
 }
