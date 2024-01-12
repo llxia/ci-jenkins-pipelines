@@ -1971,6 +1971,7 @@ class Build {
                                             try{
                                                 context.withCredentials([usernamePassword(credentialsId: '7c1c2c28-650f-49e0-afd1-ca6b60479546', passwordVariable: 'GSKIT_PASSWORD', usernameVariable: 'GSKIT_USERNAME')]) {
                                                     context.sh(script: "./${DEFAULTS_JSON['scriptDirectories']['buildfarm']}")
+                                                }
                                             } catch(e) {
                                                 println(e)
                                                 throw e
