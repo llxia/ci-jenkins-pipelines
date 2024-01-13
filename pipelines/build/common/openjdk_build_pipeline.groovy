@@ -1962,8 +1962,8 @@ class Build {
                                 repoHandler.checkoutUserBuild(context)
                                 printGitRepoInfo()
                                 if (buildConfig.VARIANT == "openj9") {
-                                    openjceplusBuildArgs=""
-                                    context.println("bundle?=${DEFAULTS_JSON['bundle-openjceplus']}")
+                                    def openjceplusBuildArgs = ''
+                                    //context.println("bundle?=${DEFAULTS_JSON['bundle-openjceplus']}")
                                     if (DEFAULTS_JSON['bundle-openjceplus'] == true) {
                                         context.println("bundle=true")
                                         if (env.BUILD_ARGS != null && !env.BUILD_ARGS.isEmpty()) {
