@@ -1963,18 +1963,14 @@ class Build {
                                 printGitRepoInfo()
                                 if (buildConfig.VARIANT == "openj9") {
                                     def openjceplusBuildArgs = ''
-                                    //context.println("bundle?=${DEFAULTS_JSON['bundle-openjceplus']}")
                                     if (DEFAULTS_JSON['bundle-openjceplus'] == true) {
-                                        context.println("bundle=true")
                                         if (env.BUILD_ARGS != null && !env.BUILD_ARGS.isEmpty()) {
                                             openjceplusBuildArgs = env.BUILD_ARGS + ' --bundle-openjceplus'
                                         } else {
                                             openjceplusBuildArgs = '--bundle-openjceplus'
                                         }
                                     }
-                                    context.println("${env.BUILD_ARGS}")
                                     context.withEnv(['BUILD_ARGS=' + openjceplusBuildArgs]) {
-                                        context.println(env.BUILD_ARGS)
                                         context.sshagent(['83181e25-eea4-4f55-8b3e-e79615733226']) {
                                             context.withCredentials([context.usernamePassword(credentialsId: '7c1c2c28-650f-49e0-afd1-ca6b60479546', passwordVariable: 'GSKIT_PASSWORD', usernameVariable: 'GSKIT_USERNAME')]) {
                                                 context.sh(script: "./${DEFAULTS_JSON['scriptDirectories']['buildfarm']}")
