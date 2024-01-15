@@ -532,8 +532,9 @@ class Build {
                                             context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),
                                             context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
                                             context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
-                                            context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired)],
-                                            wait: true
+                                            context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired)
+                                        ],
+                                        wait: true
                         currentBuild.result = testJob.getResult()
                         context.node('worker') {
                             //Copy Taps files from downstream test jobs if files available. 
@@ -2253,6 +2254,10 @@ class Build {
                             label = 'codebuild'
                         }
                         context.println "[NODE SHIFT] MOVING INTO DOCKER NODE MATCHING LABELNAME ${label}..."
+                        if ( ! ( "${buildConfig.DOCKER_IMAGE}" ==~ /^[A-Za-z0-9\/\.\-_:]*$/ ) ||
+                             ! ( "${buildConfig.DOCKER_ARGS}"  ==~ /^[A-Za-z0-9\/\.\-_\ ]*$/ ) ) {
+                             throw new Exception("[ERROR] Dubious characters in DOCKER* image or parameters: ${buildConfig.DOCKER_IMAGE} ${buildConfig.DOCKER_ARGS} - aborting");
+                        }
                         context.node(label) {
                             addNodeToBuildDescription()
                             // Cannot clean workspace from inside docker container
@@ -2280,6 +2285,7 @@ class Build {
                                         if (buildConfig.DOCKER_CREDENTIAL) {
                                             context.docker.withRegistry(buildConfig.DOCKER_REGISTRY, buildConfig.DOCKER_CREDENTIAL) {
                                                 if (buildConfig.DOCKER_ARGS) {
+                                                    
                                                     context.sh(script: "docker pull ${buildConfig.DOCKER_IMAGE} ${buildConfig.DOCKER_ARGS}")
                                                 } else {
                                                     context.docker.image(buildConfig.DOCKER_IMAGE).pull()

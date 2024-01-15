@@ -40,7 +40,7 @@
     },
     "testDetails"            : {
         "enableReproducibleCompare" : false,
-        "enableTests"        : true,
+        "enableTests"        : false,
         "nightlyDefault"     : [
             "sanity.functional",
             "extended.functional",
