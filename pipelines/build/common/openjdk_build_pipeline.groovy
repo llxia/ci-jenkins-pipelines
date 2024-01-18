@@ -1959,13 +1959,13 @@ class Build {
                             } else {
                                 context.println "[CHECKOUT] Checking out to the user's temurin-build..."
 
-                                println("BUILD_ARGS:$BUILD_ARGS")
-                                println("env.BUILD_ARGS:$env.BUILD_ARGS")
+                                context.println("BUILD_ARGS:$BUILD_ARGS")
+                                context.println("env.BUILD_ARGS:$env.BUILD_ARGS")
                                 repoHandler.setUserDefaultsJson(context, DEFAULTS_JSON)
                                 repoHandler.checkoutUserBuild(context)
                                 printGitRepoInfo()
-                                println("BUILD_ARGS:$BUILD_ARGS")
-                                println("env.BUILD_ARGS:$env.BUILD_ARGS")
+                                context.println("BUILD_ARGS:$BUILD_ARGS")
+                                context.println("env.BUILD_ARGS:$env.BUILD_ARGS")
                                 if (buildConfig.VARIANT == "openj9") {
                                     def openjceplusBuildArgs = ''
                                     if (DEFAULTS_JSON['bundle-openjceplus'] == true) {
