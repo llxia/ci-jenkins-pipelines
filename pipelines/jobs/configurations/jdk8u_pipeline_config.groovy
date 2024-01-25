@@ -38,6 +38,13 @@ class Config8 {
                                 'special.system'
                         ],
                         weekly : [
+                                'sanity.functional',
+                                'extended.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'special.system',
                                 'extended.openjdk',
                                 'extended.perf',
                                 'extended.jck',
@@ -179,6 +186,13 @@ class Config8 {
                                 'special.system'
                         ],
                         weekly : [
+                                'sanity.functional',
+                                'extended.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'special.system',
                                 'extended.openjdk',
                                 'extended.perf',
                                 'extended.jck',
@@ -255,6 +269,13 @@ class Config8 {
                                 'special.system'
                         ],
                         weekly : [
+                                'sanity.functional',
+                                'extended.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'special.system',
                                 'extended.openjdk',
                                 'extended.perf',
                                 'extended.jck',
