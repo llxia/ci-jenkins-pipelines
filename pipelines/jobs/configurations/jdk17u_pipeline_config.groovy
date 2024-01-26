@@ -549,7 +549,7 @@ class Config17 {
                                 'special.jck',
                                 'sanity.external'
                         ],
-                        weekly : [
+                        release : [
                                 'sanity.functional',
                                 'extended.functional',
                                 'sanity.openjdk',
