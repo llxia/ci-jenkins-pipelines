@@ -409,6 +409,10 @@ class Build {
                             VENDOR_TEST_BRANCHES = aqaBranch
                             VENDOR_TEST_DIRS = 'functional'
                             customizedSdkUrl += " " + testimageUrl
+                        } else if ("${testType}".contains('jck')) {
+                            VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/jck.git'
+                            VENDOR_TEST_BRANCHES = "main"
+                            VENDOR_TEST_DIRS = 'jck'
                         }
 
                         def DOCKER_REGISTRY_URL = ''
