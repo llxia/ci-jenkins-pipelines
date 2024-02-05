@@ -184,26 +184,40 @@ class Config11 {
             os                   : 'linux',
             arch                 : 'riscv64',
             dockerImage          : [
+                    'hotspot'    : 'adoptopenjdk/ubuntu2004_build_image:linux-riscv64',
                     'openj9'     : 'adoptopenjdk/centos6_build_image',
                     'bisheng'    : 'adoptopenjdk/centos6_build_image'
             ],
+            dockerArgs           : [
+                    'hotspot'    : '--platform linux/riscv64'
+￼           ],
             dockerNode         : 'sw.tool.docker && sw.config.uid1000',
             dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             crossCompile         : [
+                    'hotspot'    : 'dockerhost-rise-ubuntu2204-aarch64-1',
                     'openj9'     : 'x64',
                     'bisheng'    : 'x64'
             ],
             buildArgs            : [
+                    'hotspot'    : '--create-sbom',
                     'openj9'     : '--cross-compile',
-                    'bisheng'    : '--cross-compile --branch risc-v',
-                    'temurin'    : '--create-sbom'
+                    'bisheng'    : '--cross-compile --branch risc-v'
             ],
             configureArgs        : [
+                    'hotspot'    : '--enable-headless-only=yes --enable-dtrace',
                     'openj9'     : '--disable-ddr --with-cmake --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root',
                     'bisheng'    : '--openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root --with-jvm-features=shenandoahgc'
             ],
-            test                 : false
+            test                 : [
+                    'hotspot'    : 'default',
+                    'openj9'     : false
+                    'bisheng'   : [
+￼                                nightly: ['sanity.openjdk'],
+￼                                weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf']
+                    ]
+            ]
         ],
+    
 
         aarch64Mac: [
                 os                  : 'mac',
