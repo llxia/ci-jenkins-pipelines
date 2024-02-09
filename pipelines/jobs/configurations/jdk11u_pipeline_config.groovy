@@ -278,6 +278,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'dev.jck'
                     ],
                     release : [
@@ -293,7 +294,8 @@ class Config11 {
                         'extended.jck',
                         'extended.system',
                         'special.functional',
-                        'special.jck'
+                        'special.jck',
+                        'special.openjdk'
                     ]
             ],
             configureArgs       : [
@@ -338,6 +340,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.external',
                         'sanity.functional.fips140_2',
                         'extended.functional.fips140_2',
@@ -362,6 +365,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.functional.fips140_2',
                         'extended.functional.fips140_2',
                         'sanity.jck.fips140_2',
@@ -411,6 +415,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'dev.jck'
                     ],
                     release : [
@@ -426,7 +431,8 @@ class Config11 {
                         'extended.jck',
                         'extended.system',
                         'special.functional',
-                        'special.jck'
+                        'special.jck',
+                        'special.openjdk'
                     ]
             ],
             configureArgs       : [
@@ -465,6 +471,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'dev.jck'
                     ],
                     release : [
@@ -480,7 +487,8 @@ class Config11 {
                         'extended.jck',
                         'extended.system',
                         'special.functional',
-                        'special.jck'
+                        'special.jck',
+                        'special.openjdk'
                     ]
             ],
             additionalFileNameTag: 'IBM',
@@ -516,6 +524,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.external',
                         'sanity.functional.fips140_2',
                         'extended.functional.fips140_2',
@@ -539,6 +548,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.functional.fips140_2',
                         'extended.functional.fips140_2',
                         'sanity.jck.fips140_2',
@@ -571,7 +581,7 @@ class Config11 {
                         'special.system'
                     ],
                     weekly : [
-                         'sanity.functional',
+                        'sanity.functional',
                         'extended.functional',
                         'sanity.openjdk',
                         'sanity.perf',
@@ -585,6 +595,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.external',
                         'sanity.functional.fips140_2',
                         'extended.functional.fips140_2',
@@ -608,6 +619,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.functional.fips140_2',
                         'extended.functional.fips140_2',
                         'sanity.jck.fips140_2',
@@ -662,6 +674,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'sanity.external',
                         'dev.jck'
                     ],
@@ -678,7 +691,8 @@ class Config11 {
                         'extended.jck',
                         'extended.system',
                         'special.functional',
-                        'special.jck'
+                        'special.jck',
+                        'special.openjdk'
                     ]
             ],
             configureArgs       : [
@@ -726,6 +740,7 @@ class Config11 {
                         'extended.system',
                         'special.functional',
                         'special.jck',
+                        'special.openjdk',
                         'dev.jck'
                     ],
                     release : [
@@ -741,7 +756,8 @@ class Config11 {
                         'extended.jck',
                         'extended.system',
                         'special.functional',
-                        'special.jck'
+                        'special.jck',
+                        'special.openjdk'
                     ]
                 ],
                 additionalFileNameTag: 'IBM',
