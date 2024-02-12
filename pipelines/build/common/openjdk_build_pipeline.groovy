@@ -69,6 +69,7 @@ class Build {
     Map<String,String> dependency_version = new HashMap<String,String>()
     String crossCompileVersionPath = ''
     String jdkUrl = ''
+    String jreUrl = ''
     String testimageUrl = ''
     String artifactoryCredential = ''
     String artifactoryBaseUrl = ''
@@ -386,6 +387,9 @@ class Build {
                         if (("${testType}".contains('openjdk'))) {
                             // Keep test reportdir always for JUnit targets
                             keep_test_reportdir = true
+                            if (("${testType}".contains('special'))) {
+                                customizedSdkUrl += " " + jreUrl
+                            }
                             customizedSdkUrl += " " + testimageUrl
                         } else if ("${testType}".contains('jck')) {
                             // Keep test reportdir always for JUnit targets
@@ -2062,6 +2066,8 @@ class Build {
                                     def artifactName = artifactUrl.substring(artifactUrl.lastIndexOf("/") + 1);
                                     if (artifactUrl.contains("-jdk_")) {
                                         jdkUrl = artifactUrl
+                                    } else if (artifactUrl.contains("-jre_")) {
+                                        jreUrl = artifactUrl
                                     } else if (artifactUrl.contains("-testimage_")) {
                                         testimageUrl = artifactUrl
                                     }
