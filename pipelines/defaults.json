@@ -81,7 +81,8 @@
             "extended.jck",
             "extended.system",
             "special.functional",
-            "special.jck"
+            "special.jck",
+            "special.openjdk"
         ],
         "disabled" : [
             "sanity.external"
