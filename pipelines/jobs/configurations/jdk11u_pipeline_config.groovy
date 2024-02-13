@@ -211,9 +211,9 @@ class Config11 {
             test                 : [
                     'hotspot'    : 'default',
                     'openj9'     : false,
-                    'bisheng'   : [
-￼                                nightly: ['sanity.openjdk'],
-￼                                weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf']
+                    'bisheng'    : [
+                        nightly : ['sanity.openjdk'],
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf']
                     ]
             ]
         ],
@@ -255,7 +255,7 @@ class Config11 {
             arch                : 'x64',
             additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac.10_15',
             test                : [
-                    nightly: [
+                    nightly : [
                         'sanity.functional',
                         'extended.functional',
                         'sanity.openjdk',
