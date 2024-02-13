@@ -189,9 +189,8 @@ class Config11 {
                     'bisheng'    : 'adoptopenjdk/centos6_build_image'
             ],
             dockerArgs           : [
-                    'openj9'     : '',
                     'hotspot'    : '--platform linux/riscv64'
-￼           ],
+            ],
             dockerNode         : 'sw.tool.docker && sw.config.uid1000',
             dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             crossCompile         : [
