@@ -210,7 +210,7 @@ class Config11 {
             ],
             test                 : [
                     'hotspot'    : 'default',
-                    'openj9'     : false
+                    'openj9'     : false,
                     'bisheng'   : [
 ￼                                nightly: ['sanity.openjdk'],
 ￼                                weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf']
