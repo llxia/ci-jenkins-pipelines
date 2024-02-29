@@ -48,6 +48,7 @@
             "sanity.jck",
             "sanity.system",
             "extended.functional",
+            "extended.openjdk",
             "special.system"
         ],
         "weeklyDefault"     : [
@@ -89,8 +90,8 @@
         ],
         "enableTestDynamicParallel" : true,
         "defaultDynamicParas": {
-            "testLists"      : ["sanity.functional", "extended.functional", "sanity.system", "extended.system", "special.system", "sanity.jck", "extended.jck", "sanity.openjdk", "dev.system"],
-            "numMachines"    : ["3", "3", "3", "3", "5", "4", "8", "2", "5"]
+            "testLists"      : ["sanity.functional", "extended.functional", "sanity.system", "extended.system", "special.system", "sanity.jck", "extended.jck", "sanity.openjdk", "extended.openjdk", "dev.system"],
+            "numMachines"    : ["3", "3", "3", "3", "5", "4", "8", "2", "3", "5"]
         }
     },
     "enableInstallers"       : true,
