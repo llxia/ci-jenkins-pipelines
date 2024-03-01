@@ -417,6 +417,10 @@ class Build {
                             VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/jck.git'
                             VENDOR_TEST_BRANCHES = "main"
                             VENDOR_TEST_DIRS = 'jck'
+                        } else if ("${testType}".contains('special.openjdk')) {
+                            VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/osb-tests.git'
+                            VENDOR_TEST_BRANCHES = "ibm_tlda"
+                            VENDOR_TEST_DIRS = 'openjdk'
                         }
 
                         def DOCKER_REGISTRY_URL = ''
