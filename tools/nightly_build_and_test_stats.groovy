@@ -24,7 +24,10 @@ import java.time.temporal.ChronoUnit
 def getLatestOpenjdkBuildTag(String version) {
     def openjdkRepo = "https://github.com/openjdk/${version}.git"
 
-    def latestTag = sh(returnStdout: true, script:"git ls-remote --sort=-v:refname --tags ${openjdkRepo} | grep -v '\\^{}' | tr -s '\\t ' ' ' | cut -d' ' -f2 | sed \"s,refs/tags/,,\" | grep -v '\\-ga' | sort -V -r | head -1 | tr -d '\\n'")
+    // Need to include jdk8u to avoid picking up old tag format    
+    def jdk8Filter = (version == "jdk8u") ? "| grep 'jdk8u'" : ""
+
+    def latestTag = sh(returnStdout: true, script:"git ls-remote --sort=-v:refname --tags ${openjdkRepo} | grep -v '\\^{}' | tr -s '\\t ' ' ' | cut -d' ' -f2 | sed \"s,refs/tags/,,\" | grep -v '\\-ga' ${jdk8Filter} | sort -V -r | head -1 | tr -d '\\n'")
     echo "latest upstream openjdk/${version} tag = ${latestTag}"
 
     return latestTag
@@ -147,7 +150,7 @@ def verifyReleaseContent(String version, String release, String variant, Map sta
                     // Search for artifacts in the releaseAssets list
                     ftypes.each { ftype ->
                         def arch_fname = archToAsset[osarch]
-                        def findAsset = releaseAssets =~/.*${file_image}_${arch_fname}_[^\."]*${ftype}".*/
+                        def findAsset = releaseAssets =~/.*${file_image}_${arch_fname}_[^"]*${ftype}".*/
                         if (!findAsset) {
                             missingForArch.add("$osarch : $image : $ftype".replaceAll("\\\\", ""))
                         } else {
