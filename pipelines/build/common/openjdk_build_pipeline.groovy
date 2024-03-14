@@ -1976,14 +1976,14 @@ class Build {
                                 printGitRepoInfo()
                                 if (buildConfig.VARIANT == "openj9") {
                                     def openjceplusBuildArgs = ''
+                                    if (env.BUILD_ARGS != null && !env.BUILD_ARGS.isEmpty()) {
+                                        openjceplusBuildArgs = env.BUILD_ARGS + ' '
+                                    }
                                     def javaVersion = getJavaVersionNumber()
                                     if (!DEFAULTS_JSON['exclude-openjceplus'].contains(javaVersion)) {
-                                        if (env.BUILD_ARGS != null && !env.BUILD_ARGS.isEmpty()) {
-                                            openjceplusBuildArgs = env.BUILD_ARGS + ' --bundle-openjceplus'
-                                        } else {
-                                            openjceplusBuildArgs = '--bundle-openjceplus'
-                                        }
+                                        openjceplusBuildArgs += '--bundle-openjceplus'
                                     }
+
                                     context.withEnv(['BUILD_ARGS=' + openjceplusBuildArgs]) {
                                         context.sshagent(['83181e25-eea4-4f55-8b3e-e79615733226']) {
                                             context.withCredentials([context.usernamePassword(credentialsId: '7c1c2c28-650f-49e0-afd1-ca6b60479546', passwordVariable: 'GSKIT_PASSWORD', usernameVariable: 'GSKIT_USERNAME')]) {
