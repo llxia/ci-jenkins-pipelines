@@ -81,7 +81,7 @@
             "extended.system",
             "special.functional",
             "special.jck",
-            "special.openjdk"
+            "special.openjdk",
             "special.system"
         ],
         "disabled" : [
