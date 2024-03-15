@@ -12,6 +12,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+/* groovylint-disable NestedBlockDepth */
+
 import groovy.json.JsonSlurper
 import java.time.LocalDateTime
 import java.time.Instant
@@ -33,6 +35,18 @@ def getLatestOpenjdkBuildTag(String version) {
     return latestTag
 }
 
+// Get how long ago the given upstream tag was published?
+def getOpenjdkBuildTagAge(String version, String tag) {
+    def openjdkRepo = "https://github.com/openjdk/${version}.git"
+
+    def date = sh(returnStdout: true, script:"(rm -rf tmpRepo; git clone --depth 1 --branch ${tag} ${openjdkRepo} tmpRepo; cd tmpRepo; git log --tags --simplify-by-decoration --pretty=\"format:PUBLISH_DATE=%cI\") | grep PUBLISH_DATE | cut -d\"=\" -f2 | tr -d '\\n'")
+    def tagTs = Instant.parse(date).atZone(ZoneId.of('UTC'))
+    def now = ZonedDateTime.now(ZoneId.of('UTC'))
+    def days = ChronoUnit.DAYS.between(tagTs, now) 
+
+    return days
+}
+
 // Get the latest release tag from the binaries repo
 def getLatestBinariesTag(String version) {
     def binariesRepo = "https://github.com/${params.BINARIES_REPO}".replaceAll("_NN_", version)
@@ -41,6 +55,32 @@ def getLatestBinariesTag(String version) {
     echo "latest jdk${version} binaries repo tag = ${latestTag}"
 
     return latestTag    
+}
+
+// Check if a given beta EA pipeline build is inprogress? if so return the buildUrl
+def getInProgressBuildUrl(String trssUrl, String pipelineName, String publishName) {
+    def inProgressBuildUrl = ""
+
+    def pipeline = sh(returnStdout: true, script: "wget -q -O - ${trssUrl}/api/getBuildHistory?buildName=${pipelineName}")
+    def pipelineJson = new JsonSlurper().parseText(pipeline)
+    if (pipelineJson.size() > 0) {
+        pipelineJson.each { job ->
+            def overridePublishName = ""
+
+            job.buildParams.each { buildParam ->
+                if (buildParam.name == "overridePublishName") {
+                    overridePublishName = buildParam.value
+                }
+            }
+
+            // Is job for the required tag and currently inprogress?
+            if (overridePublishName == publishName && job.status != null && job.status.equals('Streaming')) {
+                inProgressBuildUrl = job.buildUrl
+            }
+        }
+    }
+
+    return inProgressBuildUrl
 }
 
 // Verify the given release contains all the expected assets
@@ -186,6 +226,7 @@ def verifyReleaseContent(String version, String release, String variant, Map sta
 }
 
 node('worker') {
+  try{
     def variant = "${params.VARIANT}"
     def trssUrl    = "${params.TRSS_URL}"
     def apiUrl    = "${params.API_URL}"
@@ -472,7 +513,7 @@ node('worker') {
         // Slack message:
         slackSend(channel: slackChannel, color: statusColor, message: 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlySuccessRating + '* %\n  Build Job Rating: ' + totalBuildJobs + ' jobs (' + nightlyBuildSuccessRating.intValue() + '%)  Test Job Rating: ' + totalTestJobs + ' jobs (' + nightlyTestSuccessRating.intValue() + '%) <' + BUILD_URL + '/console|Detail>')
 
-echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlySuccessRating + '* %\n  Build Job Rating: ' + totalBuildJobs + ' jobs (' + nightlyBuildSuccessRating.intValue() + '%)  Test Job Rating: ' + totalTestJobs + ' jobs (' + nightlyTestSuccessRating.intValue() + '%) <' + BUILD_URL + '/console|Detail>'
+        echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlySuccessRating + '* %\n  Build Job Rating: ' + totalBuildJobs + ' jobs (' + nightlyBuildSuccessRating.intValue() + '%)  Test Job Rating: ' + totalTestJobs + ' jobs (' + nightlyTestSuccessRating.intValue() + '%) <' + BUILD_URL + '/console|Detail>'
     }
 
     stage('printPublishStats') {
@@ -492,6 +533,7 @@ echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlyS
                 def errorMsg = ""
                 def releaseName = status['releaseName']
                 def lastPublishedMsg = ""
+                def inProgressBuildUrl = ""
 
                 // Is it a non-tag triggered build? eg.Oracle STS version
                 if (nonTagBuildReleases.contains(featureReleaseInt)) {
@@ -508,11 +550,24 @@ echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlyS
                         errorMsg = "\nStale threshold: ${maxDays} days."
                     }
                 } else {
+                    // Check if build in-progress
+                    inProgressBuildUrl = getInProgressBuildUrl(trssUrl, "openjdk${featureReleaseInt}-pipeline", status['expectedReleaseName'].replaceAll("-beta", ""))
+
                     // Check latest published binaries are for the latest openjdk build tag
                     if (status['releaseName'] != status['expectedReleaseName']) {
-                        slackColor = 'danger'
-                        health = "Unhealthy"
-                        errorMsg = "\nLatest Adoptium publish binaries "+status['releaseName']+" !=  latest upstream openjdk build "+status['expectedReleaseName']+"."
+                        def upstreamRepoVersion = (featureRelease == tipRelease) ? "jdk" : featureRelease
+                        def upstreamTagAge    = getOpenjdkBuildTagAge(upstreamRepoVersion, status['expectedReleaseName'].replaceAll("-ea-beta", ""))
+                        if (upstreamTagAge > 3 && inProgressBuildUrl == "") {
+                            slackColor = 'danger'
+                            health = "Unhealthy"
+                            errorMsg = "\nLatest Adoptium publish binaries "+status['releaseName']+" != latest upstream openjdk build "+status['expectedReleaseName'].replaceAll("-ea-beta", "")+" published ${upstreamTagAge} days ago. *No build is in progress*."
+                        } else {
+                            if (inProgressBuildUrl != "") {
+                                errorMsg = "\nLatest upstream openjdk build "+status['expectedReleaseName'].replaceAll("-ea-beta", "")+" published ${upstreamTagAge} days ago. <" + inProgressBuildUrl + "|Build is in progress>."
+                            } else {
+                                errorMsg = "\nLatest upstream openjdk build "+status['expectedReleaseName'].replaceAll("-ea-beta", "")+" published ${upstreamTagAge} days ago. *Build is awaiting 'trigger'*."
+                            }
+                        }
                     }
                 }
 
@@ -522,6 +577,11 @@ echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlyS
                     slackColor = 'danger'
                     health = "Unhealthy"
                     errorMsg += "\nArtifact status: "+status['assets']
+                    if (inProgressBuildUrl != "") {
+                        errorMsg += ", <" + inProgressBuildUrl + "|Build is in progress>"
+                    } else {
+                        errorMsg += ", *No build is in progress*"
+                    }
                     missingAssets = status['missingAssets']
                 }
                  
@@ -560,5 +620,8 @@ echo 'Adoptium Latest Builds Success : *' + variant + '* => *' + overallNightlyS
             echo '----------------------------------------------------------------'
         }
     }
+  } finally { 
+    cleanWs notFailBuild: true
+  } 
 }
 
