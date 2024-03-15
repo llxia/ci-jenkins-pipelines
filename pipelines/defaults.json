@@ -58,7 +58,6 @@
             "sanity.jck",
             "sanity.system",
             "extended.functional",
-            "special.system",
             "extended.openjdk",
             "extended.perf",
             "extended.jck",
@@ -66,7 +65,7 @@
             "special.functional",
             "special.jck",
             "special.openjdk",
-            "dev.openjdk",
+            "special.system",
             "dev.functional"
         ],
         "releaseDefault"     : [
@@ -76,7 +75,6 @@
             "sanity.jck",
             "sanity.system",
             "extended.functional",
-            "special.system",
             "extended.openjdk",
             "extended.perf",
             "extended.jck",
@@ -84,6 +82,7 @@
             "special.functional",
             "special.jck",
             "special.openjdk"
+            "special.system"
         ],
         "disabled" : [
             "sanity.external"

@@ -388,7 +388,10 @@ class Build {
                             rerunIterations = '0'
                         }
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
-                        if (("${testType}".contains('openjdk'))) {
+                        if ("${testType}".contains('dev') || "${testType}".contains('external')) {
+                            rerunIterations = '0'
+                        }
+                        if (("${testType}".contains('openjdk')) || ("${testType}".contains('jck')) || (testType  == 'dev.functional')) {
                             // Keep test reportdir always for JUnit targets
                             keep_test_reportdir = true
                             if (("${testType}".contains('special'))) {
@@ -616,6 +619,11 @@ class Build {
         }
 
         def appOptions="customJtx=${excludeRoot}/jenkins/jck_run/jdk${jdkVersion}/${excludePlat}/temurin.jtx"
+
+        if (configureArguments.contains('--enable-headless-only=yes')) {
+            // Headless platforms have no auto-manuals, so do not exclude any tests
+            appOptions=""
+        }
 
         def targets = ['serial': 'sanity.jck,extended.jck,special.jck']
 
