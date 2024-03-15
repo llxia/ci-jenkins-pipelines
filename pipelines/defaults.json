@@ -91,6 +91,17 @@
         "defaultDynamicParas": {
             "testLists"      : ["sanity.functional", "extended.functional", "sanity.system", "extended.system", "special.system", "sanity.jck", "extended.jck", "sanity.openjdk", "extended.openjdk", "dev.system"],
             "numMachines"    : ["3", "3", "3", "3", "5", "4", "8", "2", "3", "5"]
+        },
+        "ebcEnabledTargets":{
+            "linux_x64" :       ["sanity.perf"],
+            "aix_ppc64" :       [""],
+            "linux_aarch64" :   [""],
+            "linux_ppc64le" :   [""],
+            "linux_s390x" :     [""],
+            "mac_aarch64" :     [""],
+            "mac_x64" :         [""],
+            "windows-x64" :     [""],
+            "windows-x32" :     [""]
         }
     },
     "enableInstallers"       : true,

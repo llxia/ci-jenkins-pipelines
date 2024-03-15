@@ -353,6 +353,44 @@ class Build {
             throw new Exception('[ERROR] Smoke Tests failed indicating a problem with the build artifact. No further tests will run until Smoke test failures are fixed. ')
         }
     }
+
+    /*
+    This function taking care of node allocation via EBC calls for AQA tests. It depends on configs under 
+    DEFAULTS_JSON['testDetails']['ebcEnabledTargets'] to decide if it can allocate using EBC.
+    When all targets are enabled we can remove this config from default along with check from this function.
+    It accepts testType which is one of test targets in AQA e.g. sanity.perf 
+    */
+    private String allocateEBCnodesForTest(testType) {
+        def platform = buildConfig.TARGET_OS + '_' + buildConfig.ARCHITECTURE
+        // All targets are not supported via EBC yet. We need to test that target and add to default.json later on to make it enable
+
+        if ( ! DEFAULTS_JSON['testDetails']['ebcEnabledTargets'][platform].find { it == testType } ) {
+            context.println "EBC does not support for $platform->$testType yet!"
+            return ''
+        }
+
+        context.println "Allocating EBC node for $platform->$testType"
+
+        def group_label_UUID = 'semeru_aqatest_machine_' + UUID.randomUUID().toString()
+        def num_machines = '1'
+        def test_index = DEFAULTS_JSON['testDetails']['defaultDynamicParas']['testLists'].indexOf(testType)
+        if (test_index != -1){ 
+            num_machines = DEFAULTS_JSON['testDetails']['defaultDynamicParas']['numMachines'].get(test_index)
+        }
+
+        context.build job: '/EBC_Create_Node',
+            propagate: false,
+            wait: true,
+            parameters: [
+                    context.string(name: 'group_label', value: group_label_UUID),
+                    context.string(name: 'platform', value: platform),
+                    context.string(name: 'nodeType', value: 'AQA_test_node'),
+                    context.string(name: 'NUM_MACHINES', value: num_machines),
+                    context.string(name: 'TIME_LIMIT', value: '3') //TODO: use estimated time via default.json instead
+            ]
+        return group_label_UUID
+    }
+
     /*
     Run the downstream test jobs based off the configuration passed down from the top level pipeline jobs.
     If a test job doesn't exist, it will be created dynamically.
@@ -562,7 +600,8 @@ class Build {
                         context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),
                         context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
                         context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
-                        context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired)
+                        context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired),
+                        context.string(name: 'LABEL', value: allocateEBCnodesForTest(testType))
                         ]
 
                         // If TIME_LIMIT is set, override target job default TIME_LIMIT value.
