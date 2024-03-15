@@ -51,7 +51,7 @@ class Config21 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom'
+                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -157,7 +157,7 @@ class Config21 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -173,7 +173,7 @@ class Config21 {
                 test                : 'default',
                 configureArgs : [
                         'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace'
+                        'temurin'   : '--enable-dtrace --with-jobs=40'
                 ],
                 cleanWorkspaceAfterBuild: true,
                 reproducibleCompare : [
@@ -181,7 +181,7 @@ class Config21 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
