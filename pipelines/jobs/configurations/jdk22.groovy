@@ -29,6 +29,7 @@ targetConfigurations = [
 triggerSchedule_nightly = '0 20 * * 1-4'
 // 12:00 pm Sat
 triggerSchedule_weekly = '0 12 * * 6'
+
 // scmReferences to use for weekly release build
 weekly_release_scmReferences = [
         'hotspot'        : '',

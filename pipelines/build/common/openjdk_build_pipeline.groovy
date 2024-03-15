@@ -184,6 +184,7 @@ class Build {
         def jobParams = [:]
         String jdk_Version = getJavaVersionNumber() as String
         jobParams.put('JDK_VERSIONS', jdk_Version)
+
         if (buildConfig.VARIANT == 'temurin') {
             jobParams.put('JDK_IMPL', 'hotspot')
         } else {
@@ -194,6 +195,10 @@ class Build {
         if (arch == 'x64') {
             arch = 'x86-64'
         }
+
+        // Default to a 25 hours for all test jobs
+        jobParams.put('TIME_LIMIT', '25')
+
         def arch_os = "${arch}_${buildConfig.TARGET_OS}"
         jobParams.put('ARCH_OS_LIST', arch_os)
         jobParams.put('LIGHT_WEIGHT_CHECKOUT', true)
@@ -260,6 +265,8 @@ class Build {
                     suffix = 'adoptium/aarch32-jdk8u'
                 } else if (buildConfig.TARGET_OS == 'alpine-linux' && buildConfig.JAVA_TO_BUILD == 'jdk8u') {
                     suffix = 'adoptium/alpine-jdk8u'
+                } else if (buildConfig.ARCHITECTURE == 'riscv64' && buildConfig.JAVA_TO_BUILD == 'jdk11u') {
+                    suffix = 'adoptium/riscv-port-jdk11u'
                 } else {
                     suffix = "adoptium/${buildConfig.JAVA_TO_BUILD}"
                 }
@@ -306,7 +313,7 @@ class Build {
 
         // Use BUILD_REF override if specified
         vendorTestBranches = buildConfig.BUILD_REF ?: vendorTestBranches
-        
+
         try {
             context.println 'Running smoke test'
             context.stage('smoke test') {
@@ -340,7 +347,6 @@ class Build {
                     ]  
                 currentBuild.result = testJob.getResult()
                 return testJob.getResult()
-                     
             }
         } catch (Exception e) {
             context.println "Failed to execute test: ${e.message}"
@@ -356,7 +362,10 @@ class Build {
         def jdkBranch = getJDKBranch()
         def jdkRepo = getJDKRepo()
         def openj9Branch = (buildConfig.SCM_REF && buildConfig.VARIANT == 'openj9') ? buildConfig.SCM_REF : 'master'
- 
+
+        def vendorTestRepos = ''
+        def vendorTestBranches = ''
+        def vendorTestDirs = ''
         List testList = buildConfig.TEST_LIST
         List dynamicList = buildConfig.DYNAMIC_LIST
         List numMachines = buildConfig.NUM_MACHINES
@@ -384,7 +393,10 @@ class Build {
                             rerunIterations = '0'
                         }
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
-                        if (("${testType}".contains('openjdk'))) {
+                        if ("${testType}".contains('dev') || "${testType}".contains('external')) {
+                            rerunIterations = '0'
+                        }
+                        if (("${testType}".contains('openjdk')) || ("${testType}".contains('jck')) || (testType  == 'dev.functional')) {
                             // Keep test reportdir always for JUnit targets
                             keep_test_reportdir = true
                             if (("${testType}".contains('special'))) {
@@ -456,6 +468,16 @@ class Build {
 	                        additionalArtifactsRequired = 'RI_JDK'
                         }
 
+                        if (testType  == 'dev.system') {
+                            def useAdoptShellScripts = Boolean.valueOf(buildConfig.USE_ADOPT_SHELL_SCRIPTS)
+                            vendorTestBranches = useAdoptShellScripts ? ADOPT_DEFAULTS_JSON['repository']['build_branch'] : DEFAULTS_JSON['repository']['build_branch']
+                            vendorTestRepos = useAdoptShellScripts ? ADOPT_DEFAULTS_JSON['repository']['build_url'] :  DEFAULTS_JSON['repository']['build_url']
+                            vendorTestRepos = vendorTestRepos - ('.git')
+                            vendorTestDirs = '/test/system'
+                            // Use BUILD_REF override if specified
+                            vendorTestBranches = buildConfig.BUILD_REF ?: vendorTestBranches
+                        }
+
                         def jobParams = getAQATestJobParams(testType)
 
                         def testFlag = ''
@@ -514,38 +536,43 @@ class Build {
                             }
                         }
 
+                    def testJobParams = [
+                        context.string(name: 'SDK_RESOURCE', value: 'customized'),
+                        context.string(name: 'CUSTOMIZED_SDK_URL', value: customizedSdkUrl),
+                        context.string(name: 'CUSTOMIZED_SDK_URL_CREDENTIAL_ID', value: artifactoryCredential),
+                        context.string(name: 'RELEASE_TAG', value: "${buildConfig.SCM_REF}"),
+	                    context.string(name: 'JDK_REPO', value: jdkRepo),
+	                    context.string(name: 'JDK_BRANCH', value: jdkBranch),
+	                    context.string(name: 'OPENJ9_BRANCH', value: openj9Branch),
+	                    context.string(name: 'LABEL_ADDITION', value: additionalTestLabel),
+	                    context.booleanParam(name: 'KEEP_REPORTDIR', value: keep_test_reportdir),
+	                    context.string(name: 'PARALLEL', value: parallel),
+	                    context.string(name: 'NUM_MACHINES', value: "${numMachinesPerTest}"),
+	                    context.booleanParam(name: 'USE_TESTENV_PROPERTIES', value: useTestEnvProperties),
+	                    context.booleanParam(name: 'GENERATE_JOBS', value: aqaAutoGen),
+	                    context.string(name: 'ADOPTOPENJDK_BRANCH', value: aqaBranch),
+                        context.string(name: 'TEST_FLAG', value: "${testFlag}"),
+	                    context.string(name: 'ACTIVE_NODE_TIMEOUT', value: "${buildConfig.ACTIVE_NODE_TIMEOUT}"),
+	                    context.booleanParam(name: 'DYNAMIC_COMPILE', value: DYNAMIC_COMPILE),
+	                    context.string(name: 'DOCKER_REGISTRY_URL', value: DOCKER_REGISTRY_URL),
+                        context.string(name: 'DOCKER_REGISTRY_URL_CREDENTIAL_ID', value: DOCKER_REGISTRY_URL_CREDENTIAL_ID),
+                        context.string(name: 'BASE_DOCKER_REGISTRY_CREDENTIAL_ID', value: BASE_DOCKER_REGISTRY_CREDENTIAL_ID),
+                        context.string(name: 'VENDOR_TEST_REPOS', value: VENDOR_TEST_REPOS),
+                        context.string(name: 'VENDOR_TEST_BRANCHES', value: VENDOR_TEST_BRANCHES),
+                        context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),
+                        context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
+                        context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
+                        context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired)
+                        ]
+
+                        // If TIME_LIMIT is set, override target job default TIME_LIMIT value.
+                        if (jobParams.any{mapEntry -> mapEntry.key.equals("TIME_LIMIT")}) {
+                            testJobParams.add(context.string(name: 'TIME_LIMIT', value: jobParams["TIME_LIMIT"]))
+                        }
+
                         def testJob = context.build job: jobName,
                                         propagate: false,
-                                        parameters: [
-                                            //context.string(name: 'UPSTREAM_JOB_NUMBER', value: "${env.BUILD_NUMBER}"),
-                                            //context.string(name: 'UPSTREAM_JOB_NAME', value: "${env.JOB_NAME}"),
-                                            context.string(name: 'SDK_RESOURCE', value: 'customized'),
-                                            context.string(name: 'CUSTOMIZED_SDK_URL', value: customizedSdkUrl),
-                                            context.string(name: 'CUSTOMIZED_SDK_URL_CREDENTIAL_ID', value: artifactoryCredential),
-                                            context.string(name: 'RELEASE_TAG', value: "${buildConfig.SCM_REF}"),
-                                            context.string(name: 'JDK_REPO', value: jdkRepo),
-                                            context.string(name: 'JDK_BRANCH', value: jdkBranch),
-                                            context.string(name: 'OPENJ9_BRANCH', value: openj9Branch),
-                                            context.string(name: 'LABEL_ADDITION', value: additionalTestLabel),
-                                            context.booleanParam(name: 'KEEP_REPORTDIR', value: keep_test_reportdir),
-                                            context.string(name: 'PARALLEL', value: parallel),
-                                            context.string(name: 'NUM_MACHINES', value: "${numMachinesPerTest}"),
-                                            context.booleanParam(name: 'USE_TESTENV_PROPERTIES', value: useTestEnvProperties),
-                                            context.booleanParam(name: 'GENERATE_JOBS', value: aqaAutoGen),
-                                            context.string(name: 'ADOPTOPENJDK_BRANCH', value: aqaBranch),
-                                            context.string(name: 'TEST_FLAG', value: "${testFlag}"),
-                                            context.string(name: 'ACTIVE_NODE_TIMEOUT', value: "${buildConfig.ACTIVE_NODE_TIMEOUT}"),
-                                            context.booleanParam(name: 'DYNAMIC_COMPILE', value: DYNAMIC_COMPILE),
-                                            context.string(name: 'DOCKER_REGISTRY_URL', value: DOCKER_REGISTRY_URL),
-                                            context.string(name: 'DOCKER_REGISTRY_URL_CREDENTIAL_ID', value: DOCKER_REGISTRY_URL_CREDENTIAL_ID),
-                                            context.string(name: 'BASE_DOCKER_REGISTRY_CREDENTIAL_ID', value: BASE_DOCKER_REGISTRY_CREDENTIAL_ID),
-                                            context.string(name: 'VENDOR_TEST_REPOS', value: VENDOR_TEST_REPOS),
-                                            context.string(name: 'VENDOR_TEST_BRANCHES', value: VENDOR_TEST_BRANCHES),
-                                            context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),
-                                            context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
-                                            context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
-                                            context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired)
-                                        ],
+                                        parameters: testJobParams,
                                         wait: true
                         currentBuild.result = testJob.getResult()
                         context.node('worker') {
@@ -607,6 +634,11 @@ class Build {
         }
 
         def appOptions="customJtx=${excludeRoot}/jenkins/jck_run/jdk${jdkVersion}/${excludePlat}/temurin.jtx"
+
+        if (configureArguments.contains('--enable-headless-only=yes')) {
+            // Headless platforms have no auto-manuals, so do not exclude any tests
+            appOptions=""
+        }
 
         def targets = ['serial': 'sanity.jck,extended.jck,special.jck']
 
@@ -686,7 +718,7 @@ class Build {
                     context.println "Reproduce_compare job doesn't exist, create reproduce_compare job: ${comparedJobName}"
                     context.jobDsl scriptText: """
                         pipelineJob("${comparedJobName}") {
-	                        description(\'<h1>THIS IS AN AUTOMATICALLY GENERATED JOB. PLEASE DO NOT MODIFY, IT WILL BE OVERWRITTEN.</h1>\')
+                            description(\'<h1>THIS IS AN AUTOMATICALLY GENERATED JOB. PLEASE DO NOT MODIFY, IT WILL BE OVERWRITTEN.</h1>\')
 
                             definition {
                                 parameters {
@@ -1201,7 +1233,7 @@ class Build {
                 if (buildConfig.TARGET_OS == "windows") {
                     verifyNode = "ci.role.test&&sw.os.windows"
                 } else {
-                    verifyNode = "ci.role.test&&(sw.os.osx||sw.os.mac)"
+                    verifyNode = "ci.role.test&&(sw.os.osx||sw.os.mac)&&!sw.os.osx.10_14"
                 }
                 if (buildConfig.ARCHITECTURE == "aarch64") {
                     verifyNode = verifyNode + "&&hw.arch.aarch64"
@@ -2232,7 +2264,7 @@ class Build {
                 context.println "Executing tests: ${buildConfig.TEST_LIST}"
                 context.println "Build num: ${env.BUILD_NUMBER}"
                 context.println "File name: ${filename}"
-                
+
                 def enableReproducibleCompare = Boolean.valueOf(buildConfig.ENABLE_REPRODUCIBLE_COMPARE)
                 def enableTests = Boolean.valueOf(buildConfig.ENABLE_TESTS)
                 def enableInstallers = Boolean.valueOf(buildConfig.ENABLE_INSTALLERS)
@@ -2270,7 +2302,7 @@ class Build {
                         }
                         context.println "[NODE SHIFT] MOVING INTO DOCKER NODE MATCHING LABELNAME ${label}..."
                         if ( ! ( "${buildConfig.DOCKER_IMAGE}" ==~ /^[A-Za-z0-9\/\.\-_:]*$/ ) ||
-                             ! ( "${buildConfig.DOCKER_ARGS}"  ==~ /^[A-Za-z0-9\/\.\-_\ ]*$/ ) ) {
+                             ! ( "${buildConfig.DOCKER_ARGS}"  ==~ /^[A-Za-z0-9\/\.\-_=\ ]*$/ ) ) {
                              throw new Exception("[ERROR] Dubious characters in DOCKER* image or parameters: ${buildConfig.DOCKER_IMAGE} ${buildConfig.DOCKER_ARGS} - aborting");
                         }
                         context.node(label) {
@@ -2300,7 +2332,6 @@ class Build {
                                         if (buildConfig.DOCKER_CREDENTIAL) {
                                             context.docker.withRegistry(buildConfig.DOCKER_REGISTRY, buildConfig.DOCKER_CREDENTIAL) {
                                                 if (buildConfig.DOCKER_ARGS) {
-                                                    
                                                     context.sh(script: "docker pull ${buildConfig.DOCKER_IMAGE} ${buildConfig.DOCKER_ARGS}")
                                                 } else {
                                                     context.docker.image(buildConfig.DOCKER_IMAGE).pull()

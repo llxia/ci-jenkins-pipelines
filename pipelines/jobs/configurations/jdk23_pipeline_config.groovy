@@ -6,7 +6,8 @@ class Config23 {
                 arch                : 'x64',
                 additionalNodeLabels: 'xcode15.0.1',
                 additionalTestLabels: [
-                        openj9      : '!sw.os.osx.10_11'
+                        openj9      : '!sw.os.osx.10_11',
+                        temurin     : '!sw.os.osx.10_14'
                 ],
                 test                : 'default',
                 configureArgs       : '--enable-dtrace',
@@ -22,7 +23,9 @@ class Config23 {
                 dockerFile: [
                         openj9      : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                test                : 'default',
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'dev.openjdk', 'dev.functional', 'dev.system']
+                ],
                 additionalTestLabels: [
                         openj9      : '!(centos6||rhel6)'
                 ],

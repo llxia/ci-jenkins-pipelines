@@ -12,6 +12,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+/* groovylint-disable MethodCount */
+
 import common.IndividualBuildConfig
 import groovy.json.*
 
@@ -771,56 +773,62 @@ class Builder implements Serializable {
     /*
     Call job to push artifacts to github. Usually it's only executed on a nightly build
     */
-    def publishBinary() {
-        if (release) {
-            // make sure to skip on release
-            context.println('Not publishing release')
-            return
-        }
-
+    def publishBinary(IndividualBuildConfig config=null) {
         def timestamp = new Date().format('yyyy-MM-dd-HH-mm', TimeZone.getTimeZone('UTC'))
-        def tag = "${javaToBuild}-${timestamp}"
         def javaVersion=determineReleaseToolRepoVersion()
+        def stageName = 'BETA publish'
+        def releaseComment = 'BETA publish'
+        def tag = "${javaToBuild}-${timestamp}"
         if (publishName) {
             tag = publishName
         }
-
-        // Definition of filenames when building an EA tag. This is passed
-        // to the release tool in place of the "TIMESTAMP" Criteria for this:
-        // JDK21 or 22 when a scmRef (tag) is specified and it's not a release build
-        if ((javaVersion=="jdk21" || javaVersion=="jdk22") && scmReference && !release) {
-            publishName = scmReference.replace('_adopt','')
-            def firstDot=publishName.indexOf('.')
-            def plusSign=publishName.indexOf('+')
-            def secondDot=publishName.indexOf('.', firstDot+1)
-            // Translate jdk-AA+BB to jdk-AA-0-BB
-            // Translate jdk-AA.B.C+DD to jdk-AA-C-DD-ea-beta
-            // Note that jdk-AA-B-C-D+EE will become jdk-AA-C-D-EE-ea-beta
-            if ( firstDot==-1 ) {
-                publishName=publishName.substring(4,plusSign)+'.0.'+publishName.substring(plusSign+1)
-            } else {
-                publishName=publishName.substring(4,firstDot)+publishName.substring(secondDot).replace("+","-")
-            }
-            publishName='ea_'+publishName.replaceAll("\\.","-")
+        def osArch = 'all available OS&ARCHs'
+        def artifactsToCopy = '**/temurin/*.tar.gz,**/temurin/*.zip,**/temurin/*.sha256.txt,**/temurin/*.msi,**/temurin/*.pkg,**/temurin/*.json,**/temurin/*.sig'
+        def dryRun = false 
+        def String releaseToolUrl = "${context.HUDSON_URL}job/build-scripts/job/release/job/refactor_openjdk_release_tool/parambuild?"
+        if ( config != null ) {
+            def prefixOfArtifactsToCopy = "**/${config.TARGET_OS}/${config.ARCHITECTURE}/${config.VARIANT}"             
+            artifactsToCopy = "${prefixOfArtifactsToCopy}/*.tar.gz,${prefixOfArtifactsToCopy}/*.zip,${prefixOfArtifactsToCopy}/*.sha256.txt,${prefixOfArtifactsToCopy}/*.msi,${prefixOfArtifactsToCopy}/*.pkg,${prefixOfArtifactsToCopy}/*.json,${prefixOfArtifactsToCopy}/*.sig"
+            osArch = "${config.TARGET_OS} ${config.ARCHITECTURE}"
+            dryRun = true
+            timestamp = ''
+            stageName = 'Dry run RELEASE publish'
         }
 
-        context.stage('publish') {
-        context.println "publishing with publishName: ${publishName}"
-        context.build job: 'build-scripts/release/refactor_openjdk_release_tool',
+        context.stage("${stageName}") {
+            context.println "${stageName} with publishName: ${tag} ${osArch}"
+            def releaseJob = context.build job: 'build-scripts/release/refactor_openjdk_release_tool',
                     parameters: [
                         ['$class': 'BooleanParameterValue', name: 'RELEASE', value: release],
-                        ['$class': 'BooleanParameterValue', name: 'DRY_RUN', value: false],
-                        context.string(name: 'TAG', value: ((scmReference && (javaVersion=="jdk21" || javaVersion=="jdk22"))?(scmReference.replace('_adopt','')):tag)),
-                        context.string(name: 'TIMESTAMP', value: ((scmReference && (javaVersion=="jdk21" || javaVersion=="jdk22"))?publishName:timestamp)),
+                        ['$class': 'BooleanParameterValue', name: 'DRY_RUN', value: dryRun],
+                        context.string(name: 'TAG', value: tag),
+                        context.string(name: 'TIMESTAMP', value: timestamp),
                         context.string(name: 'UPSTREAM_JOB_NAME', value: env.JOB_NAME),
                         context.string(name: 'UPSTREAM_JOB_NUMBER', value: "${currentBuild.getNumber()}"),
-                        context.string(name: 'VERSION', value: javaVersion)
+                        context.string(name: 'VERSION', value: javaVersion),
+                        context.string(name: 'ARTIFACTS_TO_COPY', value: "${artifactsToCopy}")
                     ]
+            if (release) {
+                releaseComment = 'RELEASE Publish'
+                if (releaseJob.getResult()) {
+                    releaseToolUrl += 'DRY_RUN=false&'
+                } else {
+                    releaseToolUrl += 'DRY_RUN=true&'
+                    releaseComment = 'Dry run RELEASE Publish'
+                }
+            }
         }
+        releaseToolUrl += "VERSION=${javaVersion}&RELEASE=${release}&UPSTREAM_JOB_NUMBER=${currentBuild.getNumber()}"
+        tag = URLEncoder.encode(tag, 'UTF-8')
+        artifactsToCopy = URLEncoder.encode(artifactsToCopy, 'UTF-8')
+        def urlJobName = URLEncoder.encode("${env.JOB_NAME}", 'UTF-8')
+        releaseToolUrl += "&TAG=${tag}&UPSTREAM_JOB_NAME=${urlJobName}&ARTIFACTS_TO_COPY=${artifactsToCopy}"
+
+        context.echo "return releaseToolUrl is ${releaseToolUrl}"
+        return ["${releaseToolUrl}", "${releaseComment}"]
     }
 
     /*
-<<<<<<< HEAD
     Create SRPM for Linux platforms
     */
     def packageSourceBinaries(variant, tag, linuxTargets, installerUrl, installerBranch) { 
@@ -962,11 +970,18 @@ class Builder implements Serializable {
                 }
             }
 
-            if (release) {
-                if (publishName) {
-                    // Keep Jenkins release logs for real releases
-                    currentBuild.setKeepLog(keepReleaseLogs)
-                    currentBuild.setDisplayName(publishName)
+            def releaseSummary
+            if (publish) {
+                releaseSummary = context.manager.createSummary('next.svg')
+                if (release) {
+                    if (publishName) {
+                        // Keep Jenkins release logs for real releases
+                        currentBuild.setKeepLog(keepReleaseLogs)
+                        currentBuild.setDisplayName(publishName)
+                    }
+                    releaseSummary.appendText('<b>RELEASE PUBLISH BINARIES:</b><ul>', false)
+                } else {
+                    releaseSummary.appendText('<b>NIGHTLY PUBLISH BINARIES:</b><ul>', false)
                 }
             }
 
@@ -1011,6 +1026,7 @@ class Builder implements Serializable {
             context.echo "Force auto generate AQA test jobs: ${aqaAutoGen}"
             context.echo "Keep test reportdir: ${keepTestReportDir}"
             context.echo "Keep release logs: ${keepReleaseLogs}"
+
             jobConfigurations.each { configuration ->
                 jobs[configuration.key] = {
                     IndividualBuildConfig config = configuration.value
@@ -1079,7 +1095,7 @@ class Builder implements Serializable {
                                                 if ( ! ( "${config.TARGET_OS}"    ==~ /^[A-Za-z0-9\/\.\-_]*$/ ) ||
                                                      ! ( "${config.ARCHITECTURE}" ==~ /^[A-Za-z0-9\/\.\-_]*$/ ) ||
                                                      ! ( "${config.VARIANT}"      ==~ /^[A-Za-z0-9\/\.\-_]*$/ ) ) {
-                                                    throw new Exception("[ERROR] Dubious character in TARGET_OS, ARCHITECTURE or VARIANT - aborting");
+                                                    throw new Exception('[ERROR] Dubious character in TARGET_OS, ARCHITECTURE or VARIANT - aborting')
                                                 }
                                                 context.sh "rm -rf target/${config.TARGET_OS}/${config.ARCHITECTURE}/${config.VARIANT}/"
                                             }
@@ -1136,6 +1152,10 @@ class Builder implements Serializable {
                                         }
 
                                         copyArtifactSuccess = true
+                                        if (release) {
+                                            def (String releaseToolUrl, String releaseComment) = publishBinary(config)
+                                            releaseSummary.appendText("<li><a href=${releaseToolUrl}> ${releaseComment} ${config.VARIANT} ${publishName} ${config.TARGET_OS} ${config.ARCHITECTURE}</a></li>")
+                                        }
                                     }
                             }
                             context.println '[NODE SHIFT] OUT OF CONTROLLER NODE!'
@@ -1159,6 +1179,7 @@ class Builder implements Serializable {
                 }
             }
             context.parallel jobs
+            releaseSummary.appendText('</ul>', false)
 
             if (enableSourceRpm && (!linuxTargets.isEmpty() || !taggedLinuxTargets.isEmpty())) {
                 //build RedHat source RPM package for Linux platforms
@@ -1205,17 +1226,20 @@ class Builder implements Serializable {
 
             // publish to github if needed
             // Don't publish release automatically
-            if (publish && !release) {
-                //During testing just remove the publish
-                try {
-                    context.timeout(time: pipelineTimeouts.PUBLISH_ARTIFACTS_TIMEOUT, unit: 'HOURS') {
-                        publishBinary()
+            if (publish) {
+                if (release) {
+                    context.println 'NOT PUBLISHING RELEASE AUTOMATICALLY, PLEASE SEE THE RERUN RELEASE PUBLISH BINARIES LINKS'
+                } else {
+                    try {
+                        context.timeout(time: pipelineTimeouts.PUBLISH_ARTIFACTS_TIMEOUT, unit: 'HOURS') {
+                            def (String releaseToolUrl, String releaseComment) = publishBinary()
+                            releaseSummary.appendText("<li><a href=${releaseToolUrl}> ${releaseComment} Rerun Link</a></li>")
+                        }
+                    } catch (FlowInterruptedException e) {
+                        throw new Exception("[ERROR] Publish binary timeout (${pipelineTimeouts.PUBLISH_ARTIFACTS_TIMEOUT} HOURS) has been reached OR the downstream publish job failed. Exiting...")
                     }
-                } catch (FlowInterruptedException e) {
-                    throw new Exception("[ERROR] Publish binary timeout (${pipelineTimeouts.PUBLISH_ARTIFACTS_TIMEOUT} HOURS) has been reached OR the downstream publish job failed. Exiting...")
                 }
-            } else if (publish && release) {
-                context.println 'NOT PUBLISHING RELEASE AUTOMATICALLY'
+                releaseSummary.appendText('</ul>', false)
             }
         }
     }
