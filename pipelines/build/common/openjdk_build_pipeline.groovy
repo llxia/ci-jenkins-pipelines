@@ -2495,7 +2495,10 @@ class Build {
                         // Sign job timeout managed by Jenkins job config
                         sign(versionInfo)
                     } catch (FlowInterruptedException e) {
-                        throw new Exception("[ERROR] Sign job timeout (${buildTimeouts.SIGN_JOB_TIMEOUT} HOURS) has been reached OR the downstream sign job failed. Exiting...")
+                        if (buildConfig.RELEASE){
+                            throw new Exception("[ERROR] Sign job timeout (${buildTimeouts.SIGN_JOB_TIMEOUT} HOURS) has been reached OR the downstream sign job failed. Exiting...")
+                        }
+                        context.println("[WARNING] Sign job timeout (${buildTimeouts.SIGN_JOB_TIMEOUT} HOURS) has been reached OR the downstream sign job failed. Skipping sign...")
                     }
                 }
 
