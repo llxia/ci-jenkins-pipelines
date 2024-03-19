@@ -1153,7 +1153,7 @@ class Builder implements Serializable {
 
                                         copyArtifactSuccess = true
                                         if (release) {
-                                            def (String releaseToolUrl, String releaseComment) = publishBinary(config)
+                                            //def (String releaseToolUrl, String releaseComment) = publishBinary(config)
                                             releaseSummary.appendText("<li><a href=${releaseToolUrl}> ${releaseComment} ${config.VARIANT} ${publishName} ${config.TARGET_OS} ${config.ARCHITECTURE}</a></li>")
                                         }
                                     }
