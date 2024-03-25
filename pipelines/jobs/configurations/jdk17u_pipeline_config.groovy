@@ -160,8 +160,13 @@ class Config17 {
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
-                        openj9:  'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
+                    openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
+                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerFile: [
+                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                ],
+                dockerNode         : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 reproducibleCompare : [
                         'temurin'   : true
@@ -524,8 +529,13 @@ class Config17 {
                         ]
                 ],
                 additionalNodeLabels: [
-                        openj9:  'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
+                    openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
+                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerFile: [
+                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                ],
+                dockerNode         : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
                         'openj9'      : ''
