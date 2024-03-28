@@ -14,7 +14,7 @@ class Config17 {
                         'temurin'   : true
                 ],
                 buildArgs           : [
-                        'openj9'      : '--create-jre-image',
+                        'openj9'      : '--create-jre-image --ssh',
                         'temurin'     : '--create-jre-image --create-sbom'
                 ],
                 configureArgs       : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
@@ -46,7 +46,7 @@ class Config17 {
                         'temurin'     : '--enable-dtrace'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
+                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-source-archive --create-jre-image --create-sbom'
                 ]
         ],
@@ -85,7 +85,7 @@ class Config17 {
                         'temurin'   : true
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
+                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ],
                 configureArgs: '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"',
@@ -126,7 +126,7 @@ class Config17 {
                         temurin: 'sw.os.aix.7_2'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
+                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ],
                 configureArgs : [
@@ -148,7 +148,7 @@ class Config17 {
                         'temurin'   : true
                 ],
                 buildArgs           : [
-                        'openj9'      : '--create-jre-image',
+                        'openj9'      : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ],
                 configureArgs       : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
@@ -167,7 +167,7 @@ class Config17 {
                         'temurin'   : true
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
+                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image'
                 ],
                 configureArgs       : [
@@ -189,7 +189,7 @@ class Config17 {
                         'temurin'   : true
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
+                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ],
                 configureArgs       : '--enable-dtrace  --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
@@ -214,7 +214,7 @@ class Config17 {
                         'temurin'   : true
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
+                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ]
         ],
