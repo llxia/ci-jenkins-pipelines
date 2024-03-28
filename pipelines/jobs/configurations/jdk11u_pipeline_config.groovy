@@ -11,7 +11,8 @@ class Config11 {
                     'temurin'     : '--enable-dtrace=auto'
             ],
             buildArgs           : [
-                    'temurin'   : '--create-sbom'
+                    'temurin'   : '--create-sbom',
+                    'openj9'    : '--ssh'
             ]
         ],
 
@@ -36,7 +37,8 @@ class Config11 {
                     'bisheng'     : '--enable-dtrace=auto --with-extra-cflags=-fstack-protector-strong --with-extra-cxxflags=-fstack-protector-strong --with-jvm-variants=server --disable-warnings-as-errors'
             ],
             buildArgs            : [
-                'temurin'     : '--create-source-archive --create-sbom'
+                'temurin'     : '--create-source-archive --create-sbom',
+                'openj9'      : '--ssh'
             ]
         ],
 
@@ -72,7 +74,8 @@ class Config11 {
             ],
             test                : 'default',
             buildArgs : [
-                temurin : '--jvm-variant client,server --create-sbom'
+                temurin : '--jvm-variant client,server --create-sbom',
+                'openj9'    : '--ssh'
             ],
             configureArgs       : [
                     'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"',
@@ -106,7 +109,8 @@ class Config11 {
                     'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
             ],
             buildArgs           : [
-                    'temurin'   : '--create-sbom'
+                    'temurin'   : '--create-sbom',
+                    'openj9'    : '--ssh'
             ]
         ],
 
@@ -120,7 +124,8 @@ class Config11 {
             dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : '--enable-dtrace=auto --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
             buildArgs           : [
-                    'temurin'   : '--create-sbom'
+                    'temurin'   : '--create-sbom',
+                    'openj9'    : '--ssh'
             ]
         ],
 
@@ -147,7 +152,8 @@ class Config11 {
                     'openj9'      : '--enable-dtrace=auto --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
             ],
             buildArgs           : [
-                    'temurin'   : '--create-sbom'
+                    'temurin'   : '--create-sbom',
+                    'openj9'    : '--ssh'
             ]
         ],
 
@@ -177,6 +183,9 @@ class Config11 {
                     'corretto' : '--enable-dtrace=auto',
                     'dragonwell' : '--enable-dtrace=auto --with-extra-cflags=\"-march=armv8.2-a+crypto\" --with-extra-cxxflags=\"-march=armv8.2-a+crypto\"',
                     'bisheng' : '--enable-dtrace=auto --with-extra-cflags=-fstack-protector-strong --with-extra-cxxflags=-fstack-protector-strong --with-jvm-variants=server'
+            ],
+            buildArgs           : [
+                    'openj9'    : '--ssh'
             ]
         ],
 
@@ -200,7 +209,7 @@ class Config11 {
             ],
             buildArgs            : [
                     'hotspot'    : '--create-sbom',
-                    'openj9'     : '--cross-compile',
+                    'openj9'     : '--cross-compile --ssh',
                     'bisheng'    : '--cross-compile --branch risc-v'
             ],
             configureArgs        : [
@@ -235,7 +244,8 @@ class Config11 {
                         openj9 : 'default'
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 

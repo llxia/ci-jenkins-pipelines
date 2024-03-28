@@ -12,7 +12,8 @@ class Config8 {
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default',
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 
@@ -93,7 +94,8 @@ class Config8 {
                         'dragonwell'  : '--enable-unlimited-crypto --with-jvm-variants=server --with-zlib=system',
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-source-archive --create-sbom'
+                        'temurin'   : '--create-source-archive --create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 
@@ -131,7 +133,8 @@ class Config8 {
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default',
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 
@@ -144,7 +147,8 @@ class Config8 {
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.windows'
                 ],
                 buildArgs : [
-                        temurin : '--jvm-variant client,server --create-sbom'
+                        temurin : '--jvm-variant client,server --create-sbom',
+                        'openj9'    : '--ssh'
                 ],
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default'
@@ -166,7 +170,8 @@ class Config8 {
                 ],
                 cleanWorkspaceAfterBuild: true,
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 
@@ -241,7 +246,8 @@ class Config8 {
                         ]
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 
@@ -336,7 +342,8 @@ class Config8 {
                         'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
 
@@ -414,7 +421,8 @@ class Config8 {
                         ]
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom',
+                        'openj9'    : '--ssh'
                 ]
         ],
   ]
