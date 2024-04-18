@@ -434,7 +434,7 @@ class Build {
                         if ("${testType}".contains('dev') || "${testType}".contains('external')) {
                             rerunIterations = '0'
                         }
-                        if (("${testType}".contains('openjdk')) || ("${testType}".contains('jck')) || (testType  == 'dev.functional')) {
+                        if (("${testType}".contains('openjdk')) || ("${testType}".contains('jck')) || (testType  == 'dev.functional') || (testType  == 'extended.functional')) {
                             // Keep test reportdir always for JUnit targets
                             keep_test_reportdir = true
                             if (("${testType}".contains('special'))) {
