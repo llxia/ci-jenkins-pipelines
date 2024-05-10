@@ -45,6 +45,7 @@ class IndividualBuildConfigTest {
                 RELEASE                    : false,
                 WEEKLY                     : false,
                 PUBLISH_NAME               : 'm',
+                OPENJCEPLUS_BRANCH         : 'aa',
                 ADOPT_BUILD_NUMBER         : 'n',
                 ENABLE_TESTS               : true,
                 ENABLE_INSTALLERS          : true,

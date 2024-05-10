@@ -213,6 +213,7 @@ if (scmVars != null || configureBuild != null || buildConfigurations != null) {
             aqaReference,
             aqaAutoGen,
             overridePublishName,
+            overrideOpenJCEPlusBranch,
             useAdoptBashScripts,
             additionalConfigureArgs,
             scmVars,

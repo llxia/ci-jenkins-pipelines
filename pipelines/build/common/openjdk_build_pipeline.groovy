@@ -2052,7 +2052,17 @@ class Build {
                                     }
                                     def javaVersion = getJavaVersionNumber()
                                     if (!DEFAULTS_JSON['exclude-openjceplus'].contains(javaVersion)) {
-                                        openjceplusBuildArgs += '--bundle-openjceplus'
+                                        def openjceplusBranch = "semeru-java" + javaVersion.toString()
+                                        if (buildConfig.RELEASE) {
+                                            try {
+                                                def branchSuffix = (buildConfig.PUBLISH_NAME =~ /jdk-([0-9]+(\.[0-9]+){0,3})\+.*/)[ 0 ][ 1 ]
+                                                openjceplusBranch = "semeru-java-" + branchSuffix
+                                            } catch (IndexOutOfBoundsException e) {
+                                                context.println "WARNING: OpenJCEPlus Branch cannot be determined based on PUBLISH_NAME. Using default branch: ${openjceplusBranch}"
+                                            }
+                                        }
+                                        context.println "OpenJCEPlus Branch: $openjceplusBranch"
+                                        openjceplusBuildArgs += "--bundle-openjceplus --openjceplus-branch ${openjceplusBranch}"
                                     }
 
                                     context.withEnv(['BUILD_ARGS=' + openjceplusBuildArgs]) {

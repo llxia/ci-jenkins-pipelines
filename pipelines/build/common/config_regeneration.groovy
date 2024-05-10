@@ -487,6 +487,7 @@ class Regeneration implements Serializable {
                 RELEASE: false,
                 WEEKLY: false,
                 PUBLISH_NAME: '',
+                OPENJCEPLUS_BRANCH: '',
                 ADOPT_BUILD_NUMBER: '',
                 ENABLE_REPRODUCIBLE_COMPARE: enableReproducibleCompare,
                 ENABLE_TESTS: DEFAULTS_JSON['testDetails']['enableTests'] as Boolean,
