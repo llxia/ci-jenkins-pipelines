@@ -33,6 +33,7 @@ class IndividualBuildConfig implements Serializable {
     final String JDK_BOOT_VERSION
     final boolean RELEASE
     final String PUBLISH_NAME
+    final String OPENJCEPLUS_BRANCH
     final String ADOPT_BUILD_NUMBER
     final boolean ENABLE_TESTS
     final boolean ENABLE_TESTDYNAMICPARALLEL
@@ -98,6 +99,7 @@ class IndividualBuildConfig implements Serializable {
         JDK_BOOT_VERSION = map.get("JDK_BOOT_VERSION") != null ? map.get("JDK_BOOT_VERSION").trim() : null
         RELEASE = map.get("RELEASE")
         PUBLISH_NAME = map.get("PUBLISH_NAME") != null ? map.get("PUBLISH_NAME").trim() : null
+        OPENJCEPLUS_BRANCH = map.get("OPENJCEPLUS_BRANCH") != null ? map.get("OPENJCEPLUS_BRANCH").trim() : null
         ADOPT_BUILD_NUMBER = map.get("ADOPT_BUILD_NUMBER") != null ? map.get("ADOPT_BUILD_NUMBER").trim() : null
         ENABLE_TESTS = map.get("ENABLE_TESTS")
         ENABLE_TESTDYNAMICPARALLEL = map.get("ENABLE_TESTDYNAMICPARALLEL")
@@ -154,6 +156,7 @@ class IndividualBuildConfig implements Serializable {
                 JDK_BOOT_VERSION          : JDK_BOOT_VERSION,
                 RELEASE                   : RELEASE,
                 PUBLISH_NAME              : PUBLISH_NAME,
+                OPENJCEPLUS_BRANCH        : OPENJCEPLUS_BRANCH,
                 ADOPT_BUILD_NUMBER        : ADOPT_BUILD_NUMBER,
                 ENABLE_TESTS              : ENABLE_TESTS,
                 ENABLE_TESTDYNAMICPARALLEL: ENABLE_TESTDYNAMICPARALLEL,

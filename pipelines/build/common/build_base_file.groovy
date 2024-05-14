@@ -191,6 +191,7 @@ class Builder implements Serializable {
             RELEASE: release,
             WEEKLY: isWeekly,
             PUBLISH_NAME: publishName,
+            OPENJCEPLUS_BRANCH: openjceplusBranch,
             ADOPT_BUILD_NUMBER: adoptBuildNumber,
             ENABLE_REPRODUCIBLE_COMPARE: enableReproducibleCompare,
             ENABLE_TESTS: enableTests,
@@ -1268,6 +1269,7 @@ return {
     String aqaReference,
     String aqaAutoGen,
     String overridePublishName,
+    String overrideOpenJCEPlusBranch,
     String useAdoptShellScripts,
     String additionalConfigureArgs,
     def scmVars,
@@ -1306,6 +1308,11 @@ return {
                 publishName = publishName.substring(0, publishName.indexOf('-', publishName.indexOf('-') +1 ))
             }
         }
+    }
+
+    String openjceplusBranch = ''
+    if (overrideOpenJCEPlusBranch) {
+        openjceplusBranch = overrideOpenJCEPlusBranch
     }
 
     def buildsExcludeDocker = [:]

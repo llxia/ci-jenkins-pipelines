@@ -181,6 +181,7 @@ pipelineJob("$buildFolder/$JOB_NAME") {
                 <dt><strong>USE_ADOPT_SHELL_SCRIPTS</strong></dt><dd>Use Adopt's make-adopt-build-farm.sh and other bash scripts</dd>
                 <dt><strong>RELEASE</strong></dt><dd>Is this build a release</dd>
                 <dt><strong>PUBLISH_NAME</strong></dt><dd>Set name of publish</dd>
+                <dt><strong>OPENJCEPLUS_BRANCH</strong></dt><dd>Explicitly set name of the OpenJCEPlus branch to checkout</dd>
                 <dt><strong>ADOPT_BUILD_NUMBER</strong></dt><dd>Adopt build number</dd>
                 <dt><strong>ENABLE_REPRODUCIBLE_COMPARE</strong></dt><dd>Run reproducible compare build</dd>
                 <dt><strong>ENABLE_TESTS</strong></dt><dd>Run tests</dd>
