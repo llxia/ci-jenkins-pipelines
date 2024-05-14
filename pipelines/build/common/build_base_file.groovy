@@ -58,6 +58,7 @@ class Builder implements Serializable {
     String aqaReference
     boolean aqaAutoGen
     String publishName
+    String openjceplusBranch
     String additionalConfigureArgs
     def scmVars
     String additionalBuildArgs
