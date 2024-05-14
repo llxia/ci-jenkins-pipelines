@@ -245,7 +245,6 @@ if (triggerMainBuild || triggerEvaluationBuild) {
                             string(name: 'releaseType',             value: "Weekly"),
                             string(name: 'scmReference',            value: "$latestAdoptTag"),
                             string(name: 'overridePublishName',     value: "$publishJobTag"),
-                            string(name: 'overrideOpenJCEPlusBranch', value: "$openjceplusBranch"),
                             booleanParam(name: 'aqaAutoGen',        value: true),
                             booleanParam(name: 'enableTests',       value: enableTesting),
                             string(name: 'additionalConfigureArgs', value: "$additionalConfigureArgs")
