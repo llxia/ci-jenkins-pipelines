@@ -93,7 +93,7 @@
             "numMachines"    : ["3", "3", "3", "3", "5", "4", "8", "2", "3", "5"]
         },
         "ebcEnabledTargets":{
-            "linux_x64" :       ["sanity.perf"],
+            "linux_x64" :       [""],
             "aix_ppc64" :       [""],
             "linux_aarch64" :   [""],
             "linux_ppc64le" :   [""],
