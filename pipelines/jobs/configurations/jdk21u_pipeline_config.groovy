@@ -44,6 +44,7 @@ class Config21 {
                 ],
                 additionalTestLabels: [
                         openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
+                        temurin     : '!(centos6||rhel6)'
                 ],
                 configureArgs       : [
                         'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
