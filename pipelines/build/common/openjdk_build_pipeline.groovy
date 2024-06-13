@@ -1065,7 +1065,6 @@ class Build {
     */
     private void buildWindowsInstaller(VersionInfo versionData, String filter, String category) {
         def nodeFilter = "sw.os.windows&&ci.role.packaging&&sw.tool.signing"
-
         def buildNumber = versionData.build
 
         if (versionData.major == 8) {
@@ -1081,6 +1080,12 @@ class Build {
         // Get version patch number if one is present
         def patch_version = versionData.patch ?: 0
 
+        def INSTALLER_JVM = "${buildConfig.VARIANT}"
+        // if variant is temurin set param as hotpot
+        if (buildConfig.VARIANT == 'temurin') {
+            INSTALLER_JVM = 'hotspot'
+        }
+
         // Execute installer job
         def installerJob = context.build job: 'build-scripts/release/create_installer_windows',
                 propagate: true,
@@ -1095,7 +1100,7 @@ class Build {
                         context.string(name: 'PRODUCT_BUILD_NUMBER', value: "${buildNumber}"),
                         context.string(name: 'MSI_PRODUCT_VERSION', value: "${versionData.msi_product_version}"),
                         context.string(name: 'PRODUCT_CATEGORY', value: "${category}"),
-                        context.string(name: 'JVM', value: "${buildConfig.VARIANT}"),
+                        context.string(name: 'JVM', value: "${INSTALLER_JVM}"),
                         context.string(name: 'ARCH', value: "${INSTALLER_ARCH}"),
                         ['$class': 'LabelParameterValue', name: 'NODE_LABEL', label: "${nodeFilter}"]
                 ]
