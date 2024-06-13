@@ -237,8 +237,44 @@ class Config11 {
                 ],
                 cleanWorkspaceAfterBuild: true,
                 configureArgs       : [
-                        openj9      : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        temurin     : '--disable-ccache'
+                        'openj9'    : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                        'temurin'   : '--enable-dtrace=auto',
+                        'openj9'    : '--enable-dtrace=auto',
+                        'corretto'  : '--enable-dtrace=auto',
+                        'dragonwell': "--enable-dtrace=auto --with-extra-cflags=\"-march=armv8.2-a+crypto\" --with-extra-cxxflags=\"-march=armv8.2-a+crypto\"",
+                        'bisheng'   : '--enable-dtrace=auto --with-extra-cflags=-fstack-protector-strong --with-extra-cxxflags=-fstack-protector-strong --with-jvm-variants=server'
+                ],
+                buildArgs           : [
+                        'temurin'   : '--create-sbom'
+                ]
+        ],
+
+        riscv64Linux      :  [
+                os                   : 'linux',
+                arch                 : 'riscv64',
+                dockerImage          : [
+                        'temurin'    : 'adoptopenjdk/ubuntu2004_build_image:linux-riscv64',
+                        'openj9'     : 'adoptopenjdk/centos6_build_image',
+                        'bisheng'    : 'adoptopenjdk/centos6_build_image'
+                ],
+                dockerArgs           : [
+                        'temurin'    : '--platform linux/riscv64'
+                ],
+                crossCompile         : [
+                        'temurin'    : 'qemustatic',
+                        'openj9'     : 'x64',
+                        'bisheng'    : 'x64'
+                ],
+                buildArgs            : [
+                        'temurin'    : '--create-sbom',
+                        'openj9'     : '--cross-compile',
+                        'bisheng'    : '--cross-compile --branch risc-v'
+                ],
+                configureArgs        : [
+                        'temurin'    : '--enable-headless-only=yes --enable-dtrace --disable-ccache',
+                        'openj9'     : '--disable-ddr --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root',
+                        'bisheng'    : '--openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root --with-jvm-features=shenandoahgc'
+>>>>>>> abff3f6a25037eaad9c9d5924bba6e861c45db2f
                 ],
                 test                : [
                         openj9 : 'default'
