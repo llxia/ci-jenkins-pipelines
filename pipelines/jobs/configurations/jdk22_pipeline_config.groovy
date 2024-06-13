@@ -111,7 +111,7 @@ class Config22 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom'
+                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b02'
                 ]
         ],
 
@@ -256,7 +256,7 @@ class Config22 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit s390x-on-s390x.RH7'
                 ]
         ],
 
@@ -337,7 +337,7 @@ class Config22 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b02'
                 ]
         ],
 
@@ -407,7 +407,7 @@ class Config22 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.6.1810-b02'
                 ]
         ],
 
