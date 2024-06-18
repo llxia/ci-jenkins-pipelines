@@ -43,7 +43,7 @@ class Config21 {
                         'temurin'   : true
                 ],
                 additionalTestLabels: [
-                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
+                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)',
                         temurin     : '!(centos6||rhel6)'
                 ],
                 configureArgs       : [
