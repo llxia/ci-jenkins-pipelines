@@ -497,7 +497,7 @@ class Build {
                         def additionalTestLabel = buildConfig.ADDITIONAL_TEST_LABEL
                         def relatedNodeLabel = ''
                         def additionalArtifactsRequired = ''
-                        if (testType  == 'dev.openjdk' || testType  == 'special.system') {
+                        if (testType  == 'dev.openjdk') {
                             context.println "${testType} need extra label sw.tool.docker"
                             if (additionalTestLabel == '') {
                                 additionalTestLabel = 'sw.tool.docker'
@@ -515,7 +515,7 @@ class Build {
 	                        additionalArtifactsRequired = 'RI_JDK'
                         }
 
-                        if (testType  == 'special.system' || testType  == 'dev.system') {
+                        if (testType  == 'dev.system') {
                             def useAdoptShellScripts = Boolean.valueOf(buildConfig.USE_ADOPT_SHELL_SCRIPTS)
                             vendorTestBranches = useAdoptShellScripts ? ADOPT_DEFAULTS_JSON['repository']['build_branch'] : DEFAULTS_JSON['repository']['build_branch']
                             vendorTestRepos = useAdoptShellScripts ? ADOPT_DEFAULTS_JSON['repository']['build_url'] :  DEFAULTS_JSON['repository']['build_url']
