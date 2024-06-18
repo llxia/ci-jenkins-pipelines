@@ -38,7 +38,6 @@ class Config21 {
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.x86 && sw.os.linux'
-                ],
                 reproducibleCompare : [
                         'temurin'   : true
                 ],
