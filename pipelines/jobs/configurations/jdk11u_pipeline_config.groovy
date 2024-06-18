@@ -267,21 +267,16 @@ class Config11 {
                 ],
                 buildArgs            : [
                         'temurin'    : '--create-sbom',
-                        'openj9'     : '--cross-compile',
+                        'openj9'     : '--cross-compile --ssh',
                         'bisheng'    : '--cross-compile --branch risc-v'
                 ],
                 configureArgs        : [
                         'temurin'    : '--enable-headless-only=yes --enable-dtrace --disable-ccache',
                         'openj9'     : '--disable-ddr --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root',
                         'bisheng'    : '--openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root --with-jvm-features=shenandoahgc'
->>>>>>> abff3f6a25037eaad9c9d5924bba6e861c45db2f
                 ],
                 test                : [
                         openj9 : 'default'
-                ],
-                buildArgs           : [
-                        'temurin'   : '--create-sbom',
-                        'openj9'    : '--ssh'
                 ]
         ],
 
