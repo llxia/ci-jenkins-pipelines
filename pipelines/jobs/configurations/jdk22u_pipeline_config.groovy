@@ -240,9 +240,11 @@ class Config22 {
                 ],
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
-                        openj9      : 'hw.arch.s390x && (sw.os.cent.7 || sw.os.rhel.7)'
+                        openj9:  'ci.project.openj9 && hw.arch.s390x'
                 ],
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
+                dockerImage: 'https://docker-na.artifactory.swg-devops.com/sys-rt-docker-local/semeru/s390_rhel7_build_image',
+                dockerCredential : '7c1c2c28-650f-49e0-afd1-ca6b60479546',
+                dockerNode : 'sw.tool.docker',
                 configureArgs       : [
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
