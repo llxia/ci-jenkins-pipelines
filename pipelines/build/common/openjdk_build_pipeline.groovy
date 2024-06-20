@@ -2432,8 +2432,8 @@ class Build {
                                     throw new Exception("[ERROR] Controller clean workspace timeout (${buildTimeouts.CONTROLLER_CLEAN_TIMEOUT} HOURS) has been reached. Exiting...")
                                 }
                             }
-                            if (!("${buildConfig.DOCKER_IMAGE}".contains('rhel'))) {
-                                // Pull the docker image from DockerHub
+                            if (buildConfig.DOCKER_IMAGE) {
+                                // Pull the docker image from buildConfig.DOCKER_REGISTRY
                                 try {
                                     context.timeout(time: buildTimeouts.DOCKER_PULL_TIMEOUT, unit: 'HOURS') {
                                         if (buildConfig.DOCKER_CREDENTIAL) {
