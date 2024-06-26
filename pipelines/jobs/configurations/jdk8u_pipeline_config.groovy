@@ -182,7 +182,8 @@ class Config8 {
                 additionalNodeLabels: [
                         openj9:  'ci.project.openj9 && hw.arch.s390x'
                 ],
-                dockerImage: 'https://docker-na.artifactory.swg-devops.com/sys-rt-docker-local/semeru/s390_rhel7_build_image',
+                dockerImage: 'sys-rt-docker-local/semeru/s390_rhel7_build_image',
+                dockerRegistry: 'https://docker-na.artifactory.swg-devops.com/',
                 dockerCredential : '7c1c2c28-650f-49e0-afd1-ca6b60479546',
                 dockerNode : 'sw.tool.docker',
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
