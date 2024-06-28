@@ -244,7 +244,6 @@ class Config11 {
                 configureArgs       : [
                         'openj9'    : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         'temurin'   : '--enable-dtrace=auto',
-                        'openj9'    : '--enable-dtrace=auto',
                         'corretto'  : '--enable-dtrace=auto',
                         'dragonwell': "--enable-dtrace=auto --with-extra-cflags=\"-march=armv8.2-a+crypto\" --with-extra-cxxflags=\"-march=armv8.2-a+crypto\"",
                         'bisheng'   : '--enable-dtrace=auto --with-extra-cflags=-fstack-protector-strong --with-extra-cxxflags=-fstack-protector-strong --with-jvm-variants=server'
