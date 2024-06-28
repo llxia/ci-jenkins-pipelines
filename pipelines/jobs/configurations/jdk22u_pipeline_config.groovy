@@ -150,7 +150,7 @@ class Config22 {
                 configureArgs       : [
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"',
                         temurin     : "--with-ucrt-dll-dir='C:/progra~2/wi3cf2~1/10/Redist/10.0.22621.0/ucrt/DLLs/x64'"
-                ]
+                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
