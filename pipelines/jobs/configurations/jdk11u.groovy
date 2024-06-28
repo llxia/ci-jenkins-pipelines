@@ -7,7 +7,6 @@ targetConfigurations = [
         's390xLinux'    : [ 'openj9' ],
         'aarch64Linux'  : [ 'openj9' ],
         'aarch64Mac'    : [ 'openj9' ],
-        'riscv64Linux'  : [ 'openj9' ],
         'x64MacIBM'        : [ 'openj9' ],
         'x64LinuxIBM'      : [ 'openj9' ],
         'x64WindowsIBM'    : [ 'openj9' ],
