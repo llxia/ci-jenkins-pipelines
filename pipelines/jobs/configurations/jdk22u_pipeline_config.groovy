@@ -68,7 +68,9 @@ class Config22 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'                        
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ],
                         release : [
                                 'sanity.functional',
@@ -91,7 +93,9 @@ class Config22 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ]
                 ],
                 cleanWorkspaceAfterBuild: true,
@@ -99,7 +103,7 @@ class Config22 {
                         openj9      : 'hw.arch.x86 && sw.os.linux'
                 ],
                 additionalTestLabels: [
-                        openj9      : '!(centos6||rhel6)',
+                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)',
                         temurin     : '!(centos6||rhel6)'
                 ],
                 configureArgs       : [
@@ -160,7 +164,54 @@ class Config22 {
                         temurin: 'xlc16&&aix720',
                         openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
                 ],
-                test                : 'default',
+                test                : [
+                        nightly: [
+                                'sanity.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'extended.functional',
+                                'extended.openjdk',
+                                'special.system'
+                        ],
+                        weekly : [
+                                'sanity.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'extended.functional',
+                                'extended.openjdk',
+                                'extended.perf',
+                                'extended.jck',
+                                'extended.system',
+                                'special.functional',
+                                'special.jck',
+                                'special.openjdk',
+                                'special.system',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
+                        ],
+                        release : [
+                                'sanity.functional',
+                                'sanity.openjdk',
+                                'sanity.perf',
+                                'sanity.jck',
+                                'sanity.system',
+                                'extended.functional',
+                                'extended.openjdk',
+                                'extended.perf',
+                                'extended.jck',
+                                'extended.system',
+                                'special.functional',
+                                'special.jck',
+                                'special.openjdk',
+                                'special.system',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
+                        ]
+                ],
                 additionalTestLabels: [
                         temurin      : 'sw.os.aix.7_2'
                 ],
@@ -212,7 +263,9 @@ class Config22 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'                        
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ],
                         release : [
                                 'sanity.functional',
@@ -235,7 +288,9 @@ class Config22 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ]
                 ],
                 cleanWorkspaceAfterBuild: true,
@@ -290,7 +345,9 @@ class Config22 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'                        
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ],
                         release : [
                                 'sanity.functional',
@@ -313,13 +370,21 @@ class Config22 {
                                 'extended.jck.fips140_2',
                                 'special.jck.fips140_2',
                                 'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
+                                'extended.openjdk.fips140_2',
+                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                         ]
                 ],
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
-                        openj9      : 'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
+                        openj9      : 'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
+                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerFile: [
+                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                ],
+                dockerNode         : 'sw.tool.docker',
+                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
                         'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
@@ -332,7 +397,9 @@ class Config22 {
         aarch64Linux    : [
                 os                  : 'linux',
                 arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                additionalNodeLabels: [
+                        openj9      : 'hw.arch.aarch64 && sw.os.linux'
+                ],
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerNode          : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
