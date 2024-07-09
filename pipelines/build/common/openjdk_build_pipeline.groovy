@@ -529,7 +529,7 @@ class Build {
                         def jobParams = getAQATestJobParams(testType)
 
                         def testFlag = ''
-                        if (fipsTestBuildSuffix?.trim()) {
+                        if (fipsTestBuildSuffix.trim()) {
                             jobParams.put('TEST_JOB_NAME', "${jobParams.TEST_JOB_NAME}_${fipsTestBuildSuffix}")
                             testFlag = fipsTestBuildSuffix.replace("fips", "FIPS")
                         }
