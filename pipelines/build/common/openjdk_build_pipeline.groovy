@@ -530,8 +530,9 @@ class Build {
 
                         def testFlag = ''
                         if (fipsTestBuildSuffix.trim()) {
-                            jobParams.put('TEST_JOB_NAME', "${jobParams.TEST_JOB_NAME}_${fipsTestBuildSuffix}")
                             testFlag = fipsTestBuildSuffix.replace("fips", "FIPS")
+                            fipsTestBuildSuffix = fipsTestBuildSuffix.toLowerCase()
+                            jobParams.put('TEST_JOB_NAME', "${jobParams.TEST_JOB_NAME}_${fipsTestBuildSuffix}")
                         }
 
                         def jobName = jobParams.TEST_JOB_NAME
