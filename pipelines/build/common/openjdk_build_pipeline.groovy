@@ -435,7 +435,7 @@ class Build {
                         def rerunIterations = '3'
                         def fipsTestBuildSuffix = "";
                         if ("${testType}".contains(".fips")) {
-                            String[] tokens = testType.split('.')
+                            String[] tokens = testType.split('\\.')
                             testType = tokens[0] + "." + tokens[1]
                             fipsTestBuildSuffix = tokens[2]
                             rerunIterations = '0'
