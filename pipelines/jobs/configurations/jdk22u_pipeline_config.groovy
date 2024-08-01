@@ -141,7 +141,7 @@ class Config22 {
         x64Windows: [
                 os                  : 'windows',
                 arch                : 'x64',
-                 additionalNodeLabels: [
+                additionalNodeLabels: [
                         openj9      : 'hw.arch.x86 && sw.os.windows',
                         temurin     : 'win2022&&vs2022'
                 ],
