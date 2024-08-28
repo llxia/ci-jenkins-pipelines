@@ -161,7 +161,7 @@ class Config22 {
                 os                  : 'aix',
                 arch                : 'ppc64',
                 additionalNodeLabels: [
-                        temurin: 'xlc16&&aix720',
+                        temurin: 'openxl17&&aix720',
                         openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
                 ],
                 test                : [
@@ -213,7 +213,7 @@ class Config22 {
                         ]
                 ],
                 additionalTestLabels: [
-                        temurin      : 'sw.os.aix.7_2'
+                        temurin      : 'sw.os.aix.7_2TL5'
                 ],
                 cleanWorkspaceAfterBuild: true,
                 configureArgs       : [
