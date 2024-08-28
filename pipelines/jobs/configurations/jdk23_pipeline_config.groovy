@@ -111,7 +111,7 @@ class Config23 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
+                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
 
@@ -122,7 +122,7 @@ class Config23 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -131,9 +131,12 @@ class Config23 {
                 arch                : 'aarch64',
                 dockerImage         : 'adoptopenjdk/alpine3_build_image',
                 test                : 'default',
-                configureArgs       : '--enable-headless-only=yes',
+                configureArgs       : [
+                        'openj9'    : '--enable-headless-only=yes',
+                        'temurin'   : '--enable-headless-only=yes --with-jobs=4'
+                ], 
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -305,7 +308,7 @@ class Config23 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
 
@@ -392,7 +395,7 @@ class Config23 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
 
@@ -403,6 +406,7 @@ class Config23 {
                         openj9      : 'hw.arch.aarch64 && sw.os.linux'
                 ],
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
+<<<<<<< HEAD
                 dockerNode          : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
@@ -454,12 +458,12 @@ class Config23 {
                 ],
                 configureArgs : [
                         'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace'
+                        'temurin'   : '--enable-dtrace --with-jobs=4'
                 ],
                 cleanWorkspaceAfterBuild: true,
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.6.1810-b03'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.6.1810-b03'
                 ]
         ],
 

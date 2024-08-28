@@ -63,7 +63,7 @@ class Config21 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -72,9 +72,12 @@ class Config21 {
                 arch                : 'aarch64',
                 dockerImage         : 'adoptopenjdk/alpine3_build_image',
                 test                : 'default',
-                configureArgs       : '--enable-headless-only=yes',
+                configureArgs       : [
+                        'openj9'    : '--enable-headless-only=yes',
+                        'temurin'   : '--enable-headless-only=yes --with-jobs=4'
+                ],
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -140,7 +143,7 @@ class Config21 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
+                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
 
@@ -182,7 +185,7 @@ class Config21 {
                 test                : 'default',
                 configureArgs : [
                         'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace --with-jobs=40'
+                        'temurin'   : '--enable-dtrace --with-jobs=4'
                 ],
                 cleanWorkspaceAfterBuild: true,
                 reproducibleCompare : [

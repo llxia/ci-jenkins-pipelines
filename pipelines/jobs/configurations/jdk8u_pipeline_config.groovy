@@ -11,6 +11,9 @@ class Config8 {
                 cleanWorkspaceAfterBuild: true,
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default',
+                configureArgs       : [
+                        'temurin'   : '--disable-ccache'
+                ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom',
                         'openj9'    : '--ssh'
@@ -92,9 +95,10 @@ class Config8 {
                 configureArgs       : [
                         'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         'dragonwell'  : '--enable-unlimited-crypto --with-jvm-variants=server --with-zlib=system',
+                        'temurin'     : '--disable-ccache'
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-source-archive --create-sbom',
+                        'temurin'   : '--create-source-archive --create-sbom --enable-sbom-strace',
                         'openj9'    : '--ssh'
                 ]
         ],
@@ -104,9 +108,12 @@ class Config8 {
                 arch                : 'x64',
                 dockerImage         : 'adoptopenjdk/alpine3_build_image',
                 test                : 'default',
-                configureArgs       : '--disable-headful',
+                configureArgs       : [
+                        'openj9'    : '--disable-headful',
+                        'temurin'   : '--disable-headful --disable-ccache'
+                ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -115,9 +122,12 @@ class Config8 {
                 arch                : 'aarch64',
                 dockerImage         : 'adoptopenjdk/alpine3_build_image',
                 test                : 'default',
-                configureArgs       : '--disable-headful',
+                configureArgs       : [
+                        'openj9'    : '--disable-headful',
+                        'temurin'   : '--disable-headful --disable-ccache --with-jobs=4'
+                ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -132,6 +142,9 @@ class Config8 {
                 ],
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default',
+                configureArgs       : [
+                        'temurin'   : '--disable-ccache'
+                ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom',
                         'openj9'    : '--ssh'
@@ -147,10 +160,13 @@ class Config8 {
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.windows'
                 ],
                 buildArgs : [
-                        temurin : '--jvm-variant client,server --create-sbom',
+                        'temurin' : '--jvm-variant client,server --create-sbom',
                         'openj9'    : '--ssh'
                 ],
-                configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                configureArgs      : [
+                        'openj9'        : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                        'temruin'       : '--disable-ccache'
+                ],
                 test                 : 'default'
         ],
 
@@ -169,6 +185,9 @@ class Config8 {
                     'openj9'        : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 cleanWorkspaceAfterBuild: true,
+                configureArgs       : [
+                        'temurin'   : '--disable-ccache'
+                ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom',
                         'openj9'    : '--ssh'
@@ -249,7 +268,7 @@ class Config8 {
                         ]
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom',
+                        'temurin'   : '--create-sbom --enable-sbom-strace',
                         'openj9'    : '--ssh'
                 ]
         ],
@@ -258,6 +277,9 @@ class Config8 {
                 os  : 'solaris',
                 arch: 'sparcv9',
                 test: 'default',
+                configureArgs       : [
+                        'temurin'   : '--disable-ccache'
+                ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom'
                 ]
@@ -267,6 +289,9 @@ class Config8 {
                 os                  : 'solaris',
                 arch                : 'x64',
                 test                : 'default',
+                configureArgs       : [
+                        'temurin'   : '--disable-ccache'
+                ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom'
                 ]
@@ -347,11 +372,13 @@ class Config8 {
                 dockerNode         : 'sw.tool.docker',
                 dockerCredential : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
-                        'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                        'temurin'   : '--disable-ccache'
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom',
+                        'temurin'   : '--create-sbom --enable-sbom-strace',
                         'openj9'    : '--ssh'
+
                 ]
         ],
 
@@ -362,8 +389,11 @@ class Config8 {
                 dockerImage: 'adoptopenjdk/ubuntu1604_build_image',
                 dockerArgs: '--platform linux/arm/v7',
                 test: 'default',
+                configureArgs       : [ 
+                        'temurin'   : '--disable-ccache --with-jobs=4'
+                ],    
                 buildArgs           : [
-                        'temurin'   : '--create-sbom'
+                        'temurin'   : '--create-sbom --enable-sbom-strace'
                 ]
         ],
 
@@ -429,7 +459,7 @@ class Config8 {
                         ]
                 ],
                 buildArgs           : [
-                        'temurin'   : '--create-sbom',
+                        'temurin'   : '--create-sbom --enable-sbom-strace',
                         'openj9'    : '--ssh'
                 ]
         ],
