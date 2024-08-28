@@ -317,6 +317,21 @@ class Build {
 
         return jdkRepo
     }
+
+    /*
+      If the given result is not SUCCESS then set the current stage result and build result accordingly
+    */
+    def setStageResult(String stage, String result) {
+        if (result != "SUCCESS") {
+            // Use catchError to issue error message and set build & stage result
+            context.catchError(buildResult: result, stageResult: result) {
+                context.error("${stage} not successful, setting stage result to: "+result)
+            }
+        } else {
+            context.println "${stage} result was SUCCESS"
+        }
+    }
+
     /*
     Run smoke tests, which should block the running of downstream test jobs if there are failures.
     If a test job that doesn't exist, it will be created dynamically.
@@ -361,8 +376,9 @@ class Build {
                             context.string(name: 'VENDOR_TEST_REPOS', value: vendorTestRepos),
                             context.string(name: 'VENDOR_TEST_BRANCHES', value: vendorTestBranches),
                             context.string(name: 'TIME_LIMIT', value: '1')
-                    ]  
+                    ]
                 currentBuild.result = testJob.getResult()
+                setStageResult("smoke test", testJob.getResult())
                 return testJob.getResult()
             }
         } catch (Exception e) {
@@ -586,7 +602,7 @@ class Build {
                             }
                         }
 
-                    def testJobParams = [
+                        def testJobParams = [
                         context.string(name: 'SDK_RESOURCE', value: 'customized'),
                         context.string(name: 'CUSTOMIZED_SDK_URL', value: customizedSdkUrl),
                         context.string(name: 'CUSTOMIZED_SDK_URL_CREDENTIAL_ID', value: artifactoryCredential),
@@ -627,6 +643,7 @@ class Build {
                                         parameters: testJobParams,
                                         wait: true
                         currentBuild.result = testJob.getResult()
+                        setStageResult("${testType}", testJob.getResult())
                         context.node('worker') {
                             //Copy Taps files from downstream test jobs if files available. 
                             context.sh 'rm -f workspace/target/AQAvitTaps/*.tap'
@@ -650,6 +667,7 @@ class Build {
                 }
             } catch (Exception e) {
                 context.println "Failed to execute test: ${e.message}"
+                currentBuild.result = 'FAILURE'
             }
         }
         return testStages
@@ -1175,6 +1193,7 @@ class Build {
                     } catch (e) {
                         context.println("Failed to build ${buildConfig.TARGET_OS} installer ${e}")
                         currentBuild.result = 'FAILURE'
+                        setStageResult("installer", 'FAILURE')
                     }
                 }
 
@@ -1200,7 +1219,6 @@ class Build {
                         context.sh "cd target/${buildConfig.TARGET_OS}/${buildConfig.ARCHITECTURE}/${buildConfig.VARIANT}/ && for file in \$(ls *.${extension}); do sha256sum \"\$file\" > \$file.sha256.txt ; done"
                         writeMetadata(versionData, false)
                         context.archiveArtifacts artifacts: 'workspace/target/*'
-
                     } else if (buildConfig.TARGET_OS == 'aix') {
                         signInstallerJob(versionData);
                         writeMetadata(versionData, false)
@@ -1209,6 +1227,7 @@ class Build {
                 } catch (e) {
                     context.println("Failed to build ${buildConfig.TARGET_OS} installer ${e}")
                     currentBuild.result = 'FAILURE'
+                    setStageResult("sign installer", 'FAILURE')
                 }
             }
         }
@@ -1282,6 +1301,7 @@ class Build {
     // For Windows and Mac verify that all necessary executables are Signed and Notarized(mac)
     private void verifySigning() {
         if (buildConfig.TARGET_OS == "windows" || buildConfig.TARGET_OS == "mac") {
+          context.stage('sign verification') {
             try {
                 context.println "RUNNING sign_verification for ${buildConfig.TARGET_OS}/${buildConfig.ARCHITECTURE} ..."
 
@@ -1311,7 +1331,9 @@ class Build {
             } catch (e) { 
                 context.println("Failed to sign_verification for ${buildConfig.TARGET_OS}/${buildConfig.ARCHITECTURE} ${e}")
                 currentBuild.result = 'FAILURE'
-            } 
+                setStageResult("sign verification", 'FAILURE')
+            }
+          }
         }
     }
 
@@ -2620,6 +2642,7 @@ class Build {
                         }
                     } catch (Exception e) {
                         context.println(e.message)
+                        currentBuild.result = 'FAILURE'
                     }
                 }
 
@@ -2642,6 +2665,7 @@ class Build {
                         gpgSign()
                     } catch (Exception e) {
                         context.println(e.message)
+                        currentBuild.result = 'FAILURE'
                     }
                 }
 
@@ -2652,6 +2676,7 @@ class Build {
                             verifySigning()
                         } catch (Exception e) {
                             context.println(e.message)
+                            currentBuild.result = 'FAILURE'
                         }
                     }
                 }
