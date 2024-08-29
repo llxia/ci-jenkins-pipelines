@@ -1934,6 +1934,9 @@ class Build {
 
                     // Perform a git clean outside of checkout to avoid the Jenkins enforced 10 minute timeout
                     // https://github.com/adoptium/infrastucture/issues/1553
+                    if ( buildConfig.TARGET_OS == 'windows' && buildConfig.DOCKER_IMAGE ) { 
+                        context.sh(script: 'git config --global safe.directory $(cygpath ' + '\$' + '{WORKSPACE})')
+                    }
                     context.sh(script: 'git clean -fdx')
 
                     printGitRepoInfo()
@@ -2492,7 +2495,11 @@ class Build {
                                 }
                             }
                             // Store the pulled docker image digest as 'buildinfo'
-                            dockerImageDigest = context.sh(script: "docker inspect --format='{{.RepoDigests}}' ${buildConfig.DOCKER_IMAGE}", returnStdout:true)
+                            if ( buildConfig.TARGET_OS == 'windows' && buildConfig.DOCKER_IMAGE ) { 
+                                dockerImageDigest = context.sh(script: "docker inspect --format={{.Id}} ${buildConfig.DOCKER_IMAGE} | /bin/cut -d: -f2", returnStdout:true)
+                            } else {
+                                dockerImageDigest = context.sh(script: "docker inspect --format='{{.RepoDigests}}' ${buildConfig.DOCKER_IMAGE}", returnStdout:true)
+                            }
 
                             // Use our dockerfile if DOCKER_FILE is defined
                             if (buildConfig.DOCKER_FILE) {
@@ -2647,7 +2654,7 @@ class Build {
                 // Run Smoke Tests and AQA Tests
                 if (enableTests) {
                   if (currentBuild.currentResult != "SUCCESS") {
-                    context.println("[ERROR] Build stages were not successful, not running AQA tests")
+                    context.println('[ERROR] Build stages were not successful, not running AQA tests')
                   } else {
                     try {
                         //Set smoke tests blocking in release testing only
