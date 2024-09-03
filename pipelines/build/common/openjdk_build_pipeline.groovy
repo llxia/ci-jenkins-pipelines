@@ -465,11 +465,13 @@ class Build {
                     context.stage("${testType}") {
                         def rerunIterations = '3'
                         def fipsTestBuildSuffix = "";
+                        def buildList = ""
                         if ("${testType}".contains(".fips")) {
                             String[] tokens = testType.split('\\.')
                             testType = tokens[0] + "." + tokens[1]
                             fipsTestBuildSuffix = tokens[2]
                             rerunIterations = '0'
+                            buildList = "functional/OpenJcePlusTests,functional/security"
                         }
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
                         if ("${testType}".contains('dev') || "${testType}".contains('external')) {
@@ -500,18 +502,22 @@ class Build {
                         def VENDOR_TEST_BRANCHES = ''
                         def VENDOR_TEST_DIRS = ''
                         if ("${testType}".contains('functional')) {
-                            VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/test.git'
-                            VENDOR_TEST_BRANCHES = aqaBranch
-                            VENDOR_TEST_DIRS = 'functional'
+                            if (fipsTestBuildSuffix && !"${fipsTestBuildSuffix}".contains("fips")) {
+                                VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/test.git'
+                                VENDOR_TEST_BRANCHES = aqaBranch
+                                VENDOR_TEST_DIRS = 'functional'
+                            }
                             customizedSdkUrl += " " + testimageUrl
                         } else if ("${testType}".contains('jck')) {
                             VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/jck.git'
                             VENDOR_TEST_BRANCHES = "main"
                             VENDOR_TEST_DIRS = 'jck'
                         } else if ("${testType}".contains('special.openjdk')) {
-                            VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/osb-tests.git'
-                            VENDOR_TEST_BRANCHES = "ibm_tlda"
-                            VENDOR_TEST_DIRS = 'openjdk'
+                            if (fipsTestBuildSuffix && !"${fipsTestBuildSuffix}".contains("fips")) {
+                                VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/osb-tests.git'
+                                VENDOR_TEST_BRANCHES = "ibm_tlda"
+                                VENDOR_TEST_DIRS = 'openjdk'
+                            }
                         }
 
                         def DOCKER_REGISTRY_URL = ''
@@ -636,6 +642,9 @@ class Build {
                         // If TIME_LIMIT is set, override target job default TIME_LIMIT value.
                         if (jobParams.any{mapEntry -> mapEntry.key.equals("TIME_LIMIT")}) {
                             testJobParams.add(context.string(name: 'TIME_LIMIT', value: jobParams["TIME_LIMIT"]))
+                        }
+                        if (buildList) {
+                            testJobParams.add(context.string(name: 'BUILD_LIST', value: buildList))
                         }
 
                         def testJob = context.build job: jobName,
