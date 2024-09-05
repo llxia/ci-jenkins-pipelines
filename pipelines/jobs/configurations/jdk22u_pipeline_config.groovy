@@ -407,7 +407,6 @@ class Config22 {
                         openj9      : 'hw.arch.aarch64 && sw.os.linux'
                 ],
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
-<<<<<<< HEAD
                 dockerNode          : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
