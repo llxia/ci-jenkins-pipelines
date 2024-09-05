@@ -9,10 +9,10 @@ class Config8 {
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac.10_15'
                 ],
                 cleanWorkspaceAfterBuild: true,
-                configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default',
                 configureArgs       : [
-                        'temurin'   : '--disable-ccache'
+                        'temurin'   : '--disable-ccache',
+                        'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom',
@@ -138,10 +138,10 @@ class Config8 {
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.windows',
                         dragonwell: 'win2012'
                 ],
-                configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 test                 : 'default',
                 configureArgs       : [
-                        'temurin'   : '--disable-ccache'
+                        'temurin'   : '--disable-ccache',
+                        'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom',
@@ -179,12 +179,10 @@ class Config8 {
                 additionalTestLabels : [
                         temurin: 'sw.os.aix.7_2'
                 ],
-                configureArgs: [
-                    'openj9'        : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
-                ],
                 cleanWorkspaceAfterBuild: true,
                 configureArgs       : [
-                        'temurin'   : '--disable-ccache'
+                        'temurin'   : '--disable-ccache',
+                        'openj9'    : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
                         'temurin'   : '--create-sbom',
