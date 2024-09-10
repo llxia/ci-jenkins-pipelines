@@ -158,7 +158,7 @@ class Config17 {
                         'temurin'   : '--create-jre-image --create-sbom'
                 ],
                 configureArgs       : [
-                        'openmj9'       : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                        'openj9'       : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
                 ]
         ],
