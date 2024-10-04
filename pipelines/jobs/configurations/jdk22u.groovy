@@ -8,6 +8,9 @@ targetConfigurations = [
         'x64Windows'  : [
                 'openj9'
         ],
+        'aarch64Windows' : [
+                'temurin'
+        ],
         'ppc64Aix'    : [
                 'openj9'
         ],
