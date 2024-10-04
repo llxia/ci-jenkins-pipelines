@@ -10,9 +10,6 @@ class Config17 {
                 ],
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'      : '--create-jre-image --ssh',
                         'temurin'     : '--create-jre-image --create-sbom'
@@ -35,9 +32,6 @@ class Config17 {
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 additionalTestLabels: [
                         openj9      : '!(sw.os.cent.6||sw.os.rhel.6)'
                 ],
@@ -84,9 +78,6 @@ class Config17 {
                         temruin : 'win2022&&vs2019'
                 ],
                 cleanWorkspaceAfterBuild: true,
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
@@ -150,9 +141,6 @@ class Config17 {
                 dockerRegistry: 'https://docker-na.artifactory.swg-devops.com/',
                 dockerCredential : '7c1c2c28-650f-49e0-afd1-ca6b60479546',
                 dockerNode : 'sw.tool.docker',
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'      : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
@@ -177,9 +165,6 @@ class Config17 {
                 ],
                 dockerNode         : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image'
@@ -204,9 +189,6 @@ class Config17 {
                         'openj9'    : '--enable-dtrace  --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         'temurin'   : '--enable-dtrace --with-jobs=4'
                 ],
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
@@ -227,9 +209,6 @@ class Config17 {
                 test                : [
                         temurin : 'default',
                         openj9 : 'default'
-                ],
-                reproducibleCompare : [
-                        'temurin'   : true
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',

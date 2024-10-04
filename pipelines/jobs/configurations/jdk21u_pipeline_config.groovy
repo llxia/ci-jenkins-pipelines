@@ -16,9 +16,6 @@ class Config21 {
                         openj9      : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         temurin     : '--enable-dtrace'
                 ],
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
@@ -38,9 +35,6 @@ class Config21 {
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.x86 && sw.os.linux'
-                ],
-                reproducibleCompare : [
-                        'temurin'   : true
                 ],
                 additionalTestLabels: [
                         openj9      : '!(sw.os.cent.6||sw.os.rhel.6)',
@@ -93,9 +87,6 @@ class Config21 {
                 configureArgs       : [
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"'
                 ],
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
@@ -138,9 +129,6 @@ class Config21 {
                 configureArgs       : [
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
@@ -161,9 +149,6 @@ class Config21 {
                 ],
                 dockerNode         : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 configureArgs       : [
                         'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
@@ -188,9 +173,6 @@ class Config21 {
                         'temurin'   : '--enable-dtrace --with-jobs=4'
                 ],
                 cleanWorkspaceAfterBuild: true,
-                reproducibleCompare : [
-                        'temurin'   : true
-                ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.6.1810-b03'
@@ -208,9 +190,6 @@ class Config21 {
                 test                : 'default',
                 configureArgs       : [
                         openj9      : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
-                ],
-                reproducibleCompare : [
-                        'temurin'   : true
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
