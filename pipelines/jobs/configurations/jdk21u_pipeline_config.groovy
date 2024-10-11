@@ -89,7 +89,7 @@ class Config21 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
+                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.0'
                 ]
         ],
 
@@ -217,7 +217,7 @@ class Config21 {
                 additionalNodeLabels: 'win2022&&vs2022',
                 test                : 'default',
                 buildArgs       : [
-                        'temurin'   : '--create-jre-image --create-sbom --cross-compile'
+                        'temurin'   : '--create-jre-image --create-sbom --cross-compile --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.0'
                 ]
         ],
 
