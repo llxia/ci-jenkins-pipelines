@@ -2679,9 +2679,9 @@ class Build {
 
                 // Run Smoke Tests and AQA Tests
                 if (enableTests) {
-                  if (currentBuild.currentResult != "SUCCESS") {
-                    context.println('[ERROR] Build stages were not successful, not running AQA tests')
-                  } else {
+                    if (currentBuild.currentResult != "SUCCESS") {
+                        context.println('[WARNING] Build stages were not successful.')
+                    }
                     try {
                         //Set smoke tests blocking in release testing only
                         def smokeTestsResult = runSmokeTests()
@@ -2712,7 +2712,6 @@ class Build {
                         context.println(e.message)
                         currentBuild.result = 'FAILURE'
                     }
-                  }
                 }
 
                 // Compare reproducible build if needed
