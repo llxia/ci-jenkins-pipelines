@@ -2653,7 +2653,8 @@ class Build {
                         }
                     } catch (FlowInterruptedException e) {
                         currentBuild.result = 'FAILURE'
-                        throw new Exception("[ERROR] Installer job timeout (${buildTimeouts.INSTALLER_JOBS_TIMEOUT} HOURS) has been reached OR the downstream installer job failed. Exiting...")
+                        //throw new Exception("[ERROR] Installer job timeout (${buildTimeouts.INSTALLER_JOBS_TIMEOUT} HOURS) has been reached OR the downstream installer job failed. Exiting...")
+                        context.println('[WARNING] Installer job was not successful.')
                     }
                 }
                 if (!env.JOB_NAME.contains('pr-tester') && context.JENKINS_URL.contains('adopt')) {
