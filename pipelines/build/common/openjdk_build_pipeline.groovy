@@ -502,10 +502,14 @@ class Build {
                         def VENDOR_TEST_BRANCHES = ''
                         def VENDOR_TEST_DIRS = ''
                         if ("${testType}".contains('functional')) {
-                            if (fipsTestBuildSuffix && !"${fipsTestBuildSuffix}".contains("fips")) {
-                                VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/test.git'
-                                VENDOR_TEST_BRANCHES = aqaBranch
-                                VENDOR_TEST_DIRS = 'functional'
+                            VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/test.git'
+                            VENDOR_TEST_BRANCHES = aqaBranch
+                            VENDOR_TEST_DIRS = 'functional'
+                            // do not set functional vendor repo for FIPS
+                            if (fipsTestBuildSuffix && "${fipsTestBuildSuffix}".contains("fips")) {
+                                VENDOR_TEST_REPOS = ''
+                                VENDOR_TEST_BRANCHES = ''
+                                VENDOR_TEST_DIRS = ''
                             }
                             customizedSdkUrl += " " + testimageUrl
                         } else if ("${testType}".contains('jck')) {
@@ -513,10 +517,14 @@ class Build {
                             VENDOR_TEST_BRANCHES = "main"
                             VENDOR_TEST_DIRS = 'jck'
                         } else if ("${testType}".contains('special.openjdk')) {
-                            if (fipsTestBuildSuffix && !"${fipsTestBuildSuffix}".contains("fips")) {
-                                VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/osb-tests.git'
-                                VENDOR_TEST_BRANCHES = "ibm_tlda"
-                                VENDOR_TEST_DIRS = 'openjdk'
+                            VENDOR_TEST_REPOS = 'git@github.ibm.com:runtimes/osb-tests.git'
+                            VENDOR_TEST_BRANCHES = "ibm_tlda"
+                            VENDOR_TEST_DIRS = 'openjdk'
+                            // do not set openjdk vendor repo for FIPS
+                            if (fipsTestBuildSuffix && "${fipsTestBuildSuffix}".contains("fips")) {
+                                VENDOR_TEST_REPOS = ''
+                                VENDOR_TEST_BRANCHES = ''
+                                VENDOR_TEST_DIRS = ''
                             }
                         }
 
