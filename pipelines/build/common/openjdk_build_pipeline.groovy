@@ -471,7 +471,6 @@ class Build {
                             testType = tokens[0] + "." + tokens[1]
                             fipsTestBuildSuffix = tokens[2]
                             rerunIterations = '0'
-                            buildList = "functional/OpenJcePlusTests,functional/security"
                         }
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
                         if ("${testType}".contains('dev') || "${testType}".contains('external')) {
@@ -510,6 +509,7 @@ class Build {
                                 VENDOR_TEST_REPOS = ''
                                 VENDOR_TEST_BRANCHES = ''
                                 VENDOR_TEST_DIRS = ''
+                                buildList = "functional/OpenJcePlusTests,functional/security"
                             }
                             customizedSdkUrl += " " + testimageUrl
                         } else if ("${testType}".contains('jck')) {
