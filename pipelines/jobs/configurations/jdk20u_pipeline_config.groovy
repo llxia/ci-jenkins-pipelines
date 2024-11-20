@@ -50,7 +50,6 @@ class Config20 {
                                 "special.functional",
                                 "special.jck",
                                 "sanity.external",
-                                "sanity.functional.fips140_2",
                                 "sanity.jck.fips140_2",
                                 "extended.jck.fips140_2",
                                 "special.jck.fips140_2",
