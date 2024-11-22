@@ -382,6 +382,10 @@ class Config11 {
                         'special.jck.fips140_2',
                         'sanity.openjdk.fips140_2',
                         'extended.openjdk.fips140_2',
+                        'extended.functional.fips140_3_OpenJCEPlusFIPS',
+                        'sanity.jck.fips140_3_OpenJCEPlusFIPS',
+                        'extended.jck.fips140_3_OpenJCEPlusFIPS',
+                        'special.jck.fips140_3_OpenJCEPlusFIPS',
                         'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
                         'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                     ],
@@ -426,7 +430,57 @@ class Config11 {
             buildArgs : [
                     openj9 : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk11 -b ibm_sdk'
             ],
-            test                : 'default',
+            test                : [
+                    nightly: [
+                        'sanity.functional',
+                        'sanity.openjdk',
+                        'sanity.perf',
+                        'sanity.jck',
+                        'sanity.system',
+                        'extended.functional',
+                        'extended.openjdk',
+                        'special.system'
+                    ],
+                    weekly : [     
+                        'sanity.functional',
+                        'sanity.openjdk',
+                        'sanity.perf',
+                        'sanity.jck',
+                        'sanity.system',
+                        'extended.functional',
+                        'extended.openjdk',
+                        'extended.perf',
+                        'extended.jck',
+                        'extended.system',
+                        'special.functional',
+                        'special.jck',
+                        'special.openjdk',
+                        'special.system',
+                        'dev.functional',
+                        'extended.functional.fips140_3_OpenJCEPlusFIPS',
+                        'sanity.jck.fips140_3_OpenJCEPlusFIPS',
+                        'extended.jck.fips140_3_OpenJCEPlusFIPS',
+                        'special.jck.fips140_3_OpenJCEPlusFIPS',
+                        'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
+                        'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
+                    ],
+                    release : [
+                        'sanity.functional',
+                        'sanity.openjdk',
+                        'sanity.perf',
+                        'sanity.jck',
+                        'sanity.system',
+                        'extended.functional',
+                        'extended.openjdk',
+                        'extended.perf',
+                        'extended.jck',
+                        'extended.system',
+                        'special.functional',
+                        'special.jck',
+                        'special.openjdk',
+                        'special.system'
+                    ]
+            ],
             configureArgs       : [
                     'openj9'      : '--with-jdk-rc-name="IBM Semeru Runtime"'
             ],
@@ -465,6 +519,10 @@ class Config11 {
                         'special.jck',
                         'special.openjdk',
                         'special.system',
+                        'extended.functional.fips140_3_OpenJCEPlusFIPS',
+                        'sanity.jck.fips140_3_OpenJCEPlusFIPS',
+                        'extended.jck.fips140_3_OpenJCEPlusFIPS',
+                        'special.jck.fips140_3_OpenJCEPlusFIPS',
                         'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
                         'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                     ],
@@ -530,6 +588,10 @@ class Config11 {
                         'special.jck.fips140_2',
                         'sanity.openjdk.fips140_2',
                         'extended.openjdk.fips140_2',
+                        'extended.functional.fips140_3_OpenJCEPlusFIPS',
+                        'sanity.jck.fips140_3_OpenJCEPlusFIPS',
+                        'extended.jck.fips140_3_OpenJCEPlusFIPS',
+                        'special.jck.fips140_3_OpenJCEPlusFIPS',
                         'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
                         'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                     ],
@@ -608,6 +670,10 @@ class Config11 {
                         'special.jck.fips140_2',
                         'sanity.openjdk.fips140_2',
                         'extended.openjdk.fips140_2',
+                        'extended.functional.fips140_3_OpenJCEPlusFIPS',
+                        'sanity.jck.fips140_3_OpenJCEPlusFIPS',
+                        'extended.jck.fips140_3_OpenJCEPlusFIPS',
+                        'special.jck.fips140_3_OpenJCEPlusFIPS',
                         'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
                         'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
                     ],
