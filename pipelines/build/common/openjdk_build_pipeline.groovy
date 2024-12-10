@@ -2686,6 +2686,8 @@ class Build {
                     }
                 }
 
+                def smokeTestsResult = runSmokeTests()
+
                 // Run Smoke Tests and AQA Tests
                 if (enableTests) {
                     if (currentBuild.currentResult != "SUCCESS") {
@@ -2693,7 +2695,6 @@ class Build {
                     }
                     try {
                         //Set smoke tests blocking in release testing only
-                        def smokeTestsResult = runSmokeTests()
                         if (smokeTestsResult == 'SUCCESS' || !buildConfig.RELEASE) {
                             // Remote trigger Eclipse Temurin JCK tests
                             if (buildConfig.VARIANT == 'temurin' && enableTCK) {
