@@ -1378,6 +1378,7 @@ return {
             aqaReference: aqaReference,
             aqaAutoGen: Boolean.parseBoolean(aqaAutoGen),
             publishName: publishName,
+            openjceplusBranch: openjceplusBranch,
             additionalConfigureArgs: additionalConfigureArgs,
             scmVars: scmVars,
             additionalBuildArgs: additionalBuildArgs,

@@ -2161,7 +2161,9 @@ class Build {
                                     def javaVersion = getJavaVersionNumber()
                                     if (!DEFAULTS_JSON['exclude-openjceplus'].contains(javaVersion)) {
                                         def openjceplusBranch = "semeru-java" + javaVersion.toString()
-                                        if (buildConfig.RELEASE) {
+                                        if (buildConfig.OPENJCEPLUS_BRANCH){
+                                            openjceplusBranch = buildConfig.OPENJCEPLUS_BRANCH
+                                        } else if (buildConfig.RELEASE) {
                                             try {
                                                 def branchSuffix = (buildConfig.PUBLISH_NAME =~ /jdk-([0-9]+(\.[0-9]+){0,3})\+.*/)[ 0 ][ 1 ]
                                                 openjceplusBranch = "semeru-java-" + branchSuffix

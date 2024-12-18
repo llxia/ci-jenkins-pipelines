@@ -7,7 +7,7 @@
         "pipeline_branch"    : "ibm",
         "installer_url"      : "git@github.ibm.com:runtimes/adoptium-installer.git",
         "installer_branch"   : "ibm",
-        "helper_ref"         : "master"
+        "helper_ref"         : "ibm"
     },
     "jenkinsDetails"         : {
         "rootUrl"            : "https://hyc-runtimes-jenkins.swg-devops.com/",
