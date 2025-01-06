@@ -641,6 +641,7 @@ class Build {
                         context.string(name: 'VENDOR_TEST_REPOS', value: VENDOR_TEST_REPOS),
                         context.string(name: 'VENDOR_TEST_BRANCHES', value: VENDOR_TEST_BRANCHES),
                         context.string(name: 'VENDOR_TEST_DIRS', value: VENDOR_TEST_DIRS),
+                        context.booleanParam(name: 'RERUN_FAILURE', value: true),
                         context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
                         context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
                         context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired),
