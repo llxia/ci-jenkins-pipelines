@@ -152,10 +152,21 @@ class Build {
         jobParams.put('LEVELS', 'extended')
         jobParams.put('GROUPS', 'functional')
         jobParams.put('TEST_JOB_NAME', "${env.JOB_NAME}_SmokeTests")
-        jobParams.put('BUILD_LIST', 'functional/buildAndPackage')
+        jobParams.put('BUILD_LIST', 'functional/buildAndPackage,functional/smokeTests')
         def vendorTestRepos = ((String)ADOPT_DEFAULTS_JSON['repository']['build_url']) - ('.git')
         def vendorTestDirs = ADOPT_DEFAULTS_JSON['repository']['test_dirs']
         def vendorTestBranches = ADOPT_DEFAULTS_JSON['repository']['build_branch']
+
+        // add internal repos/branch
+        def aqaBranch = "master"
+        if (buildConfig.SCM_REF && buildConfig.AQA_REF) {
+            aqaBranch = buildConfig.AQA_REF
+        }
+
+        vendorTestRepos += ",git@github.ibm.com:runtimes/test.git"
+        vendorTestBranches += "," + aqaBranch
+        vendorTestDirs += ",functional"
+
         jobParams.put('VENDOR_TEST_REPOS', vendorTestRepos)
         jobParams.put('VENDOR_TEST_DIRS', vendorTestDirs)
         jobParams.put('VENDOR_TEST_BRANCHES', vendorTestBranches)
