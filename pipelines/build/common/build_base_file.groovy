@@ -1159,8 +1159,8 @@ class Builder implements Serializable {
                                         }
 
                                         copyArtifactSuccess = true
-                                        if (release) {
-                                            //def (String releaseToolUrl, String releaseComment) = publishBinary(config)
+                                        if (release && context.JENKINS_URL.contains('adoptium')) {
+                                            def (String releaseToolUrl, String releaseComment) = publishBinary(config)
                                             releaseSummary.appendText("<li><a href=${releaseToolUrl}> ${releaseComment} ${config.VARIANT} ${publishName} ${config.TARGET_OS} ${config.ARCHITECTURE}</a></li>")
                                         }
                                     }
@@ -1186,7 +1186,6 @@ class Builder implements Serializable {
                 }
             }
             context.parallel jobs
-            releaseSummary.appendText('</ul>', false)
 
             if (enableSourceRpm && (!linuxTargets.isEmpty() || !taggedLinuxTargets.isEmpty())) {
                 //build RedHat source RPM package for Linux platforms
