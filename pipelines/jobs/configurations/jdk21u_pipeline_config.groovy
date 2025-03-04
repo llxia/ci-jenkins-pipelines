@@ -5,11 +5,11 @@ class Config21 {
                 os                  : 'mac',
                 arch                : 'x64',
                 additionalNodeLabels: [
-                        openj9      : 'hw.arch.x86 && sw.os.mac.10_15',
+                        openj9      : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2',
                         temurin     : 'xcode15.0.1'
                 ],
                 additionalTestLabels: [
-                        openj9      : '!sw.os.mac.10_11'
+                        openj9      : ''
                 ],
                 test                : 'default',
                 configureArgs       : [
@@ -183,7 +183,7 @@ class Config21 {
                 os                  : 'mac',
                 arch                : 'aarch64',
                 additionalNodeLabels: [
-                        openj9      : 'hw.arch.aarch64 && sw.os.mac',
+                        openj9      : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.mac && sw.tool.xcode.15_2',
                         temurin     : 'xcode15.0.1'
                 ],
                 cleanWorkspaceAfterBuild: true,
@@ -224,8 +224,8 @@ class Config21 {
         x64MacIBM    : [
                 os                  : 'mac',
                 arch                : 'x64',
-                additionalNodeLabels: 'hw.arch.x86 && sw.os.mac.10_15',
-                additionalTestLabels: '!sw.os.mac.10_11',
+                additionalNodeLabels: 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2',
+                additionalTestLabels: '',
                 test                : 'default',
                 configureArgs       : '--enable-dtrace',
                 additionalFileNameTag: 'IBM',
@@ -669,7 +669,7 @@ class Config21 {
         aarch64MacIBM: [
                 os                  : 'mac',
                 arch                : 'aarch64',
-                additionalNodeLabels: 'hw.arch.aarch64 && sw.os.mac',
+                additionalNodeLabels: 'ci.project.openj9 && hw.arch.aarch64 && sw.os.mac && sw.tool.xcode.15_2',
                 cleanWorkspaceAfterBuild: true,
                 test                : 'default',
                 configureArgs       : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs',
