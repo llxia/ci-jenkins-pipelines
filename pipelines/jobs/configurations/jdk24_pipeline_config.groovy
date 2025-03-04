@@ -5,11 +5,11 @@ class Config24 {
                 os                  : 'mac',
                 arch                : 'x64',
                 additionalNodeLabels: [
-                        openj9      : 'hw.arch.x86 && sw.os.mac.10_15',
+                        openj9      : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2',
                         temurin     : 'xcode15.0.1'
                 ],
                 additionalTestLabels: [
-                        openj9      : '!sw.os.mac.10_15',
+                        openj9      : '',
                         temurin     : '!sw.os.osx.10_14'
                 ],
                 test                : 'default',
@@ -524,7 +524,7 @@ class Config24 {
                 os                  : 'mac',
                 arch                : 'aarch64',
                 additionalNodeLabels: [
-                        openj9      : 'hw.arch.aarch64 && sw.os.mac',
+                        openj9      : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.mac && sw.tool.xcode.15_2',
                         temurin     : 'xcode15.0.1'
                 ],
                 cleanWorkspaceAfterBuild: true,
