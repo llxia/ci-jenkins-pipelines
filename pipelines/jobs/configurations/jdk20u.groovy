@@ -1,38 +1,44 @@
 targetConfigurations = [
         'x64Mac'      : [
-                'openj9'
+                'temurin'
         ],
         'x64Linux'    : [
-                'openj9'
+                'temurin'
+        ],
+        'x64AlpineLinux' : [
+                'temurin'
         ],
         'x64Windows'  : [
-                'openj9'
+                'temurin'
         ],
         'ppc64Aix'    : [
-                'openj9'
+                'temurin'
         ],
         'ppc64leLinux': [
-                'openj9'
+                'temurin'
         ],
         's390xLinux'  : [
-                'openj9'
+                'temurin'
         ],
         'aarch64Linux': [
-                'openj9'
+                'hotspot',
+                'temurin'
         ],
         'aarch64Mac': [
-                'openj9'
+                'temurin'
+        ],
+        'arm32Linux'  : [
+                'temurin'
         ]
 ]
 
-// Weekly 7:30 pm Wed
-triggerSchedule_nightly = '30 19 * * 1-4'
-// 11:00 am Sat
-triggerSchedule_weekly = '0 11 * * 6'
-
 // scmReferences to use for weekly release build
 weekly_release_scmReferences = [
-        'openj9'        : ''
+        'hotspot'        : '',
+        'temurin'        : '',
+        'openj9'         : '',
+        'corretto'       : '',
+        'dragonwell'     : ''
 ]
 
 disableJob = true

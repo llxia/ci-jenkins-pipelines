@@ -1,63 +1,58 @@
 targetConfigurations = [
         'x64Mac'      : [
+                'temurin',
                 'openj9'
         ],
         'x64Linux'    : [
-                'openj9'
+                'temurin',
+                'openj9',
+                'bisheng'
+        ],
+        'x64AlpineLinux' : [
+                'temurin'
         ],
         'x64Windows'  : [
+                'temurin',
                 'openj9'
         ],
+        'x32Windows'  : [
+                'temurin'
+        ],
         'ppc64Aix'    : [
+                'temurin',
                 'openj9'
         ],
         'ppc64leLinux': [
+                'temurin',
                 'openj9'
         ],
         's390xLinux'  : [
+                'temurin',
                 'openj9'
         ],
         'aarch64Linux': [
-                'openj9'
+                'temurin',
+                'openj9',
+                'bisheng'
         ],
         'aarch64Mac': [
-                'openj9'
+                'temurin'
         ],
-        'x64MacIBM': [
-                'openj9'
+        'arm32Linux'  : [
+                'temurin'
         ],
-        'x64LinuxIBM': [
-                'openj9'
-        ],
-        'x64WindowsIBM': [
-                'openj9'
-        ],
-        'ppc64AixIBM': [
-                'openj9'
-        ],
-        'ppc64leLinuxIBM': [
-                'openj9'
-        ],
-        's390xLinuxIBM': [
-                'openj9'
-        ],
-        'aarch64LinuxIBM': [
-                'openj9'
-        ],
-        'aarch64MacIBM': [
-                'openj9'
+        'riscv64Linux': [
+                'temurin'
         ]
-
 ]
 
-// Weeknights at 11:59pm
-triggerSchedule_nightly='0 19 * * 1-4'
-// H9:00am Sat
-triggerSchedule_weekly='30 10 * * 6'
-
 // scmReferences to use for weekly release build
-weekly_release_scmReferences=[
-        'openj9'         : ''
+weekly_release_scmReferences = [
+        'temurin'        : '',
+        'openj9'         : '',
+        'corretto'       : '',
+        'dragonwell'     : '',
+        'bisheng'        : ''
 ]
 
 return this

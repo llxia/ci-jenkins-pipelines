@@ -1,30 +1,25 @@
 targetConfigurations = [
-        'x64Mac'        : [ 'openj9' ],
-        'x64Linux'      : [ 'openj9' ],
-        'x64Windows'    : [ 'openj9' ],
-        'ppc64Aix'      : [ 'openj9' ],
-        'ppc64leLinux'  : [ 'openj9' ],
-        's390xLinux'    : [ 'openj9' ],
-        'aarch64Linux'  : [ 'openj9' ],
-        'aarch64Mac'    : [ 'openj9' ],
-        'x64MacIBM'        : [ 'openj9' ],
-        'x64LinuxIBM'      : [ 'openj9' ],
-        'x64WindowsIBM'    : [ 'openj9' ],
-        'ppc64AixIBM'      : [ 'openj9' ],
-        'ppc64leLinuxIBM'  : [ 'openj9' ],
-        's390xLinuxIBM'    : [ 'openj9' ],
-        'aarch64LinuxIBM'  : [ 'openj9' ],
-        'aarch64MacIBM'    : [ 'openj9' ]
+        'x64Mac'        : [    'temurin',    'openj9'                    ],
+        'x64Linux'      : [    'temurin',    'openj9',    'dragonwell',    'corretto',    'bisheng',    'fast_startup'],
+        'x64AlpineLinux': [    'temurin'                            ],
+        'x64Windows'    : [    'temurin',    'openj9',    'dragonwell'            ],
+        'x32Windows'    : [    'temurin'                            ],
+        'ppc64Aix'      : [    'temurin',    'openj9'                    ],
+        'ppc64leLinux'  : [    'temurin',    'openj9'                    ],
+        's390xLinux'    : [    'temurin',    'openj9'                    ],
+        'aarch64Linux'  : [    'temurin',    'openj9',    'dragonwell',                   'bisheng'    ],
+        'aarch64Mac'    : [    'temurin',                           ],
+        'arm32Linux'    : [    'temurin'                            ]
 ]
 
-// Weeknights at 9:00pm
-triggerSchedule_nightly='0 18 * * 1-4'
-// H9:00am Sat
-triggerSchedule_weekly='0 21 * * 5'
-
 // scmReferences to use for weekly release build
-weekly_release_scmReferences=[
-        'openj9'         : ''
+weekly_release_scmReferences = [
+        'temurin'        : '',
+        'openj9'         : '',
+        'corretto'       : '',
+        'dragonwell'     : '',
+        'fast_startup'   : '',
+        'bisheng'        : ''
 ]
 
 return this

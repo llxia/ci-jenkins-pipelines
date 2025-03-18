@@ -4,20 +4,15 @@ class Config21 {
         x64Mac    : [
                 os                  : 'mac',
                 arch                : 'x64',
-                additionalNodeLabels: [
-                        openj9      : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2',
-                        temurin     : 'xcode15.0.1'
-                ],
+                additionalNodeLabels: 'xcode15.0.1',
                 additionalTestLabels: [
-                        openj9      : ''
+                        openj9      : '!sw.os.osx.10_11'
                 ],
-                test                : 'default',
-                configureArgs       : [
-                        openj9      : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        temurin     : '--enable-dtrace'
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'special.openjdk', 'dev.functional', 'dev.system', 'special.system']
                 ],
+                configureArgs       : '--enable-dtrace',
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ]
         ],
@@ -29,23 +24,18 @@ class Config21 {
                 dockerFile: [
                         openj9      : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                dockerNode          : 'sw.tool.docker && sw.config.uid1000',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                test                : 'default',
-                cleanWorkspaceAfterBuild: true,
-                additionalNodeLabels: [
-                        openj9      : 'hw.arch.x86 && sw.os.linux'
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'sanity.external', 'dev.openjdk', 'dev.functional', 'dev.system', 'special.system']
                 ],
                 additionalTestLabels: [
-                        openj9      : '!(sw.os.cent.6||sw.os.rhel.6)',
-                        temurin     : '!(centos6||rhel6)'
+                        openj9      : '!sw.tool.glibc.2_12',
+                        temurin     : '!sw.tool.glibc.2_12'
                 ],
                 configureArgs       : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                        'openj9'    : '--enable-dtrace',
                         'temurin'   : '--enable-dtrace'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-source-archive --create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
@@ -78,18 +68,15 @@ class Config21 {
         x64Windows: [
                 os                  : 'windows',
                 arch                : 'x64',
-                additionalNodeLabels: [
-                        openj9      : 'hw.arch.x86 && sw.os.windows',
-                        temurin     : 'win2022&&vs2022'
-                ],
-                cleanWorkspaceAfterBuild: true,
-                test                : 'default',
-                configureArgs       : [
-                        openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"'
+                dockerImage         : 'windows2022_build_image',
+                dockerRegistry      : 'https://adoptium.azurecr.io',
+                dockerCredential    : 'bbb9fa70-a1de-4853-b564-5f02193329ac',
+                additionalNodeLabels: 'win2022&&vs2022',
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'special.openjdk', 'dev.functional', 'dev.system', 'special.system']
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.0'
+                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.1742'
                 ]
         ],
 
@@ -98,18 +85,14 @@ class Config21 {
                 arch                : 'ppc64',
                 additionalNodeLabels: [
                         temurin: 'xlc16&&aix720',
-                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2',
+                        openj9:  'xlc16&&aix715'
                 ],
                 test                : 'default',
                 additionalTestLabels: [
                         temurin      : 'sw.os.aix.7_2'
                 ],
                 cleanWorkspaceAfterBuild: true,
-                configureArgs       : [
-                        openj9      : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
-                ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ]
         ],
@@ -117,20 +100,9 @@ class Config21 {
         s390xLinux    : [
                 os                  : 'linux',
                 arch                : 's390x',
+                dockerImage         : 'rhel7_build_image',
                 test                : 'default',
-                cleanWorkspaceAfterBuild: true,
-                additionalNodeLabels: [
-                        openj9:  'ci.project.openj9 && hw.arch.s390x'
-                ],
-                dockerImage: 'sys-rt-docker-local/semeru/s390_rhel7_build_image',
-                dockerRegistry: 'https://docker-na.artifactory.swg-devops.com/',
-                dockerCredential : '7c1c2c28-650f-49e0-afd1-ca6b60479546',
-                dockerNode : 'sw.tool.docker',
-                configureArgs       : [
-                        openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
-                ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
@@ -138,22 +110,14 @@ class Config21 {
         ppc64leLinux    : [
                 os                  : 'linux',
                 arch                : 'ppc64le',
-                test                : 'default',
-                cleanWorkspaceAfterBuild: true,
-                additionalNodeLabels: [
-                    openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
-                ],
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerFile: [
-                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'special.openjdk', 'dev.functional', 'special.system']
                 ],
-                dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
-                        'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        'openj9'      : '--enable-dtrace'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
                 ]
         ],
@@ -161,20 +125,15 @@ class Config21 {
         aarch64Linux    : [
                 os                  : 'linux',
                 arch                : 'aarch64',
-                additionalNodeLabels: [
-                        openj9      : 'hw.arch.aarch64 && sw.os.linux'
-                ],
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                test                : 'default',
-                configureArgs : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'special.openjdk', 'dev.functional', 'special.system']
+                ],
+                configureArgs       : [
+                        'openj9'    : '--enable-dtrace',
                         'temurin'   : '--enable-dtrace --with-jobs=4'
                 ],
-                cleanWorkspaceAfterBuild: true,
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.6.1810-b03'
                 ]
         ],
@@ -182,17 +141,11 @@ class Config21 {
         aarch64Mac: [
                 os                  : 'mac',
                 arch                : 'aarch64',
-                additionalNodeLabels: [
-                        openj9      : 'ci.project.openj9 && hw.arch.aarch64 && sw.os.mac && sw.tool.xcode.15_2',
-                        temurin     : 'xcode15.0.1'
-                ],
-                cleanWorkspaceAfterBuild: true,
-                test                : 'default',
-                configureArgs       : [
-                        openj9      : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                additionalNodeLabels: 'xcode15.0.1',
+                test: [
+                        weekly : ['sanity.openjdk', 'sanity.system', 'extended.system', 'sanity.perf', 'sanity.functional', 'extended.functional', 'extended.openjdk', 'extended.perf', 'special.functional', 'special.openjdk', 'dev.functional', 'dev.system', 'special.system']
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
                         'temurin'   : '--create-jre-image --create-sbom'
                 ]
         ],
@@ -213,468 +166,15 @@ class Config21 {
         aarch64Windows: [
                 os                  : 'windows',
                 arch                : 'aarch64',
+                dockerImage         : 'windows2022_build_image',
+                dockerRegistry      : 'https://adoptium.azurecr.io',
+                dockerCredential    : 'bbb9fa70-a1de-4853-b564-5f02193329ac',
                 crossCompile        : 'x64',
                 additionalNodeLabels: 'win2022&&vs2022',
                 test                : 'default',
                 buildArgs       : [
-                        'temurin'   : '--create-jre-image --create-sbom --cross-compile --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.0'
+                        'temurin'   : '--create-jre-image --create-sbom --cross-compile --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.1742'
                 ]
-        ],
-
-        x64MacIBM    : [
-                os                  : 'mac',
-                arch                : 'x64',
-                additionalNodeLabels: 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2',
-                additionalTestLabels: '',
-                test                : 'default',
-                configureArgs       : '--enable-dtrace',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        x64LinuxIBM  : [
-                os                  : 'linux',
-                arch                : 'x64',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerFile          : 'pipelines/build/dockerFiles/cuda.dockerfile',
-                dockerNode          : 'sw.tool.docker && sw.config.uid1000',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.functional',
-                                'sanity.external',
-                                'dev.external',
-                                'dev.openjdk',
-                                'dev.system',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2',
-                                'extended.functional.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.jck.fips140_3_OpenJCEPlusFIPS',
-                                'extended.jck.fips140_3_OpenJCEPlusFIPS',
-                                'special.jck.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.external',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ]
-                ],
-                cleanWorkspaceAfterBuild: true,
-                additionalNodeLabels: 'hw.arch.x86 && sw.os.linux',
-                additionalTestLabels: '!(sw.os.cent.6||sw.os.rhel.6)',
-                configureArgs       : '--enable-dtrace',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        x64WindowsIBM: [
-                os                  : 'windows',
-                arch                : 'x64',
-                additionalNodeLabels: 'hw.arch.x86 && sw.os.windows',
-                cleanWorkspaceAfterBuild: true,
-                test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [     
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.functional',
-                                'extended.functional.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.jck.fips140_3_OpenJCEPlusFIPS',
-                                'extended.jck.fips140_3_OpenJCEPlusFIPS',
-                                'special.jck.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system'
-                        ]
-            ],
-                configureArgs       : '--with-jdk-rc-name="IBM Semeru Runtime"',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        ppc64AixIBM    : [
-                os                  : 'aix',
-                arch                : 'ppc64',
-                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2',
-                test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'extended.functional.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.jck.fips140_3_OpenJCEPlusFIPS',
-                                'extended.jck.fips140_3_OpenJCEPlusFIPS',
-                                'special.jck.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ]
-                ],
-                cleanWorkspaceAfterBuild: true,
-                configureArgs       : '--disable-ccache',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        s390xLinuxIBM    : [
-                os                  : 'linux',
-                arch                : 's390x',
-                test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.functional',
-                                'sanity.external',
-                                'dev.external',
-                                'dev.openjdk',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2',
-                                'extended.functional.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.jck.fips140_3_OpenJCEPlusFIPS',
-                                'extended.jck.fips140_3_OpenJCEPlusFIPS',
-                                'special.jck.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.external',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ]
-                ],
-                cleanWorkspaceAfterBuild: true,
-                additionalNodeLabels: [
-                        openj9:  'ci.project.openj9 && hw.arch.s390x'
-                ],
-                dockerImage: 'sys-rt-docker-local/semeru/s390_rhel7_build_image',
-                dockerRegistry: 'https://docker-na.artifactory.swg-devops.com/',
-                dockerCredential : '7c1c2c28-650f-49e0-afd1-ca6b60479546',
-                dockerNode : 'sw.tool.docker',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        ppc64leLinuxIBM    : [
-                os                  : 'linux',
-                arch                : 'ppc64le',
-                test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.functional',
-                                'sanity.external',
-                                'dev.external',
-                                'dev.openjdk',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2',
-                                'extended.functional.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.jck.fips140_3_OpenJCEPlusFIPS',
-                                'extended.jck.fips140_3_OpenJCEPlusFIPS',
-                                'special.jck.fips140_3_OpenJCEPlusFIPS',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.external',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2',
-                                'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                                'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
-                        ]
-                ],
-                cleanWorkspaceAfterBuild: true,
-                additionalNodeLabels: [
-                    openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
-                ],
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerFile: [
-                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
-                ],
-                dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        aarch64LinuxIBM    : [
-                os                  : 'linux',
-                arch                : 'aarch64',
-                additionalNodeLabels: 'hw.arch.aarch64 && sw.os.linux',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
-                test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.functional',
-                                'sanity.external',
-                                'dev.external',
-                                'dev.openjdk'                       
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'dev.external'
-                        ]
-                ],
-                configureArgs       : '--enable-dtrace',
-                additionalFileNameTag: 'IBM',
-                cleanWorkspaceAfterBuild: true,
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
-        ],
-
-        aarch64MacIBM: [
-                os                  : 'mac',
-                arch                : 'aarch64',
-                additionalNodeLabels: 'ci.project.openj9 && hw.arch.aarch64 && sw.os.mac && sw.tool.xcode.15_2',
-                cleanWorkspaceAfterBuild: true,
-                test                : 'default',
-                configureArgs       : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs',
-                additionalFileNameTag: 'IBM',
-                buildArgs           : '--ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk21 -b ibm_sdk --create-jre-image'
         ]
   ]
 
