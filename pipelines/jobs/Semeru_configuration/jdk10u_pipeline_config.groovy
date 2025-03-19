@@ -108,7 +108,7 @@ class Config10 {
                 test                 : false,
                 additionalFileNameTag: 'linuxXL',
                 configureArgs        : '--with-noncompressedrefs --enable-dtrace=auto'
-        ],
+        ]
   ]
 
 }

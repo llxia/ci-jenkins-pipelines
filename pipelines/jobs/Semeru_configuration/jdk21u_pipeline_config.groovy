@@ -17,9 +17,8 @@ class Config21 {
                         temurin     : '--enable-dtrace'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         x64Linux  : [
@@ -41,13 +40,11 @@ class Config21 {
                         temurin     : '!(centos6||rhel6)'
                 ],
                 configureArgs       : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace'
-                ],
+                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         x64AlpineLinux  : [
@@ -57,8 +54,7 @@ class Config21 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
-                ]
+                        ]
         ],
 
         aarch64AlpineLinux  : [
@@ -67,12 +63,10 @@ class Config21 {
                 dockerImage         : 'adoptopenjdk/alpine3_build_image',
                 test                : 'default',
                 configureArgs       : [
-                        'openj9'    : '--enable-headless-only=yes',
-                        'temurin'   : '--enable-headless-only=yes --with-jobs=4'
-                ],
+                        'openj9'    : '--enable-headless-only=yes'
+                        ],
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace'
-                ]
+                        ]
         ],
 
         x64Windows: [
@@ -88,9 +82,8 @@ class Config21 {
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.0'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         ppc64Aix    : [
@@ -98,7 +91,7 @@ class Config21 {
                 arch                : 'ppc64',
                 additionalNodeLabels: [
                         temurin: 'xlc16&&aix720',
-                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2',
+                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
                 ],
                 test                : 'default',
                 additionalTestLabels: [
@@ -109,9 +102,8 @@ class Config21 {
                         openj9      : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         s390xLinux    : [
@@ -130,9 +122,8 @@ class Config21 {
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         ppc64leLinux    : [
@@ -153,9 +144,8 @@ class Config21 {
                         'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.9.2009-b03'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         aarch64Linux    : [
@@ -169,14 +159,12 @@ class Config21 {
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : 'default',
                 configureArgs : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace --with-jobs=4'
-                ],
+                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        ],
                 cleanWorkspaceAfterBuild: true,
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom --enable-sbom-strace --use-adoptium-devkit gcc-11.3.0-Centos7.6.1810-b03'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         aarch64Mac: [
@@ -192,9 +180,8 @@ class Config21 {
                         openj9      : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image --ssh',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image --ssh'
+                        ]
         ],
 
         riscv64Linux      :  [
@@ -206,8 +193,7 @@ class Config21 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes --enable-dtrace',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        ]
         ],
 
         aarch64Windows: [
@@ -217,8 +203,7 @@ class Config21 {
                 additionalNodeLabels: 'win2022&&vs2022',
                 test                : 'default',
                 buildArgs       : [
-                        'temurin'   : '--create-jre-image --create-sbom --cross-compile --use-adoptium-devkit vs2022_redist_14.40.33807_10.0.26100.0'
-                ]
+                        ]
         ],
 
         x64MacIBM    : [

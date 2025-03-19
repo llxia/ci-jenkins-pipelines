@@ -33,7 +33,6 @@ triggerSchedule_weekly = '0 12 * * 6'
 // scmReferences to use for weekly release build
 weekly_release_scmReferences = [
         'hotspot'        : '',
-        'temurin'        : '',
         'openj9'         : '',
         'corretto'       : '',
         'dragonwell'     : ''

@@ -100,7 +100,7 @@ class Config9 {
                 test                 : false,
                 additionalFileNameTag: 'linuxXL',
                 configureArgs        : '--with-noncompressedrefs --enable-dtrace=auto'
-        ],
+        ]
   ]
 
 }

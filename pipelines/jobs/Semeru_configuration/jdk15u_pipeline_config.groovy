@@ -146,7 +146,7 @@ class Config15 {
                 test                 : 'default',
                 additionalFileNameTag: 'linuxXL',
                 configureArgs        : '--with-noncompressedrefs --enable-dtrace'
-        ],
+        ]
   ]
 
 }

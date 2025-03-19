@@ -18,9 +18,8 @@ class Config20 {
                         temurin     : '--enable-dtrace'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         x64Linux  : [
@@ -66,13 +65,11 @@ class Config20 {
                         temurin     : '!(centos6||rhel6)'
                 ],
                 configureArgs       : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace'
-                ],
+                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-source-archive --create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         x64AlpineLinux  : [
@@ -82,8 +79,7 @@ class Config20 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        ]
         ],
 
         aarch64AlpineLinux  : [
@@ -93,8 +89,7 @@ class Config20 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        ]
         ],
 
         x64Windows: [
@@ -110,9 +105,8 @@ class Config20 {
                         openj9      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         ppc64Aix    : [
@@ -131,9 +125,8 @@ class Config20 {
                         openj9      : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         s390xLinux    : [
@@ -149,9 +142,8 @@ class Config20 {
                         temurin     : '--enable-dtrace'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         ppc64leLinux    : [
@@ -163,13 +155,11 @@ class Config20 {
                         openj9      : 'hw.arch.ppc64le && (sw.os.cent.7 || sw.os.rhel.7)'
                 ],
                 configureArgs       : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace'
-                ],
+                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         aarch64Linux    : [
@@ -183,14 +173,12 @@ class Config20 {
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : 'default',
                 configureArgs : [
-                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temurin'   : '--enable-dtrace'
-                ],
+                        'openj9'    : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                        ],
                 cleanWorkspaceAfterBuild: true,
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         aarch64Mac: [
@@ -206,9 +194,8 @@ class Config20 {
                         openj9      : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
                 buildArgs           : [
-                        'openj9'    : '--create-jre-image',
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        'openj9'    : '--create-jre-image'
+                        ]
         ],
 
         arm32Linux    : [
@@ -220,8 +207,7 @@ class Config20 {
                 test                : 'default',
                 configureArgs       : '--enable-dtrace',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        ]
         ],
 
         riscv64Linux      :  [
@@ -233,8 +219,7 @@ class Config20 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes --enable-dtrace',
                 buildArgs           : [
-                        'temurin'   : '--create-jre-image --create-sbom'
-                ]
+                        ]
         ],
 
         aarch64Windows: [
@@ -244,8 +229,7 @@ class Config20 {
                 additionalNodeLabels: 'win2022&&vs2019',
                 test                : 'default',
                 buildArgs       : [
-                        'temurin'   : '--create-jre-image --create-sbom --cross-compile'
-                ]
+                        ]
         ]
   ]
 

@@ -156,7 +156,7 @@ class Config12 {
                 ],
                 additionalFileNameTag: 'linuxXL',
                 configureArgs        : '--with-noncompressedrefs --disable-ccache --enable-dtrace=auto'
-        ],
+        ]
   ]
 
 }

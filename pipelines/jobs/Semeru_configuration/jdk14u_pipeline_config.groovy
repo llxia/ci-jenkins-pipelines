@@ -177,7 +177,7 @@ class Config14 {
                         weekly : []
                 ],
                 configureArgs       : '--enable-dtrace=auto'
-        ],
+        ]
   ]
 
 }
