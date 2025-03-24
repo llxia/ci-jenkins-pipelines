@@ -1,16 +1,14 @@
 {
     "repository"             : {
+        "build_url"          : "https://github.com/adoptium/temurin-build.git",
+        "build_branch"       : "master",
         "test_dirs"          : "/test/functional",
-        "build_url"          : "https://github.com/ibmruntimes/temurin-build.git",
-        "build_branch"       : "ibm",
-        "pipeline_url"       : "https://github.com/ibmruntimes/ci-jenkins-pipelines.git",
-        "pipeline_branch"    : "ibm",
-        "installer_url"      : "git@github.ibm.com:runtimes/adoptium-installer.git",
-        "installer_branch"   : "ibm",
-        "helper_ref"         : "ibm"
+        "pipeline_url"       : "https://github.com/adoptium/ci-jenkins-pipelines.git",
+        "pipeline_branch"    : "master",
+        "helper_ref"         : "master"
     },
     "jenkinsDetails"         : {
-        "rootUrl"            : "https://hyc-runtimes-jenkins.swg-devops.com/",
+        "rootUrl"            : "https://ci.adoptium.net",
         "rootDirectory"      : "build-scripts"
     },
     "templateDirectories" : {
@@ -42,73 +40,42 @@
         "enableReproducibleCompare" : false,
         "enableTests"        : true,
         "nightlyDefault"     : [
-            "sanity.functional",
             "sanity.openjdk",
-            "sanity.perf",
-            "sanity.jck",
             "sanity.system",
-            "extended.functional",
-            "extended.openjdk",
-            "special.system"
+            "extended.system",
+            "sanity.perf",
+            "sanity.functional",
+            "extended.functional"
         ],
         "weeklyDefault"     : [
-            "sanity.functional",
             "sanity.openjdk",
-            "sanity.perf",
-            "sanity.jck",
             "sanity.system",
+            "extended.system",
+            "sanity.perf",
+            "sanity.functional",
             "extended.functional",
             "extended.openjdk",
             "extended.perf",
-            "extended.jck",
-            "extended.system",
             "special.functional",
-            "special.jck",
             "special.openjdk",
-            "special.system",
             "dev.functional"
         ],
         "releaseDefault"     : [
-            "sanity.functional",
             "sanity.openjdk",
-            "sanity.perf",
-            "sanity.jck",
             "sanity.system",
+            "extended.system",
+            "sanity.perf",
+            "sanity.functional",
             "extended.functional",
             "extended.openjdk",
             "extended.perf",
-            "extended.jck",
-            "extended.system",
-            "special.functional",
-            "special.jck",
-            "special.openjdk",
-            "special.system"
+            "special.functional"
         ],
-        "disabled" : [
-            "sanity.external"
-        ],
-        "enableTestDynamicParallel" : true,
+        "enableTestDynamicParallel"      : true,
         "defaultDynamicParas": {
-            "testLists"      : ["sanity.functional", "extended.functional", "sanity.system", "extended.system", "special.system", "sanity.jck", "extended.jck", "sanity.openjdk", "extended.openjdk", "dev.system"],
-            "numMachines"    : ["3", "3", "3", "3", "5", "4", "8", "2", "3", "5"]
-        },
-        "ebcEnabledTargets":{
-            "linux_x64" :       ["sanity.perf"],
-            "aix_ppc64" :       [""],
-            "linux_aarch64" :   [""],
-            "linux_ppc64le" :   [""],
-            "linux_s390x" :     [""],
-            "mac_aarch64" :     [""],
-            "mac_x64" :         [""],
-            "windows-x64" :     [""],
-            "windows-x32" :     [""]
+            "testLists"      : ["extended.openjdk"],
+            "numMachines"    : ["3"]
         }
     },
-    "enableInstallers"       : true,
-    "enableSourceRpm"        : true,
-    "enableSigner"           : true,
-    "verifySigner"           : false,
-    "exclude-openjceplus"    : [8],
-    "importLibraryScript"    : "pipelines/build/common/import_lib.groovy",
-    "defaultsUrl"            : "https://raw.githubusercontent.com/ibmruntimes/ci-jenkins-pipelines/ibm/pipelines/defaults.json"
+    "defaultsUrl"            : "https://raw.githubusercontent.com/adoptium/ci-jenkins-pipelines/master/pipelines/defaults.json"
 }
