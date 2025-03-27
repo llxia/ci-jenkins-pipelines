@@ -91,7 +91,7 @@ class Config21 {
                 arch                : 'ppc64',
                 additionalNodeLabels: [
                         temurin: 'xlc16&&aix720',
-                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
+                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1'
                 ],
                 test                : 'default',
                 additionalTestLabels: [
@@ -364,7 +364,7 @@ class Config21 {
         ppc64AixIBM    : [
                 os                  : 'aix',
                 arch                : 'ppc64',
-                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2',
+                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1',
                 test                : [
                         nightly: [
                                 'sanity.functional',

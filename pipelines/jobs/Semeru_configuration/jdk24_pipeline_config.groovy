@@ -207,7 +207,7 @@ class Config24 {
                 arch                : 'ppc64',
                 additionalNodeLabels: [
                         temurin: 'openxl17&&aix720',
-                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
+                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1'
                 ],
                 test                : [
                         nightly: [
