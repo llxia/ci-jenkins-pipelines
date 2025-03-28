@@ -103,7 +103,7 @@ class Config17 {
                 arch                : 'ppc64',
                 additionalNodeLabels: [
                         temurin: 'xlc13&&aix720',
-                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
+                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1'
                 ],
                 test                : 'default',
                 additionalTestLabels:  [
@@ -404,7 +404,7 @@ class Config17 {
                 os                  : 'aix',
                 arch                : 'ppc64',
                 additionalNodeLabels: [
-                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
+                        openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1'
                 ],
                 test                : [
                         nightly: [

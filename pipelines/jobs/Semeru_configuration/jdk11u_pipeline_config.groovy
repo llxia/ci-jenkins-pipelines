@@ -95,7 +95,7 @@ class Config11 {
             os                  : 'aix',
             arch                : 'ppc64',
             additionalNodeLabels: [
-                    openj9:  'hw.arch.ppc64 && sw.os.aix.7_2',
+                    openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1',
                     temurin: 'xlc13&&aix720'
             ],
             test                : 'default',
@@ -460,7 +460,7 @@ class Config11 {
             os                  : 'aix',
             arch                : 'ppc64',
             additionalNodeLabels: [
-                    openj9:  'hw.arch.ppc64 && sw.os.aix.7_2'
+                    openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1'
             ],
             test                : [
                     nightly: [
