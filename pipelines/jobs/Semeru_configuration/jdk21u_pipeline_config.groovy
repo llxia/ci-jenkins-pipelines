@@ -28,7 +28,7 @@ class Config21 {
                 dockerFile: [
                         openj9      : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
-                dockerNode          : 'sw.tool.docker && sw.config.uid1000',
+                dockerNode          : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
@@ -222,7 +222,7 @@ class Config21 {
                 arch                : 'x64',
                 dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerFile          : 'pipelines/build/dockerFiles/cuda.dockerfile',
-                dockerNode          : 'sw.tool.docker && sw.config.uid1000',
+                dockerNode          : 'sw.tool.docker',
                 dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
                         nightly: [
