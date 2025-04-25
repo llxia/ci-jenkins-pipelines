@@ -356,7 +356,13 @@ class Config11 {
                         'extended.jck.fips140_3_OpenJCEPlusFIPS',
                         'special.jck.fips140_3_OpenJCEPlusFIPS',
                         'sanity.openjdk.fips140_3_OpenJCEPlusFIPS',
-                        'extended.openjdk.fips140_3_OpenJCEPlusFIPS'
+                        'extended.openjdk.fips140_3_OpenJCEPlusFIPS',
+                        'extended.functional.fips140_3_OpenJCEPlusFIPS.FIPS140-3',
+                        'sanity.jck.fips140_3_OpenJCEPlusFIPS.FIPS140-3',
+                        'extended.jck.fips140_3_OpenJCEPlusFIPS.FIPS140-3',
+                        'special.jck.fips140_3_OpenJCEPlusFIPS.FIPS140-3',
+                        'sanity.openjdk.fips140_3_OpenJCEPlusFIPS.FIPS140-3',
+                        'extended.openjdk.fips140_3_OpenJCEPlusFIPS.FIPS140-3'
                     ],
                     release : [
                         'sanity.functional',
