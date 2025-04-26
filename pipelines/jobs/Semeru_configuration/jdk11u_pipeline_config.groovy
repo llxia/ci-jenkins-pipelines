@@ -1,6 +1,6 @@
 class Config11 {
 
-    final Map<String, Map<String, ?>> buildConfigurations = [
+        final Map<String, Map<String, ?>> buildConfigurations = [
         x64Mac    : [
             os                  : 'mac',
             arch                : 'x64',
@@ -17,13 +17,14 @@ class Config11 {
         x64Linux  : [
             os                  : 'linux',
             arch                : 'x64',
-            additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
-            dockerImage         : 'adoptopenjdk/centos6_build_image',
+            dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos6_linux-amd64',
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
             dockerFile: [
                     openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
             ],
+            additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
             dockerNode          : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             test                : 'default',
             configureArgs       : [
                     'openj9'      : '--disable-ccache --enable-dtrace=auto --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
@@ -96,15 +97,16 @@ class Config11 {
             os                  : 'linux',
             arch                : 'ppc64le',
             test                : 'default',
+            dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
             additionalNodeLabels: [
                     openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
             ],
-            dockerImage         : 'adoptopenjdk/centos7_build_image',
             dockerFile: [
                     openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
             ],
             dockerNode         : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : [
                     'openj9'      : '--enable-dtrace=auto --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
             ],
@@ -116,9 +118,10 @@ class Config11 {
         aarch64Linux    : [
             os                  : 'linux',
             arch                : 'aarch64',
-            dockerImage         : 'adoptopenjdk/centos7_build_image',
+            dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
             dockerNode         : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             additionalNodeLabels: [
                     openj9:  'hw.arch.aarch64 && sw.os.linux'
             ],
@@ -139,14 +142,15 @@ class Config11 {
             arch                 : 'riscv64',
             dockerImage          : [
                     'hotspot'    : 'adoptopenjdk/ubuntu2004_build_image:linux-riscv64',
-                    'openj9'     : 'adoptopenjdk/centos6_build_image',
+                    'openj9'     : 'ghcr.io/adoptium/adoptium_build_image:ubuntu2004_linux-riscv64',
                     'bisheng'    : 'adoptopenjdk/centos6_build_image'
             ],
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
             dockerArgs           : [
                     'hotspot'    : '--platform linux/riscv64'
             ],
             dockerNode         : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             crossCompile         : [
                     'hotspot'    : 'dockerhost-rise-ubuntu2204-aarch64-1',
                     'openj9'     : 'x64',
@@ -183,7 +187,7 @@ class Config11 {
                 configureArgs       : [
                         'openj9'    : '--enable-dtrace --disable-warnings-as-errors --with-noncompressedrefs --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         'corretto'  : '--enable-dtrace=auto',
-                        'dragonwell': "--enable-dtrace=auto --with-extra-cflags=\"-march=armv8.2-a+crypto\" --with-extra-cxxflags=\"-march=armv8.2-a+crypto\"",
+                        'dragonwell': '--enable-dtrace=auto --with-extra-cflags=\"-march=armv8.2-a+crypto\" --with-extra-cxxflags=\"-march=armv8.2-a+crypto\"',
                         'bisheng'   : '--enable-dtrace=auto --with-extra-cflags=-fstack-protector-strong --with-extra-cxxflags=-fstack-protector-strong --with-jvm-variants=server'
                 ],
                 test                : [
@@ -209,13 +213,14 @@ class Config11 {
         x64LinuxIBM  : [
             os                  : 'linux',
             arch                : 'x64',
-            additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
-            dockerImage         : 'adoptopenjdk/centos6_build_image',
+            dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos6_linux-amd64',
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
             dockerFile: [
                     'openj9'  : 'pipelines/build/dockerFiles/cuda.dockerfile'
             ],
             dockerNode          : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
+            additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
             test                : [
                     nightly: [
                         'sanity.functional',
@@ -316,7 +321,7 @@ class Config11 {
                         'extended.openjdk',
                         'special.system'
                     ],
-                    weekly : [     
+                    weekly : [
                         'sanity.functional',
                         'sanity.openjdk',
                         'sanity.perf',
@@ -510,6 +515,13 @@ class Config11 {
         ppc64leLinuxIBM    : [
             os                  : 'linux',
             arch                : 'ppc64le',
+            dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
+            dockerFile: [
+                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+            ],
+            dockerNode         : 'sw.tool.docker',
             test                : [
                     nightly: [
                         'sanity.functional',
@@ -580,12 +592,6 @@ class Config11 {
             additionalNodeLabels: [
                     openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
             ],
-            dockerImage         : 'adoptopenjdk/centos7_build_image',
-            dockerFile: [
-                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
-            ],
-            dockerNode         : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             configureArgs       : [
                         'openj9'      : '--enable-dtrace=auto'
             ],
@@ -596,9 +602,10 @@ class Config11 {
         aarch64LinuxIBM    : [
             os                  : 'linux',
             arch                : 'aarch64',
-            dockerImage         : 'adoptopenjdk/centos7_build_image',
+            dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+            dockerRegistry      : 'https://ghcr.io/',
+            dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
             dockerNode         : 'sw.tool.docker',
-            dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
             additionalNodeLabels: [
                     openj9:  'hw.arch.aarch64 && sw.os.linux'
             ],
@@ -631,7 +638,7 @@ class Config11 {
                         'dev.functional',
                         'sanity.external',
                         'dev.external',
-                        'dev.openjdk'                        
+                        'dev.openjdk'
                     ],
                     release : [
                         'sanity.functional',

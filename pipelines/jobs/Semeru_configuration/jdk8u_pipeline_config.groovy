@@ -21,14 +21,15 @@ class Config8 {
         x64Linux      : [
                 os                  : 'linux',
                 arch                : 'x64',
-                additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
-                dockerImage         : 'adoptopenjdk/centos6_build_image',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos6',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 dockerFile: [
                         openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile',
                         dragonwell: 'pipelines/build/dockerFiles/dragonwell.dockerfile'
                 ],
                 dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
+                additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -290,12 +291,12 @@ class Config8 {
                 additionalNodeLabels: [
                         openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
                 dockerFile: [
                     openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
                 dockerNode         : 'sw.tool.docker',
-                dockerCredential : '9f50c848-8764-440d-b95a-1d295c21713e',
+                dockerCredential : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 configureArgs       : [
                         'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                         ],
@@ -308,12 +309,13 @@ class Config8 {
         aarch64Linux  : [
                 os                  : 'linux',
                 arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 dockerFile: [
                         dragonwell: 'pipelines/build/dockerFiles/dragonwell_aarch64.dockerfile'
                 ],
                 dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 additionalNodeLabels: [
                         openj9:  'hw.arch.aarch64 && sw.os.linux'
                 ],

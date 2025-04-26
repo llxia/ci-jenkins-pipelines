@@ -19,16 +19,17 @@ class Config17 {
         x64Linux  : [
                 os                  : 'linux',
                 arch                : 'x64',
-                additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 dockerImage: [
                         temurin     : 'adoptopenjdk/centos6_build_image',
-                        openj9      : 'adoptopenjdk/centos7_build_image'
+                        openj9      : 'ghcr.io/adoptium/adoptium_build_image:centos7'
                 ],
+                dockerRegistry: 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
+                additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 dockerFile: [
                         openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
                 dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 additionalTestLabels: [
@@ -100,17 +101,18 @@ class Config17 {
         ppc64leLinux    : [
                 os                  : 'linux',
                 arch                : 'ppc64le',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
                     openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerFile: [
                     openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
                 dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 buildArgs           : [
                         'openj9'    : '--create-jre-image --ssh'
                         ],
@@ -122,9 +124,10 @@ class Config17 {
         aarch64Linux    : [
                 os                  : 'linux',
                 arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : 'default',
                 additionalNodeLabels: [
                         openj9:  'hw.arch.aarch64 && sw.os.linux'
@@ -160,8 +163,8 @@ class Config17 {
         riscv64Linux      :  [
                 os                  : 'linux',
                 arch                : 'riscv64',
-                crossCompile        : 'qemustatic',
                 dockerImage         : 'adoptopenjdk/ubuntu2004_build_image:linux-riscv64',
+                crossCompile        : 'qemustatic',
                 dockerArgs          : '--platform linux/riscv64',
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes --enable-dtrace',
@@ -185,13 +188,14 @@ class Config17 {
         x64LinuxIBM  : [
                 os                  : 'linux',
                 arch                : 'x64',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerFile: [
                         'openj9'  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
                 dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -485,6 +489,9 @@ class Config17 {
         ppc64leLinuxIBM    : [
                 os                  : 'linux',
                 arch                : 'ppc64le',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -555,12 +562,10 @@ class Config17 {
                 additionalNodeLabels: [
                     openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
                 dockerFile: [
                     openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
                 dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
                         'openj9'      : ''
                 ],
@@ -571,9 +576,10 @@ class Config17 {
         aarch64LinuxIBM    : [
                 os                  : 'linux',
                 arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
                         nightly: [
                                 'sanity.functional',
