@@ -477,10 +477,14 @@ class Build {
                         def rerunIterations = '3'
                         def fipsTestBuildSuffix = "";
                         def buildList = ""
+                        // testType value examples: 
+                        // extended.functional.fips140_3_OpenJCEPlusFIPS.FIPS140-3
+                        // sanity.jck.fips140_3_OpenJCEPlusFIPS
                         if ("${testType}".contains(".fips")) {
                             String[] tokens = testType.split('\\.')
-                            testType = tokens[0] + "." + tokens[1]
-                            fipsTestBuildSuffix = tokens[2]
+                            def levelGroup = tokens[0] + "." + tokens[1]
+                            fipsTestBuildSuffix = testType.replace(levelGroup + ".", "")
+                            testType = levelGroup
                             rerunIterations = '0'
                         }
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
