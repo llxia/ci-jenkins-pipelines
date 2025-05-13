@@ -112,28 +112,6 @@ class Config24 {
                         ]
         ],
 
-        x64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'x64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : '--enable-headless-only=yes',
-                buildArgs           : [
-                        ]
-        ],
-
-        aarch64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--enable-headless-only=yes'
-                        ], 
-                buildArgs           : [
-                        ]
-        ],
-
         x64Windows: [
                 os                  : 'windows',
                 arch                : 'x64',
@@ -534,16 +512,6 @@ class Config24 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes --enable-dtrace',
                 buildArgs           : [
-                        ]
-        ],
-
-        aarch64Windows: [
-                os                  : 'windows',
-                arch                : 'aarch64',
-                crossCompile        : 'x64',
-                additionalNodeLabels: 'win2022&&vs2022',
-                test                : 'default',
-                buildArgs       : [
                         ]
         ]
   ]

@@ -95,30 +95,6 @@ class Config8 {
                 ]
         ],
 
-        x64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'x64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--disable-headful'
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
-        aarch64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--disable-headful'
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
         x64Windows    : [
                 os                  : 'windows',
                 arch                : 'x64',
@@ -151,7 +127,7 @@ class Config8 {
                 ],
                 configureArgs      : [
                         'openj9'        : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                        'temruin'       : '--disable-ccache'
+                        'temurin'       : '--disable-ccache'
                 ],
                 test                 : 'default'
         ],
@@ -250,26 +226,6 @@ class Config8 {
                 ]
         ],
 
-        sparcv9Solaris: [
-                os  : 'solaris',
-                arch: 'sparcv9',
-                test: 'default',
-                configureArgs       : [
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
-        x64Solaris    : [
-                os                  : 'solaris',
-                arch                : 'x64',
-                test                : 'default',
-                configureArgs       : [
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
         ppc64leLinux  : [
                 os  : 'linux',
                 arch: 'ppc64le',
@@ -347,19 +303,6 @@ class Config8 {
                         'openj9'    : '--ssh'
 
                 ]
-        ],
-
-        arm32Linux    : [
-                os: 'linux',
-                arch: 'arm',
-                crossCompile: 'aarch64',
-                dockerImage: 'adoptopenjdk/ubuntu1604_build_image',
-                dockerArgs: '--platform linux/arm/v7',
-                test: 'default',
-                configureArgs       : [ 
-                        ],    
-                buildArgs           : [
-                        ]
         ],
 
         aarch64Linux  : [

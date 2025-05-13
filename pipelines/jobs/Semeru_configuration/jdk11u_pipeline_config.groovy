@@ -38,30 +38,6 @@ class Config11 {
             ]
         ],
 
-        x64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'x64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--enable-headless-only=yes'
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
-        aarch64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--enable-headless-only=yes'
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
         x64Windows: [
             os                  : 'windows',
             arch                : 'x64',
@@ -77,18 +53,6 @@ class Config11 {
             configureArgs       : [
                     'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"'
                     ]
-        ],
-
-        x32Windows: [
-            os                  : 'windows',
-            arch                : 'x86-32',
-            additionalNodeLabels: 'win2022&&vs2019',
-            cleanWorkspaceAfterBuild: true,
-            configureArgs       : [
-                ],
-            buildArgs : [
-                    ],
-            test                : 'default'
         ],
 
         ppc64Aix    : [
@@ -128,17 +92,6 @@ class Config11 {
             ]
         ],
 
-        sparcv9Solaris    : [
-                os                  : 'solaris',
-                arch                : 'sparcv9',
-                test                : false,
-                configureArgs       : [
-                        'openj9'    : '--enable-dtrace=auto'
-                        ],
-                buildArgs           : [
-                    ]
-        ],
-
         ppc64leLinux    : [
             os                  : 'linux',
             arch                : 'ppc64le',
@@ -158,20 +111,6 @@ class Config11 {
             buildArgs           : [
                     'openj9'    : '--ssh'
             ]
-        ],
-
-        arm32Linux    : [
-                os                  : 'linux',
-                arch                : 'arm',
-                crossCompile        : 'aarch64',
-                dockerImage         : 'adoptopenjdk/ubuntu1604_build_image',
-                dockerArgs          : '--platform linux/arm/v7',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--enable-dtrace=auto'
-                        ],
-                buildArgs           : [
-                        ]
         ],
 
         aarch64Linux    : [
@@ -232,7 +171,6 @@ class Config11 {
                     ]
             ]
         ],
-    
 
         aarch64Mac: [
                 os                  : 'mac',
@@ -253,44 +191,6 @@ class Config11 {
                 ],
                 buildArgs           : [
                         'openj9'    : '--ssh'
-                        ]
-        ],
-
-        riscv64Linux      :  [
-                os                   : 'linux',
-                arch                 : 'riscv64',
-                dockerImage          : [
-                        'openj9'     : 'adoptopenjdk/centos6_build_image',
-                        'bisheng'    : 'adoptopenjdk/centos6_build_image'
-                ],
-                dockerArgs           : [
-                        ],
-                crossCompile         : [
-                        'openj9'     : 'x64',
-                        'bisheng'    : 'x64'
-                ],
-                buildArgs            : [
-                        'openj9'     : '--cross-compile --ssh',
-                        'bisheng'    : '--cross-compile --branch risc-v'
-                ],
-                configureArgs        : [
-                        'openj9'     : '--disable-ddr --openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root',
-                        'bisheng'    : '--openjdk-target=riscv64-unknown-linux-gnu --with-sysroot=/opt/fedora28_riscv_root --with-jvm-features=shenandoahgc'
-                ],
-                test                : [
-                        openj9 : 'default'
-                ]
-        ],
-
-        aarch64Windows: [
-                os                  : 'windows',
-                arch                : 'aarch64',
-                crossCompile        : 'x64',
-                additionalNodeLabels: 'win2022&&vs2019',
-                test                : 'default',
-                 configureArgs       : [
-                        ],
-                buildArgs       : [
                         ]
         ],
 
