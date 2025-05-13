@@ -42,34 +42,12 @@ class Config17 {
                         ]
         ],
 
-        x64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'x64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : '--enable-headless-only=yes',
-                buildArgs           : [
-                        ]
-        ],
-
-        aarch64AlpineLinux  : [
-                os                  : 'alpine-linux',
-                arch                : 'aarch64',
-                dockerImage         : 'adoptopenjdk/alpine3_build_image',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--enable-headless-only=yes'
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
         x64Windows: [
                 os                  : 'windows',
                 arch                : 'x64',
                 additionalNodeLabels: [
                         openj9 : 'ci.project.openj9 && hw.arch.x86 && sw.os.windows',
-                        temruin : 'win2022&&vs2019'
+                        temurin : 'win2022&&vs2019'
                 ],
                 cleanWorkspaceAfterBuild: true,
                 buildArgs           : [
@@ -77,25 +55,6 @@ class Config17 {
                         ],
                 configureArgs: '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition" --with-jdk-rc-name="IBM Semeru Runtime"',
                 test                : 'default'
-        ],
-
-        aarch64Windows: [
-                os                  : 'windows',
-                arch                : 'aarch64',
-                crossCompile        : 'x64',
-                additionalNodeLabels: 'win2016&&vs2019',
-                test                : false,
-                buildArgs       : [
-                        ]
-        ],
-
-        x32Windows: [
-                os                  : 'windows',
-                arch                : 'x86-32',
-                additionalNodeLabels: 'win2022&&vs2019',
-                test                : 'default',
-                buildArgs           : [
-                        ]
         ],
 
         ppc64Aix    : [
@@ -198,20 +157,6 @@ class Config17 {
                         ]
         ],
 
-        arm32Linux    : [
-                os                  : 'linux',
-                arch                : 'arm',
-                crossCompile        : 'aarch64',
-                dockerImage         : 'adoptopenjdk/ubuntu1604_build_image',
-                dockerArgs          : '--platform linux/arm/v7',
-                test                : 'default',
-                configureArgs       : [
-                        'openj9'    : '--enable-dtrace'
-                        ],
-                buildArgs           : [
-                        ]
-        ],
-
         riscv64Linux      :  [
                 os                  : 'linux',
                 arch                : 'riscv64',
@@ -221,16 +166,6 @@ class Config17 {
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes --enable-dtrace',
                 buildArgs           : [
-                        ]
-        ],
-
-        aarch64Windows: [
-                os                  : 'windows',
-                arch                : 'aarch64',
-                crossCompile        : 'x64',
-                additionalNodeLabels: 'win2022&&vs2019',
-                test                : 'default',
-                buildArgs       : [
                         ]
         ],
 
