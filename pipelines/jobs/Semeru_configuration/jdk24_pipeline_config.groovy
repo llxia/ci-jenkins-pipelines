@@ -25,12 +25,13 @@ class Config24 {
         x64Linux  : [
                 os                  : 'linux',
                 arch                : 'x64',
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 dockerFile: [
                         openj9      : 'pipelines/build/dockerFiles/cuda.dockerfile'
                 ],
                 dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -338,6 +339,13 @@ class Config24 {
         ppc64leLinux    : [
                 os                  : 'linux',
                 arch                : 'ppc64le',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
+                dockerFile: [
+                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                ],
+                dockerNode         : 'sw.tool.docker',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -407,12 +415,6 @@ class Config24 {
                 additionalNodeLabels: [
                         openj9      : 'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerFile: [
-                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
-                ],
-                dockerNode         : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 configureArgs       : [
                         'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
@@ -424,12 +426,13 @@ class Config24 {
         aarch64Linux    : [
                 os                  : 'linux',
                 arch                : 'aarch64',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerCredential    : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
+                dockerNode          : 'sw.tool.docker',
                 additionalNodeLabels: [
                         openj9      : 'hw.arch.aarch64 && sw.os.linux'
                 ],
-                dockerImage         : 'adoptopenjdk/centos7_build_image',
-                dockerNode          : 'sw.tool.docker',
-                dockerCredential    : '9f50c848-8764-440d-b95a-1d295c21713e',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -507,7 +510,7 @@ class Config24 {
                 os                  : 'linux',
                 arch                : 'riscv64',
                 crossCompile        : 'qemustatic',
-                dockerImage         : 'adoptopenjdk/ubuntu2004_build_image:linux-riscv64',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:ubuntu2004_linux-riscv64',
                 dockerArgs          : '--platform linux/riscv64',
                 test                : 'default',
                 configureArgs       : '--enable-headless-only=yes --enable-dtrace',
