@@ -230,6 +230,13 @@ class Config8 {
         ppc64leLinux  : [
                 os  : 'linux',
                 arch: 'ppc64le',
+                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
+                dockerRegistry      : 'https://ghcr.io/',
+                dockerFile: [
+                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
+                ],
+                dockerNode         : 'sw.tool.docker',
+                dockerCredential : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 test                : [
                         nightly: [
                                 'sanity.functional',
@@ -291,12 +298,6 @@ class Config8 {
                 additionalNodeLabels: [
                         openj9:  'ci.project.openj9 && hw.arch.ppc64le && sw.os.linux'
                 ],
-                dockerImage         : 'ghcr.io/adoptium/adoptium_build_image:centos7',
-                dockerFile: [
-                    openj9  : 'pipelines/build/dockerFiles/cuda.dockerfile'
-                ],
-                dockerNode         : 'sw.tool.docker',
-                dockerCredential : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 configureArgs       : [
                         'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                         ],
