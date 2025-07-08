@@ -502,7 +502,9 @@ class Build {
                             // Keep test reportdir always for JUnit targets
                             keep_test_reportdir = true
                         }
-
+                        if ("${testType}".contains('extended.system')) {
+                            customizedSdkUrl += " " + testimageUrl
+                        }
                         if ("${testType}".contains('dev')) {
                             rerunIterations = '0'
                         }
