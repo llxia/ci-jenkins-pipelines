@@ -399,40 +399,21 @@ class Build {
     }
 
     /*
-    This function taking care of node allocation via EBC calls for AQA tests. It depends on configs under 
-    DEFAULTS_JSON['testDetails']['ebcEnabledTargets'] to decide if it can allocate using EBC.
-    When all targets are enabled we can remove this config from default along with check from this function.
-    It accepts testType which is one of test targets in AQA e.g. sanity.perf 
+    Returns the cloud provider name based on the build configuration. 
+    [pipelines/semeru_defaults.json > testDetails > ebcEnabledTargets]
     */
-    private String allocateEBCnodesForTest(testType) {
+    private String getCloudProvider(testType) {
+        def javaVersion_str = getJavaVersionNumber().toString()
         def platform = buildConfig.TARGET_OS + '_' + buildConfig.ARCHITECTURE
-        // All targets are not supported via EBC yet. We need to test that target and add to default.json later on to make it enable
-
-        if ( ! DEFAULTS_JSON['testDetails']['ebcEnabledTargets'][platform].find { it == testType } ) {
-            context.println "EBC does not support for $platform->$testType yet!"
-            return ''
+        
+        def ebcTargets = DEFAULTS_JSON['testDetails']?.get('ebcEnabledTargets')?.get(platform)
+        if (ebcTargets?.containsKey(javaVersion_str) && testType in ebcTargets[javaVersion_str]) {
+            context.println "Running [$testType > $platform] on EBC ..."
+            return 'EBC'
         }
 
-        context.println "Allocating EBC node for $platform->$testType"
-
-        def group_label_UUID = 'semeru_aqatest_machine_' + UUID.randomUUID().toString()
-        def num_machines = '1'
-        def test_index = DEFAULTS_JSON['testDetails']['defaultDynamicParas']['testLists'].indexOf(testType)
-        if (test_index != -1){ 
-            num_machines = DEFAULTS_JSON['testDetails']['defaultDynamicParas']['numMachines'].get(test_index)
-        }
-
-        context.build job: '/EBC_Create_Node',
-            propagate: false,
-            wait: true,
-            parameters: [
-                    context.string(name: 'group_label', value: group_label_UUID),
-                    context.string(name: 'platform', value: platform),
-                    context.string(name: 'nodeType', value: 'AQA_test_node'),
-                    context.string(name: 'NUM_MACHINES', value: num_machines),
-                    context.string(name: 'TIME_LIMIT', value: '3') //TODO: use estimated time via default.json instead
-            ]
-        return group_label_UUID
+        context.println "EBC does not support [$platform->$testType] yet!"
+        return ''
     }
 
     /*
@@ -662,7 +643,7 @@ class Build {
                         context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
                         context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
                         context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired),
-                        context.string(name: 'LABEL', value: allocateEBCnodesForTest(testType))
+                        context.string(name: 'CLOUD_PROVIDER', value: getCloudProvider(testType))
                         ]
 
                         // If TIME_LIMIT is set, override target job default TIME_LIMIT value.

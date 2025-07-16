@@ -104,15 +104,69 @@
             "numMachines"    : ["3", "3", "3", "3", "5", "4", "8", "2", "3", "5"]
         },
         "ebcEnabledTargets":{
-            "linux_x64" :       ["sanity.perf"],
-            "aix_ppc64" :       [""],
-            "linux_aarch64" :   [""],
-            "linux_ppc64le" :   [""],
-            "linux_s390x" :     [""],
-            "mac_aarch64" :     [""],
-            "mac_x64" :         [""],
-            "windows-x64" :     [""],
-            "windows-x32" :     [""]
+            "linux_x64" : {
+                "8" :  ["sanity.perf"],
+                "11" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
+                "17" : ["sanity.perf"],
+                "21" : ["sanity.perf"],
+                "25" : ["sanity.perf"]
+            },
+            "aix_ppc64" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "linux_aarch64" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "linux_ppc64le" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "linux_s390x" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "mac_aarch64" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "mac_x64" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "windows-x64" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            },
+            "windows-x32" : {
+                "8" :  [],
+                "11" : [],
+                "17" : [],
+                "21" : [],
+                "25" : []
+            }
         }
     },
     "enableInstallers"       : true,
