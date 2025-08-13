@@ -7,7 +7,7 @@ class Config25 {
                 additionalNodeLabels: 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2',
                 additionalTestLabels: '!sw.os.osx.10_15',
                 test                : 'default',
-                configureArgs       : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
+                configureArgs       : '--enable-dtrace --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 buildArgs           : '--create-jre-image --ssh'
         ],
 
