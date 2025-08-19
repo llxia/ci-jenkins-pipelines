@@ -867,7 +867,7 @@ class Config25 {
                 configureArgs       : '--enable-dtrace',
                 cleanWorkspaceAfterBuild : true,
                 additionalFileNameTag: 'IBM',
-                buildArgs           : '--create-jre-image --ssh'
+                buildArgs           : '--create-jre-image --ssh --disable-adopt-branch-safety -r git@github.ibm.com:runtimes/openj9-openjdk-jdk25 -b ibm_sdk'
         ],
 
         aarch64MacIBM: [
