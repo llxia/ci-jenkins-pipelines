@@ -9,7 +9,27 @@ class Config8 {
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.mac && sw.tool.xcode.15_2'
                 ],
                 cleanWorkspaceAfterBuild: true,
-                test                 : 'default',
+                test                : [
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.openjdk",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.openjdk",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
+                ],
                 configureArgs       : [
                         'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
@@ -31,61 +51,30 @@ class Config8 {
                 dockerNode          : 'sw.tool.docker',
                 additionalNodeLabels : 'ci.project.openj9 && hw.arch.x86 && sw.os.linux',
                 test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'dev.functional',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
-                        ]
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.jck.fips140_2",
+                        "sanity.openjdk",
+                        "sanity.openjdk.fips140_2",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.jck.fips140_2",
+                        "extended.openjdk",
+                        "extended.openjdk.fips140_2",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.jck.fips140_2",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
                 ],
                 configureArgs       : [
                         'openj9'      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
@@ -105,7 +94,27 @@ class Config8 {
                         openj9  : 'ci.project.openj9 && hw.arch.x86 && sw.os.windows',
                         dragonwell: 'win2012'
                 ],
-                test                 : 'default',
+                test                : [
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.openjdk",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.openjdk",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
+                ],
                 configureArgs       : [
                         'openj9'    : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"'
                 ],
@@ -130,7 +139,27 @@ class Config8 {
                         'openj9'        : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                         'temurin'       : '--disable-ccache'
                 ],
-                test                 : 'default'
+                test                : [
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.openjdk",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.openjdk",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
+                ],
         ],
 
         ppc64Aix      : [
@@ -140,7 +169,27 @@ class Config8 {
                         temurin: 'xlc13&&aix720',
                         openj9:  'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1'
                 ],
-                test                 : 'default',
+                test                : [
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.openjdk",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.openjdk",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
+                ],
                 additionalTestLabels : [
                         temurin: 'sw.os.aix.7_2'
                 ],
@@ -165,62 +214,31 @@ class Config8 {
                 dockerCredential : '7c1c2c28-650f-49e0-afd1-ca6b60479546',
                 dockerNode : 'sw.tool.docker',
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
-                test               : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'dev.functional',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
-                        ]
+                test                : [
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.jck.fips140_2",
+                        "sanity.openjdk",
+                        "sanity.openjdk.fips140_2",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.jck.fips140_2",
+                        "extended.openjdk",
+                        "extended.openjdk.fips140_2",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.jck.fips140_2",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
                 ],
                 buildArgs           : [
                         'openj9'    : '--ssh'
@@ -238,61 +256,30 @@ class Config8 {
                 dockerNode         : 'sw.tool.docker',
                 dockerCredential : 'f5a0bd2f-093e-41ea-bd6f-875936334a63',
                 test                : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'dev.functional',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'sanity.jck.fips140_2',
-                                'extended.jck.fips140_2',
-                                'special.jck.fips140_2',
-                                'sanity.openjdk.fips140_2',
-                                'extended.openjdk.fips140_2'
-                        ]
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.jck.fips140_2",
+                        "sanity.openjdk",
+                        "sanity.openjdk.fips140_2",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.jck.fips140_2",
+                        "extended.openjdk",
+                        "extended.openjdk.fips140_2",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.jck.fips140_2",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
                 ],
                 cleanWorkspaceAfterBuild: true,
                 additionalNodeLabels: [
@@ -322,52 +309,26 @@ class Config8 {
                 ],
                 configureArgs      : '--with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
                 cleanWorkspaceAfterBuild: true,
-                test                 : [
-                        nightly: [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'special.system'
-                        ],
-                        weekly : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external',
-                                'dev.functional'
-                        ],
-                        release : [
-                                'sanity.functional',
-                                'sanity.openjdk',
-                                'sanity.perf',
-                                'sanity.jck',
-                                'sanity.system',
-                                'extended.functional',
-                                'extended.openjdk',
-                                'extended.perf',
-                                'extended.jck',
-                                'extended.system',
-                                'special.functional',
-                                'special.jck',
-                                'special.openjdk',
-                                'special.system',
-                                'sanity.external'
-                        ]
+                test                : [
+                    weekly : [
+                        "sanity.external",
+                        "sanity.functional",
+                        "sanity.jck",
+                        "sanity.openjdk",
+                        "sanity.perf",
+                        "sanity.system",
+                        "extended.functional",
+                        "extended.jck",
+                        "extended.openjdk",
+                        "extended.perf",
+                        "extended.system",
+                        "special.functional",
+                        "special.jck",
+                        "special.openjdk",
+                        "special.system",
+                        "dev.functional",
+                        "dev.openjdk"
+                    ]
                 ],
                 buildArgs           : [
                         'openj9'    : '--ssh'
