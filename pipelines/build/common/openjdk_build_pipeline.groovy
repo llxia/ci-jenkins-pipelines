@@ -458,6 +458,8 @@ class Build {
                         def rerunIterations = '3'
                         def fipsTestBuildSuffix = "";
                         def buildList = ""
+                        def cloudProvideStr = getCloudProvider(testType)
+
                         // testType value examples: 
                         // extended.functional.fips140_3_OpenJCEPlusFIPS.FIPS140-3
                         // sanity.jck.fips140_3_OpenJCEPlusFIPS
@@ -468,6 +470,7 @@ class Build {
                             testType = levelGroup
                             rerunIterations = '0'
                         }
+
                         def keep_test_reportdir = buildConfig.KEEP_TEST_REPORTDIR
                         if ("${testType}".contains('dev') || "${testType}".contains('external')) {
                             rerunIterations = '0'
@@ -643,7 +646,7 @@ class Build {
                         context.string(name: 'RERUN_ITERATIONS', value: "${rerunIterations}"),
                         context.string(name: 'RELATED_NODES', value: relatedNodeLabel), 
                         context.string(name: 'ADDITIONAL_ARTIFACTS_REQUIRED', value: additionalArtifactsRequired),
-                        context.string(name: 'CLOUD_PROVIDER', value: getCloudProvider(testType))
+                        context.string(name: 'CLOUD_PROVIDER', value: cloudProvideStr)
                         ]
 
                         // If TIME_LIMIT is set, override target job default TIME_LIMIT value.
