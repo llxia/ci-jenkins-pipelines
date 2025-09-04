@@ -113,7 +113,7 @@
             "linux_x64" : {
                 "8" :  ["sanity.perf"],
                 "11" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
-                "17" : ["sanity.perf"],
+                "17" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
                 "21" : ["sanity.perf"],
                 "25" : ["sanity.perf"]
             },
