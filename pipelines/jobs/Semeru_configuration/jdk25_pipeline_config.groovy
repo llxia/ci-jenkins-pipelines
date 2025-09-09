@@ -39,7 +39,7 @@ class Config25 {
         ppc64Aix    : [
                 os                  : 'aix',
                 arch                : 'ppc64',
-                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1',
+                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.17_1',
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 configureArgs       : '--disable-ccache --with-product-name="IBM Semeru Runtime" --with-product-suffix="Open Edition"',
@@ -184,7 +184,7 @@ class Config25 {
         ppc64AixIBM    : [
                 os                  : 'aix',
                 arch                : 'ppc64',
-                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.16_1',
+                additionalNodeLabels: 'hw.arch.ppc64 && sw.os.aix.7_2 && sw.tool.c++runtime.17_1',
                 test                : 'default',
                 cleanWorkspaceAfterBuild: true,
                 configureArgs       : '--disable-ccache',
