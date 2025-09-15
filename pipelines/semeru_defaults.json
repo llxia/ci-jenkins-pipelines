@@ -114,7 +114,7 @@
                 "8" :  ["sanity.perf"],
                 "11" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
                 "17" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
-                "21" : ["sanity.perf"],
+                "21" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
                 "25" : ["sanity.perf"]
             },
             "aix_ppc64" : {
