@@ -111,11 +111,11 @@
         },
         "ebcEnabledTargets":{
             "linux_x64" : {
-                "8" :  ["sanity.perf"],
+                "8" :  ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
                 "11" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
                 "17" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
                 "21" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"],
-                "25" : ["sanity.perf"]
+                "25" : ["extended.functional","extended.openjdk","sanity.functional","sanity.jck","sanity.openjdk","sanity.perf","sanity.system","special.system"]
             },
             "aix_ppc64" : {
                 "8" :  [],
